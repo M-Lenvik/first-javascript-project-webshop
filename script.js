@@ -52,6 +52,7 @@ const products = [
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 const productsListDiv = document.querySelector('#products-list');
+//const shoppingListDiv = document.querySelector('#shopping-list');
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
@@ -80,15 +81,28 @@ function printProductsList(){
           <input type="number" min="0" value="${product.amount}">
           <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->
         </div
+
+        <div class="buttons">
+          <button class="shopping_cart" id="shopping_cart-${product.id}">Lägg i varukorg</button>
+        
+          
+          <div>
+          Här ska munkarna tillfälligt skrivas ut:  <span id = "utskriftDiv"></span>
+          </div>
+        
+          </div
       <article>
     `;
   });
+
+  const utskrift = document.querySelector('#utskriftDiv');
 
 
   //Increase
   const increaseButtons = document.querySelectorAll('button.increase');
   increaseButtons.forEach(button=>{
     button.addEventListener('click', increaceProductCount);
+    console.log('hej');
   });
 
   //Decrease
@@ -96,12 +110,21 @@ function printProductsList(){
   decreaseButtons.forEach(button=>{
     button.addEventListener('click', decreaceProductCount);
   });
+
+  /****************************:.LÄGG TILL I VARUKORG.:/***************************/
+  const shoppingCartButtons = document.querySelectorAll('button.shopping_cart');
+  shoppingCartButtons.forEach(button=>{
+    button.addEventListener('click', shoppingProductCount);
+    console.log('varukorgsknappen');
+  });  
+  /****************************:.LÄGG TILL I VARUKORG.:/***************************/
 }
 
   printProductsList();
 
   //Increase
   function increaceProductCount(e){
+
   const productId = Number(e.target.id.replace('increase-', ''));
   console.log('clicked on ', productId);
   /*  console.log(e.target.id);/* <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->*/
@@ -116,9 +139,18 @@ function printProductsList(){
   products[selectedProductIndex].amount +=1;
   console.log(products[selectedProductIndex]);
 
+  const utskrift = utskrift;
+  utskrift.innerHTML = utskrift.innerHTML + '+ Munkshop under konstruktion';
+  
   printProductsList();
   }
 
+  /****************************:.LÄGG TILL I VARUKORG.:/***************************/
+  function shoppingProductCount(){
+    console.log('du har valt att köpa: '/*, increaceProductCount*/);
+  }
+  /****************************:.LÄGG TILL I VARUKORG.:***************************/
+      
   //Decrease
   function decreaceProductCount(e){
     const productId = Number(e.target.id.replace('decrease-', ''));
@@ -128,7 +160,6 @@ function printProductsList(){
     const selectedProductIndex = products.findIndex(product=>product.id===productId);
     console.log('Varan har index: ', selectedProductIndex);
 
-
     //KONTROLLERA ATT DET INTE ÄR NEGATIVT ANTAL I LISTAN, DET SKA INTE GÅ
     if(selectedProductIndex === -1){
       console.error('Det finns inte i listan');
@@ -137,9 +168,9 @@ function printProductsList(){
     products[selectedProductIndex].amount -=1;
     console.log(products[selectedProductIndex]);
 
-
     printProductsList();
 }
+
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
@@ -155,13 +186,13 @@ function getRatingHtml(rating) {
 
   }
   return star;
-}
-/**
+  /**
  * 
  * DEN HÄR FUNKTIONEN LOOPAR OCH SKRIVER UT ÄVEN HALVA STJÄRNOR SOM HELA, PLUS DEN HALVA.
  * ÅTGÄRDA!
  * 
  */
+}
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PRINT-HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
