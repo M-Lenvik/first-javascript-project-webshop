@@ -32,6 +32,7 @@ header {
     width: 40%;
     border: 2px solid red;
     margin: 1px;
+    margin-top: 50px;
     position: relative;
     display: flex;
     float: right;
@@ -54,11 +55,12 @@ header {
         border: 2px solid brown;
         margin: 5px;
         position: relative;
-        display: block;
+        display: flex;
 
         .donut_description{
             border: 2px solid yellow;
             margin: 1px;
+            display: block;
         }
     }
     

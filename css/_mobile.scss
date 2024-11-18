@@ -52,19 +52,35 @@ header {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 
     .donut{
-        width: 75%;
+        width: 100%;
         border: 2px solid brown;
         margin: 1px;
         position: relative;
         display: flex;
 
+        img{
+            max-width: 20%;
+            height: auto;
+            position: relative;
+            display: block;
+        }
+
     
         .donut_description{
             border: 2px solid yellow;
-            margin: 1px;
+            margin: 10px;
+            padding: 10px;
+
+        }
+
+        .buttons{
+            position: relative;
+            display: block;
+            padding: 5px;
+            border: solid 5px green;
         }
     }
     
