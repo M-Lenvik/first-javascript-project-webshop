@@ -1,0 +1,138 @@
+$client-yellow: rgb(255, 242, 54);
+$client-green: rgb(0, 255, 56);
+$client-yellow-green: rgb(172, 225, 25);
+$client-purple: rgb(170, 117, 255);
+$client-pink: rgb(255, 220, 220);
+$client-light-blue: rgb(116, 192, 252);
+$client-white: rgb(250, 235, 215);
+$client-black: rgb(0, 0, 0);
+
+@function rem($size) {
+    @return calc($size / 16) * 1rem;
+ }
+
+
+body {
+    background-color: $client-light-blue;
+}
+
+header {
+    h1{ 
+        background-color: gray;
+    }
+    border: 2px solid blue;
+    background-color: $client-light-blue;
+    margin: 1px;
+    display: flex;
+    position: fixed;
+    z-index: 999;
+    width: 100vw;
+    height: fit-content;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.rating{
+    width: 100%;
+    border: 2px solid red;
+    margin: 1px;
+    margin-top: 60px;
+    position: relative;
+    display: flex;
+    float: right;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.donuts{
+    width: 100%;
+    border: 2px dotted black;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+
+    .donut{
+        width: 75%;
+        border: 2px solid brown;
+        margin: 1px;
+        position: relative;
+        display: flex;
+
+    
+        .donut_description{
+            border: 2px solid yellow;
+            margin: 1px;
+        }
+    }
+    
+}
+
+
+.shoping_cart{
+    border: 2px solid green;
+    position: relative;
+
+.cart_heading{
+    border: 2px solid purple;
+    margin: 1px;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    position: sticky;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart{
+    border: 2px solid orange;
+    margin: 1px;
+
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1em;
+}
+
+.product{
+    grid-column: span 3;
+    position: relative;
+}
+
+.antal{
+    grid-column: span 1;
+    position: relative;
+}
+
+.price{
+    grid-column: span 1;
+    position: relative;
+
+}
+
+.cost{
+    grid-column: span 1;
+    position: relative;
+}
+
+
+
+
+
+
+    .sort{
+        padding-left: 5%;
+        padding-right: 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+
+}
+
+
+
