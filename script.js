@@ -58,13 +58,16 @@ console.table(products);
 const startingSum = 0; //denna behövs egentligen inte. då skrivs 0 på staringSum nedan
 const sum = products.reduce((sumOfProducts, currentProduct)=> sumOfProducts + currentProduct.price, startingSum); //reduce=summera
 console.table(sum);
-
-/*
- //ska sortera på namn, funkar inte?
-products.sort((product1, product2)=> product2.name < product1.name);
-console.table('sorterat på namn');
-console.table(products);
 */
+
+ //ska sortera på namn, funkar inte?
+
+
+//products.sort((product1, product2) => product2.name < product1.name);
+//products.sort((product1, product2) => product2.name.localeCompare(product1.name));
+//console.table('sorterat på namn');
+//console.table(products);
+
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -106,7 +109,9 @@ function printProductsList(){
           <p>${product.price} kr</p>
           <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
         </div>
+        <div class="pic">
         <img src="${product.img.url}" alt="${product.img.alt}">
+        </div>
 
         <div class="buttons">
           <button class="decrease" id="decrease-${product.id}">-</button>
@@ -114,13 +119,15 @@ function printProductsList(){
           <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->
         </div
 
-        <div class="buttons">
+        
+
+      <article>
+    `;
+    /*         <div class="buttons">
           <button class="shopping_cart" id="shopping_cart">Lägg i varukorg</button>    
         </div
 
-        <div>Räkna upp munkar: </div>
-      <article>
-    `;
+        <div>Räkna upp munkar: </div> */
   });
 
 
@@ -233,9 +240,7 @@ function printProductsList(){
 
   function printShoppinglist(){
     shoppingListDiv.innerHTML += `
-    <div>
-      <span id="utskriftDiv"></span>
-    </div>
+      <div id="utskriftDiv"></div>
   `;
   }
   printShoppinglist();
@@ -267,7 +272,6 @@ function printProductsList(){
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
 function getRatingHtml(rating) {
 
-  
   const halfStar = String(rating).indexOf('.');
   let star = '';
   for (let i = 0; i < rating; i++) {

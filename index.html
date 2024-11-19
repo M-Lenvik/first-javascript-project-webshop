@@ -33,92 +33,50 @@
 
     <div id = "rating">
         <!--Anges i javascript-->
+        
+        <div>A-Z</div>
+        <button id="sortByRating">Sortera 1-2</button>
+        <div>Filtrera</div>
+        
     </div>
     
     <main class = "donuts">
         <section>
             <h2>Munksortiment</h2>
-            <div id="products-list"> <!--class = "donut" och class=donut_description-->
-            </div>
-        </section>
+            <article id="products-list">
+                <!--ANGES I JS-->
+            </article>
+            <!--class = "donut" och class=donut_description-->
             
-            <!-- HÄR FINNS ALLA MUNKAR I HTML: DESSA SKA BORT
-        <article class = "donut">
-            <img src="pictures/lettuce.jpg" width="100" height="90" loading="lazy" alt="chokolate caramel donut">
+                <!-- HÄR FINNS ALLA MUNKAR I HTML: DESSA SKA BORT-- >
+        <article class = "donut" id="products-list">
             <div class="donut_description">
-                <div>Chokolate Caramel</div>
-                <div class = "grid">
-                    <div>5st</div>
-                    <div>90kr</div>                
-                    <div>- & +</div>
-                </div>
-                <div>Star rating 5 stjärnor</div>
+                <h3>Chokolate Caramel</h3>
+                <p>5st</p>
+                <p>90kr</p> 
+                <span class="rate">Betyg: 5 5 stjärnor</span>
             </div>
+
+            <div class="pic">
+                <img src="pictures/munk1.png" width="100" height="90" loading="lazy" alt="chokolate caramel donut">
+            </div>
+                
+            <div class="buttons">
+                <button class="decrease"> - </button>
+                <input type="number">
+                <button class="decrease"> + </button>
+            </div>
+            
+            <! --<div class="buttons">
+                <button class="shopping_cart" id="shopping_cart">Lägg i varukorg</button>    
+            </div>-- >
         </article>
 
-        
-        <article class = "donut">
-            <img src="pictures/lettuce.jpg" width="100" height="90" loading="lazy" alt="chokolate caramel donut">
-            <div class="donut_description">
-                <div>Chokolate Caramel</div>
-                <div class = "grid">
-                    <div>5st</div>
-                    <div>90kr</div>                
-                    <div>- & +</div>
-                </div>
-                <div>Star rating 5 stjärnor</div>
-            </div>
-        </article>
-        <article class = "donut">
-            <img src="pictures/lettuce.jpg" width="100" height="90" loading="lazy" alt="chokolate caramel donut">
-            <div class="donut_description">
-                <div>Chokolate Caramel</div>
-                <div class = "grid">
-                    <div>5st</div>
-                    <div>90kr</div>                
-                    <div>- & +</div>
-                </div>
-                <div>Star rating 5 stjärnor</div>
-            </div>
-        </article>
-        <article class = "donut">
-            <img src="pictures/lettuce.jpg" width="100" height="90" loading="lazy" alt="chokolate caramel donut">
-            <div class="donut_description">
-                <div>Chokolate Caramel</div>
-                <div class = "grid">
-                    <div>5st</div>
-                    <div>90kr</div>                
-                    <div>- & +</div>
-                </div>
-                <div>Star rating 5 stjärnor</div>
-            </div>
-        </article>
-        <article class = "donut">
-            <img src="pictures/lettuce.jpg" width="100" height="90" loading="lazy" alt="chokolate caramel donut">
-            <div class="donut_description">
-                <div>Chokolate Caramel</div>
-                <div class = "grid">
-                    <div>5st</div>
-                    <div>90kr</div>                
-                    <div>- & +</div>
-                </div>
-                <div>Star rating 5 stjärnor</div>
-            </div>
-        </article>
-        <article class = "donut">
-            <img src="pictures/lettuce.jpg" width="100" height="90" loading="lazy" alt="chokolate caramel donut">
-            <div class="donut_description">
-                <div>Chokolate Caramel</div>
-                <div class = "grid">
-                    <div>5st</div>
-                    <div>90kr</div>                
-                    <div>- & +</div>
-                </div>
-                <div>Star rating 5 stjärnor</div>
-            </div>
-        </article>
-            -->
-        
+
+        -->
+            
+        </section>
+            
     </main>
 
     <article class = "shoping_cart">
@@ -127,23 +85,25 @@
             <div>Kundsupport: 08-634 30 30</div>
         </div>
         
-        <div class="cart">
-            <div class="product">Produkt</div>
-            <div class="antal">Antal</div>
-            <div class="price">Styckpris</div>
-            <div clas="cost">Delsumma</div>
-            
 
-            <div class="product">
+            <div class="article-expl">
+                <div class="product">Produkt</div>
+                <div class="antal">Antal</div>
+                <div class="price">Styckpris</div>
+                <div clas="cost">Delsumma</div>
+            </div>
+
+            <div class="cart">
+                <div class="product">
                 
-                <div class="sort" id="shopping-list"><!--Beställda munkar skrivs här--></div>
+                <!--Beställda munkar skrivs här-->
+                <span class="shopping_list" id="shopping-list"></span>
+                
                 <!--
-                <div class="sort" id="shopping-list">
-                <img src="pictures/lettuce.jpg" width="100" height="90" loading="lazy" alt="XXXXXXXXXXX">
+                <img src="pictures/munk1.png" width="100" height="90" loading="lazy" alt="XXXXXXXXXXX">
                 <div>Chokolate Donut
                     <div>Smak: Choklad</div>
                     <div>Storlek: Jumbo</div>
-                </div>
                 </div>
                 -->
             </div>
