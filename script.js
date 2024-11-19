@@ -48,6 +48,8 @@ const products = [
 ];
 
 
+const kundkorg = []
+
 /*
 products.sort((product1, product2)=> product1.price - product2.price); //sorterar på pris
 console.table('sorterat på pris');
@@ -83,7 +85,6 @@ function printRatings(){
 }
 printRatings();
 
-
 const ratingButton = document.querySelector('#sortByRating');
 ratingButton.addEventListener('click', sortProductsByRating);
 function sortProductsByRating (){
@@ -91,9 +92,6 @@ function sortProductsByRating (){
   console.log('rating sorterar');
 }
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
-
-
-
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 function printProductsList(){
@@ -140,41 +138,110 @@ function printProductsList(){
   //  console.log('hej då');
   });
 
-  /****************************:.LÄGG TILL I VARUKORG.:/***************************/
+  /****************************:.LÄGG TILL I VARUKORG.:/*************************** /
   const shopping_cart_button = document.querySelectorAll('button.shopping_cart');
   shopping_cart_button.forEach(button=>{
     button.addEventListener('click', addedProduct);
-    console.log('munkar i varukorg');
+    //console.log('munkar i varukorg');
   });
-  /****************************:.LÄGG TILL I VARUKORG.:/*************************** /
-  //  utskrift.innerHTML = utskrift.innerHTML + '+ Munkshop under konstruktion' +'!' /*, increaceProductCount* /;
   /****************************:.LÄGG TILL I VARUKORG.:/***************************/
 }
-
   printProductsList();
 
   //Increase
   function increaceProductCount(e){
 
     const productId = Number(e.target.id.replace('increase-', ''));
-    console.log('clicked on ', productId);
+    //console.log('clicked on ', productId);
     /*  console.log(e.target.id);/* <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->*/
 
     const selectedProductIndex = products.findIndex(product=>product.id===productId);
-    console.log('Varan har index: ', selectedProductIndex);
+    //console.log('Varan har index: ', selectedProductIndex);
 
     if(selectedProductIndex === -1){ //Vald produkt måste ha minst index 0
       console.error('Det finns inte i listan');
       return;
     }
     products[selectedProductIndex].amount +=1;
-    console.log(products[selectedProductIndex]);
 
+    //console.log('du vill köpa munkar: ');
+    //console.log(products[selectedProductIndex].amount);
+    addArticle(products[selectedProductIndex]);    //lägger till i den tomma arrayen när functionen addArticle nedan körs
+    //console.log((products[selectedProductIndex])+(products[selectedProductIndex].amount));    //lägger till i den tomma arrayen när functionen addArticle nedan körs
+//Nu skrivs bara en munk ut i consolen, den måste räkna upp också
 
-    printProductsList();
+//för varje gång jag trycker + skickas toll produkt kundkorg.atfinns ingen sen innan läggs den till
+
+//Om jag skriver .amount räknar den upp, men jag får undefined på namnet. Kan man göra som ovan?
+//Ska man göra en forEach för att spara olika artiklar?
+    
+  printProductsList();
   }
 
-   
+  function addArticle(produkt){
+    //här läggs till i arrayen
+    //Skrivs sedan ut som med alla munkar
+    //console.log('skicka till kundkorg:', produkt);
+    
+    //console.log('detta är nya kundkorgen', kundkorg);
+    //console.log('kolla om det finns i kundkorg sedan tidigare. -1 betyder negativt, 0 betyder att det finns:', kundkorg.findIndex(index=>index.id===produkt.id));
+
+    const existedProduct=(kundkorg.findIndex(index=>index.id===produkt.id));
+    console.log('kolla om det finns i kundkorg sedan tidigare. undefined betyder negativt, annars skrivs arrayen ut:', kundkorg[existedProduct]);
+
+    if (existedProduct === -1){ 
+      kundkorg.push(produkt);
+      console.log('lagt till EN gång kundkorg', kundkorg);
+    }
+
+    else {
+      kundkorg[existedProduct].amount+1;
+      console.log('PLUSSAT PÅ i kundkorg', kundkorg);
+    }
+
+    console.log('kundkorgen innehåller NU', kundkorg);
+    console.log('vald munk i array:', produkt.name);
+
+    //function för att skriva ut
+    //kalla på funtionen fölr att skriva ut i html
+
+    kundkorg.forEach(item => {
+      console.log(item.name + " har " + item.amount + "st i varukorgen.");
+    });
+
+    const shoppingProductCount = document.querySelector('#utskriftDiv'); //Talar om var den ska skrivas ut
+    console.log('Munkar vid +');
+    //shoppingProductCount.innerHTML = 'Du har lagt ' + produkt.amount + 'st ' + produkt.name + ' i varukorgen'; 
+    shoppingProductCount.innerHTML = ''; 
+
+    kundkorg.forEach(item => {
+      // Skapa ett nytt <p>-element för varje produkt
+      const p = document.createElement('p');
+      p.textContent = item.name + " har " + item.amount + "st i varukorgen.";
+          // Lägg till <p> till #utskriftDiv
+    shoppingProductCount.appendChild(p);
+  });
+  }
+
+    /****************************:.LÄGG TILL I VARUKORG.:/*************************** /
+  function addedProduct (){
+    const shoppingProductCount = document.querySelector('#utskriftDiv');
+    console.log('Munkar');
+    shoppingProductCount.innerHTML = 'Du har lagt X antal munkar i varukorgen'; 
+  }
+  /****************************:.LÄGG TILL I VARUKORG.:/***************************/
+
+  function printShoppinglist(){
+    shoppingListDiv.innerHTML += `
+    <div>
+      <span id="utskriftDiv"></span>
+    </div>
+  `;
+  }
+  printShoppinglist();
+
+
+
   //Decrease
   function decreaceProductCount(e){
     const productId = Number(e.target.id.replace('decrease-', ''));
@@ -194,30 +261,13 @@ function printProductsList(){
 
     printProductsList();
   }
-
-  /****************************:.LÄGG TILL I VARUKORG.:/***************************/
-  function addedProduct (){
-    const shoppingProductCount = document.querySelector('#utskriftDiv');
-    console.log('Munkar');
-    shoppingProductCount.innerHTML = 'Du har lagt X antal munkar i varukorgen'; 
-  }
-  /****************************:.LÄGG TILL I VARUKORG.:/***************************/
-
-
-
-  function printShoppinglist(){
-    shoppingListDiv.innerHTML += `
-    <div>
-      <span id="utskriftDiv"></span>
-    </div>
-  `;
-  }
-  printShoppinglist();
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
 function getRatingHtml(rating) {
+
+  
   const halfStar = String(rating).indexOf('.');
   let star = '';
   for (let i = 0; i < rating; i++) {
