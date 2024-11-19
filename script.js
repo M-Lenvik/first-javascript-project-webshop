@@ -52,7 +52,7 @@ const products = [
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 const productsListDiv = document.querySelector('#products-list');
-//const shoppingListDiv = document.querySelector('#shopping-list');
+const shoppingListDiv = document.querySelector('#shopping-list');
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
@@ -83,11 +83,11 @@ function printProductsList(){
         </div
 
         <div class="buttons">
-          <button class="shopping_cart" id="shopping_cart-${product.id}">Lägg i varukorg</button>
+          <button class="shopping_cart" id="shopping_cart">Lägg i varukorg</button>
         
           
           <div>
-          Här ska munkarna tillfälligt skrivas ut:  <span id = "utskriftDiv"></span>
+          Här ska munkarna tillfälligt skrivas ut:  <span id="utskriftDiv"></span>
           </div>
         
           </div
@@ -95,7 +95,7 @@ function printProductsList(){
     `;
   });
 
-  const utskrift = document.querySelector('#utskriftDiv');
+
 
 
   //Increase
@@ -103,22 +103,40 @@ function printProductsList(){
   increaseButtons.forEach(button=>{
     button.addEventListener('click', increaceProductCount);
     console.log('hej');
+    
   });
 
   //Decrease
   const decreaseButtons = document.querySelectorAll('button.decrease');
   decreaseButtons.forEach(button=>{
     button.addEventListener('click', decreaceProductCount);
+    console.log('hej då');
   });
 
+    /****************************:.LÄGG TILL I VARUKORG.:/***************************/
+  const shopping_cart_button = document.querySelectorAll('button.shopping_cart');
+  shopping_cart_button.forEach(button=>{
+    button.addEventListener('click', addedProduct);
+    console.log('munkar i varukorg');
+  });
+    /****************************:.LÄGG TILL I VARUKORG.:/***************************/
+
+
+  /****************************:.LÄGG TILL I VARUKORG.:/*************************** /
+  //  utskrift.innerHTML = utskrift.innerHTML + '+ Munkshop under konstruktion' +'!' /*, increaceProductCount* /;
+
   /****************************:.LÄGG TILL I VARUKORG.:/***************************/
-  const shoppingCartButtons = document.querySelectorAll('button.shopping_cart');
-  shoppingCartButtons.forEach(button=>{
-    button.addEventListener('click', shoppingProductCount);
-    console.log('varukorgsknappen');
-  });  
-  /****************************:.LÄGG TILL I VARUKORG.:/***************************/
+
 }
+
+/****************************:.LÄGG TILL I VARUKORG.:/***************************/
+function addedProduct (){
+  const shoppingProductCount = document.querySelector('#utskriftDiv');
+  console.log('Munkar');
+  shoppingProductCount.innerHTML = 'Skriva ut munkar på sidan'; 
+}
+/****************************:.LÄGG TILL I VARUKORG.:/***************************/
+
 
   printProductsList();
 
@@ -139,18 +157,15 @@ function printProductsList(){
   products[selectedProductIndex].amount +=1;
   console.log(products[selectedProductIndex]);
 
-  const utskrift = utskrift;
+
+  /*const utskrift = utskrift;
   utskrift.innerHTML = utskrift.innerHTML + '+ Munkshop under konstruktion';
-  
+  */
+
   printProductsList();
   }
 
-  /****************************:.LÄGG TILL I VARUKORG.:/***************************/
-  function shoppingProductCount(){
-    console.log('du har valt att köpa: '/*, increaceProductCount*/);
-  }
-  /****************************:.LÄGG TILL I VARUKORG.:***************************/
-      
+   
   //Decrease
   function decreaceProductCount(e){
     const productId = Number(e.target.id.replace('decrease-', ''));
