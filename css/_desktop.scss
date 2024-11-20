@@ -17,15 +17,17 @@ body {
 }
 
 header {
+
+    border: 2px solid blue;
+    margin: 1px;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     h1{ 
         width: 50%;
         background-color: gray;
     }
-    border: 2px solid blue;
-    margin: 1px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
 }
 
 #rating{
@@ -43,10 +45,12 @@ header {
 .donuts{
     padding-left: 1%;
     padding-right: 1%;
+    width: 100%;
 
     .donut{        
         border: 2px solid brown;
         margin: 5px;
+        
         float: none;
         margin-right: auto;
         flex-direction: row;
