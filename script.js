@@ -3,37 +3,37 @@
 const products = [
   {
     id: 1,
-    name: 'A Product 1',
+    name: 'Karamell',
     price: 25,
     rating: 4,
     amount: 0,
-    category: 'sweet',
+    category: 'Crunchy',
     img: {
       url: 'pictures/munk1.png',
       width: 400,
       height: 400,
-      alt: 'Donut'
+      alt: 'Karamellmunk'
     },
   },
 
   {
     id: 2,
-    name: 'B Product 2',
+    name: 'Hallon',
     price: 20,
     rating: 1.5,
     amount: 0,
-    category: 'sweet',
+    category: 'Fruity',
     img: {
       url: 'pictures/munk2.png',
       width: 400,
       height: 400,
-      alt: 'Donut'
+      alt: 'Hallonmunk'
     },
   },
 
   {
     id: 3,
-    name: 'C Product 3',
+    name: 'Chokladmunk',
     price: 30,
     rating: 3.5,
     amount: 0,
@@ -42,19 +42,135 @@ const products = [
       url: 'pictures/munk3.png',
       width: 400,
       height: 400,
-      alt: 'Donut'
+      alt: 'Chokladmunk'
+    },
+  },
+
+  {
+    id: 4,
+    name: 'Vanilj',
+    price: 40,
+    rating: 2,
+    amount: 0,
+    category: 'sweet',
+    img: {
+      url: 'pictures/munk3.png',
+      width: 400,
+      height: 400,
+      alt: 'Vaniljmunk'
+    },
+  },
+
+  {
+    id: 5,
+    name: 'Jordgubb',
+    price: 25,
+    rating: 5,
+    amount: 0,
+    category: 'Fruity',
+    img: {
+      url: 'pictures/munk3.png',
+      width: 400,
+      height: 400,
+      alt: 'Jordgubbsmunk'
+    },
+  },
+
+  {
+    id: 6,
+    name: 'Socker',
+    price: 10,
+    rating: 0.5,
+    amount: 0,
+    category: 'sweet',
+    img: {
+      url: 'pictures/munk3.png',
+      width: 400,
+      height: 400,
+      alt: 'Sockermunk'
+    },
+  },
+
+  {
+    id: 7,
+    name: 'Chokladglasyr',
+    price: 35,
+    rating: 1,
+    amount: 0,
+    category: 'sweet',
+    img: {
+      url: 'pictures/munk3.png',
+      width: 400,
+      height: 400,
+      alt: 'Munk med chokladglasyr'
+    },
+  },
+
+  {
+    id: 8,
+    name: 'Blåbär',
+    price: 15,
+    rating: 4.5,
+    amount: 0,
+    category: 'Fruity',
+    img: {
+      url: 'pictures/munk3.png',
+      width: 400,
+      height: 400,
+      alt: 'Blåbärsmunk'
+    },
+  },
+
+  {
+    id: 9,
+    name: 'Saffran',
+    price: 50,
+    rating: 1.5,
+    amount: 0,
+    category: 'Christmas special',
+    img: {
+      url: 'pictures/munk3.png',
+      width: 400,
+      height: 400,
+      alt: 'Saffransmunk'
+    },
+  },
+
+  {
+    id: 10,
+    name: 'Äpple',
+    price: 35,
+    rating: 4.5,
+    amount: 0,
+    category: 'Fruity',
+    img: {
+      url: 'pictures/munk3.png',
+      width: 400,
+      height: 400,
+      alt: 'Äppelmunk'
     },
   },
 ];
 
 
-const kundkorg = []
+const basket = []
+
+/*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
+const ratingsDiv = document.querySelector('#rating');
+const productsListDiv = document.querySelector('#products-list');
+const shoppingListDiv = document.querySelector('#shopping-list');
+/*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
+
+
+/*~*:._.:*~*:._.:*~*:._.:*~*:.PRINT-HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
+
+/*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 /*
 products.sort((product1, product2)=> product1.price - product2.price); //sorterar på pris
 console.table('sorterat på pris');
 console.table(products);
-
+/*
 const startingSum = 0; //denna behövs egentligen inte. då skrivs 0 på staringSum nedan
 const sum = products.reduce((sumOfProducts, currentProduct)=> sumOfProducts + currentProduct.price, startingSum); //reduce=summera
 console.table(sum);
@@ -69,31 +185,103 @@ console.table(sum);
 //console.table(products);
 
 
-
-/*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
-const ratingsDiv = document.querySelector('#rating');
-const productsListDiv = document.querySelector('#products-list');
-const shoppingListDiv = document.querySelector('#shopping-list');
-/*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
-
-
-/*~*:._.:*~*:._.:*~*:._.:*~*:.PRINT-HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
-/*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 function printRatings(){
   ratingsDiv.innerHTML += `
-  <div>A-Z</div>
-  <button id="sortByRating">Sortera 1-2</button>
+  <button id="sortByName">Sortera på namn</button>
+  <button id="sortByPrice">Sortera på pris</button>
+  <button id="sortByRating">Sortera på betyg</button>
+  <button id="sortByCategory">Sortera på kategori</button>
+
   <div>Filtrera</div>
 `;
 }
 printRatings();
 
-const ratingButton = document.querySelector('#sortByRating');
-ratingButton.addEventListener('click', sortProductsByRating);
-function sortProductsByRating (){
-  products.sort((product1, product2)=> product1.rating - product2.rating); //sorterar på pris
-  console.log('rating sorterar');
+  /*
+  if (evt.keyCode==13){ //detta är koden för enter
+  console.log('ratingButton trycks på'); //DETTA MÅSTE FUNGERA
+  }*/
+
+/*********************Sort by Name********************/
+const sortNameButton = document.querySelector('#sortByName');
+sortNameButton.addEventListener('click', sortProductsByName);
+let nameIsDescending = false; // Håller koll på nuvarande sorteringsordning
+
+function sortProductsByName() {
+    if (nameIsDescending===false) {
+        // Sortera i stigande ordning
+        products.sort((product1, product2) =>  product1.name.localeCompare(product2.name));
+        console.log("Omsorterat i stigande ordning:", products);
+    } 
+    else {
+        // Sortera i fallande ordning
+        products.sort((product1, product2) => product2.name.localeCompare(product1.name));
+        console.log("Omsorterat i fallande ordning:", products);
+    }
+    nameIsDescending = !nameIsDescending; // Växla sorteringsordning för nästa gång
+    printProductsList();
 }
+/*********************Sort by Price********************/
+
+const sortPriceButton = document.querySelector('#sortByPrice');
+sortPriceButton.addEventListener('click', sortProductsByPrice);
+let priceIsDescending = false; // Håller koll på nuvarande sorteringsordning
+
+function sortProductsByPrice() {
+    if (priceIsDescending===true) {
+        // Sortera i stigande ordning
+        products.sort((product1, product2) => product1.price - product2.price);
+        console.log("Omsorterat i stigande ordning:", products);
+    } 
+    else {
+        // Sortera i fallande ordning
+        products.sort((product1, product2) => product2.price - product1.price);
+        console.log("Omsorterat i fallande ordning:", products);
+    }
+    priceIsDescending = !priceIsDescending; // Växla sorteringsordning för nästa gång
+    printProductsList();
+}
+
+/*********************Sort by Rating********************/
+const sortRatingButton = document.querySelector('#sortByRating');
+sortRatingButton.addEventListener('click', sortProductsByRating);
+let ratingIsDescending = false; // Håller koll på nuvarande sorteringsordning
+
+function sortProductsByRating() {
+    if (ratingIsDescending===true) {
+        // Sortera i stigande ordning
+        products.sort((product1, product2) => product1.rating - product2.rating);
+        console.log("Omsorterat i stigande ordning:", products);
+    } 
+    else {
+        // Sortera i fallande ordning
+        products.sort((product1, product2) => product2.rating - product1.rating);
+        console.log("Omsorterat i fallande ordning:", products);
+    }
+    ratingIsDescending = !ratingIsDescending; // Växla sorteringsordning för nästa gång
+    printProductsList();
+}
+
+/*********************Sort by Category********************/
+const sortCategoryButton = document.querySelector('#sortByCategory');
+sortCategoryButton.addEventListener('click', sortProductsByName);
+let categoryIsDescending = false; // Håller koll på nuvarande sorteringsordning
+
+function sortProductsByName() {
+    if (categoryIsDescending===true) {
+        // Sortera i stigande ordning
+        products.sort((product1, product2) =>  product1.category.localeCompare(product2.category));
+        console.log("Omsorterat i stigande ordning:", products);
+    } 
+    else {
+        // Sortera i fallande ordning
+        products.sort((product1, product2) => product2.category.localeCompare(product1.category));
+        console.log("Omsorterat i fallande ordning:", products);
+    }
+    categoryIsDescending = !categoryIsDescending; // Växla sorteringsordning för nästa gång
+    printProductsList();
+}
+
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -114,13 +302,10 @@ function printProductsList(){
         </div>
 
         <div class="buttons">
-          <button class="decrease" id="decrease-${product.id}">-</button>
+          <button class="decrease" class="amount" id="decrease-${product.id}">-</button>
           <input type="number" min="0" value="${product.amount}">
-          <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->
+          <button class="increase" class="amount" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->
         </div
-
-        
-
       <article>
     `;
     /*         <div class="buttons">
@@ -135,15 +320,9 @@ function printProductsList(){
   const increaseButtons = document.querySelectorAll('button.increase');
   increaseButtons.forEach(button=>{
     button.addEventListener('click', increaceProductCount);
-  //  console.log('hej');
+  //  console.log('ökat antal');
   });
 
-  //Decrease
-  const decreaseButtons = document.querySelectorAll('button.decrease');
-  decreaseButtons.forEach(button=>{
-    button.addEventListener('click', decreaceProductCount);
-  //  console.log('hej då');
-  });
 
   /****************************:.LÄGG TILL I VARUKORG.:/*************************** /
   const shopping_cart_button = document.querySelectorAll('button.shopping_cart');
@@ -160,12 +339,11 @@ function printProductsList(){
 
     const productId = Number(e.target.id.replace('increase-', ''));
     //console.log('clicked on ', productId);
-    /*  console.log(e.target.id);/* <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->*/
 
     const selectedProductIndex = products.findIndex(product=>product.id===productId);
     //console.log('Varan har index: ', selectedProductIndex);
 
-    if(selectedProductIndex === -1){ //Vald produkt måste ha minst index 0
+    if(selectedProductIndex === -1){ //Vald article måste ha minst index 0
       console.error('Det finns inte i listan');
       return;
     }
@@ -173,58 +351,53 @@ function printProductsList(){
 
     //console.log('du vill köpa munkar: ');
     //console.log(products[selectedProductIndex].amount);
+    
     addArticle(products[selectedProductIndex]);    //lägger till i den tomma arrayen när functionen addArticle nedan körs
     //console.log((products[selectedProductIndex])+(products[selectedProductIndex].amount));    //lägger till i den tomma arrayen när functionen addArticle nedan körs
-//Nu skrivs bara en munk ut i consolen, den måste räkna upp också
-
-//för varje gång jag trycker + skickas toll produkt kundkorg.atfinns ingen sen innan läggs den till
-
-//Om jag skriver .amount räknar den upp, men jag får undefined på namnet. Kan man göra som ovan?
-//Ska man göra en forEach för att spara olika artiklar?
+    //Nu skrivs bara en munk ut i consolen, den måste räkna upp också
     
   printProductsList();
   }
 
-  function addArticle(produkt){
+  function addArticle(article){
     //här läggs till i arrayen
     //Skrivs sedan ut som med alla munkar
-    //console.log('skicka till kundkorg:', produkt);
+    //console.log('skicka till basket:', article);
     
-    //console.log('detta är nya kundkorgen', kundkorg);
-    //console.log('kolla om det finns i kundkorg sedan tidigare. -1 betyder negativt, 0 betyder att det finns:', kundkorg.findIndex(index=>index.id===produkt.id));
+    //console.log('detta är nya kundkorgen', basket);
+    //console.log('kolla om det finns i basket sedan tidigare. -1 betyder negativt, 0 betyder att det finns:', kundkorg.findIndex(index=>index.id===article.id));
 
-    const existedProduct=(kundkorg.findIndex(index=>index.id===produkt.id));
-    console.log('kolla om det finns i kundkorg sedan tidigare. undefined betyder negativt, annars skrivs arrayen ut:', kundkorg[existedProduct]);
+    const existedProduct=(basket.findIndex(index=>index.id===article.id));
+    console.log('kolla om det finns i basket sedan tidigare. undefined betyder negativt, annars skrivs arrayen ut:', basket[existedProduct]);
 
     if (existedProduct === -1){ 
-      kundkorg.push(produkt);
-      console.log('lagt till EN gång kundkorg', kundkorg);
+      basket.push(article);
+      console.log('lagt till EN gång kundkorg', basket);
     }
 
     else {
-      kundkorg[existedProduct].amount+1;
-      console.log('PLUSSAT PÅ i kundkorg', kundkorg);
+      basket[existedProduct].amount+1;
+      console.log('PLUSSAT PÅ i kundkorg', basket);
     }
 
-    console.log('kundkorgen innehåller NU', kundkorg);
-    console.log('vald munk i array:', produkt.name);
+    console.log('kundkorgen innehåller NU', basket);
+    console.log('vald munk i array:', article.name);
 
     //function för att skriva ut
     //kalla på funtionen fölr att skriva ut i html
-
-    kundkorg.forEach(item => {
+    basket.forEach(item => {
       console.log(item.name + " har " + item.amount + "st i varukorgen.");
     });
 
     const shoppingProductCount = document.querySelector('#utskriftDiv'); //Talar om var den ska skrivas ut
     console.log('Munkar vid +');
-    //shoppingProductCount.innerHTML = 'Du har lagt ' + produkt.amount + 'st ' + produkt.name + ' i varukorgen'; 
+    //shoppingProductCount.innerHTML = 'Du har lagt ' + article.amount + 'st ' + article.name + ' i varukorgen'; 
     shoppingProductCount.innerHTML = ''; 
 
-    kundkorg.forEach(item => {
-      // Skapa ett nytt <p>-element för varje produkt
+    basket.forEach(item => {
+      // Skapa ett nytt <p>-element för varje article
       const p = document.createElement('p');
-      p.textContent = item.name + " har " + item.amount + "st i varukorgen.";
+      p.textContent ="Du har lagt till " + item.name + " Du har " + item.amount + "st i varukorgen. De kostar " + item.price + " kr st. Total kostnad är: " + item.price*item.amount+ " kr";
           // Lägg till <p> till #utskriftDiv
     shoppingProductCount.appendChild(p);
   });
@@ -245,7 +418,14 @@ function printProductsList(){
   }
   printShoppinglist();
 
+/****************************:.LÄGG TILL I VARUKORG.:/***************************/
 
+  //Decrease
+  const decreaseButtons = document.querySelectorAll('button.decrease');
+  decreaseButtons.forEach(button=>{
+    button.addEventListener('click', decreaceProductCount);
+  //  console.log('minskat antal');
+  });
 
   //Decrease
   function decreaceProductCount(e){
@@ -266,6 +446,7 @@ function printProductsList(){
 
     printProductsList();
   }
+
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 

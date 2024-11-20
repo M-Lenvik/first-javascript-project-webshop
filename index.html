@@ -25,14 +25,13 @@
     <header>
         <h1>Gottfrids munkfabrik</h1>
         
-        <div>Kundvagn</div>
-        <div>Summa</div>
-        <button id="menuBtn">
-            Meny
+        <button class ="menuBtn">
+            <a href="#shoping_cart">Kundkorg</a>
         </button>
+        <div>Summa</div>
     </header>
 
-    <div id = "rating">
+    <div class="rating" id = "rating">
         <!--Anges i javascript-->
         <!--
         <div>A-Z</div>
@@ -49,44 +48,41 @@
             </article>
             <!--class = "donut" och class=donut_description-->
             
-                <!-- HÄR FINNS ALLA MUNKAR I HTML: DESSA SKA BORT-- >
-        <article class = "donut" id="products-list">
-            <div class="donut_description">
-                <h3>Chokolate Caramel</h3>
-                <p>5st</p>
-                <p>90kr</p> 
-                <span class="rate">Betyg: 5 5 stjärnor</span>
-            </div>
+            <!-- HÄR FINNS ALLA MUNKAR I HTML: DESSA SKA BORT-- >
+            <article class = "donut" id="products-list">
+                <div class="donut_description">
+                    <h3>Chokolate Caramel</h3>
+                    <p>5st</p>
+                    <p>90kr</p> 
+                    <span class="rate">Betyg: 5 5 stjärnor</span>
+                </div>
 
-            <div class="pic">
-                <img src="pictures/munk1.png" width="100" height="90" loading="lazy" alt="chokolate caramel donut">
-            </div>
+                <div class="pic">
+                    <img src="pictures/munk1.png" width="100" height="90" loading="lazy" alt="chokolate caramel donut">
+                </div>
+                    
+                <div class="buttons">
+                    <button class="decrease"> - </button>
+                    <input type="number">
+                    <button class="decrease"> + </button>
+                </div>
                 
-            <div class="buttons">
-                <button class="decrease"> - </button>
-                <input type="number">
-                <button class="decrease"> + </button>
-            </div>
-            
-            <! --<div class="buttons">
-                <button class="shopping_cart" id="shopping_cart">Lägg i varukorg</button>    
-            </div>-- >
-        </article>
-
-
-        -->
-            
+                <! --<div class="buttons">
+                    <button class="shopping_cart" id="shopping_cart">Lägg i varukorg</button>    
+                </div>-- >
+            </article>
+        --> 
         </section>
-            
     </main>
 
-    <article class = "shoping_cart">
+    <article class="shoping_cart" id="shoping_cart">
+        <div class="line"></div>
         <div class="cart_heading">
-            <div>Varukorg</div>
+            <h4>Varukorg</h4>
             <div>Kundsupport: 08-634 30 30</div>
         </div>
+        <div class="line"></div>
         
-
             <div class="article-expl">
                 <div class="product">Produkt</div>
                 <div class="antal">Antal</div>
@@ -98,8 +94,7 @@
                 <div class="product">
                 
                 <!--Beställda munkar skrivs här-->
-                <span class="shopping_list" id="shopping-list"></span>
-                
+                <div class="shopping_list" id="shopping-list"></div>
                 <!--
                 <img src="pictures/munk1.png" width="100" height="90" loading="lazy" alt="XXXXXXXXXXX">
                 <div>Chokolate Donut
@@ -112,7 +107,7 @@
             <div class="antal">-&+</div>
             <div class="price">Pris från javascript</div>
             <div clas="cost">Summa från javascript
-                <div>X</div>
+            <span>X</span>
             </div>
         </div>
         <div><button>Använd rabattkod ></button></div>
