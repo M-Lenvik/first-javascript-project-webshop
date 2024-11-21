@@ -16,9 +16,6 @@ body {
     background-color: $client-white;
 }
 
-.base {
-    display: block;
-}
 
 header {
 
@@ -33,20 +30,55 @@ header {
 .rating{
     width: 60%;
     border: 2px solid red;
-    margin: 1px;
-    margin-top: 60px;
-    position: sticky;
 }
 
 .donuts{
-    padding-left: 1%;
-    padding-right: 1%;
+    border: 2px dotted black;
+    margin-left: 0;
+    width: 100vw;
+    
+    .donut{
+        border: 2px solid brown;
+        margin-top: 15px;
+        margin-left: 25vw;
+        width: 50vw;
+        
+
+
+        .donut_description{
+
+            h3{
+                font-size: 2em;
+            }
+        }
+
+        .pic {
+            border: 2px solid blue;
+
+            img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .buttons {
+            padding: 5px;
+            border: solid 5px green;
+
+        }
+    }
+}
+
+/*
+.donuts{
     width: 100%;
-    margin-left: auto;
+    margin-left: 0;
 
     .donut{        
         border: 2px solid brown;
-        margin: 5px;
+        width: 100%;
+        margin: 0;
 
         .donut_description{
             width: 50%;
@@ -64,8 +96,8 @@ header {
 
             img {
                 object-fit: cover;
-                width: 100%;
-                height: 100%;
+                width: 50%;
+                height: 50%;
             }
         }
 
@@ -76,6 +108,7 @@ header {
     }
 }
 
+*/
 
 .shoping_cart{
     border: 2px solid green;
@@ -131,14 +164,32 @@ header {
     }
 
         .shopping_list{
-            padding-left: 5%;
+
             padding-right: 5%;
-            display: flex;
+            display: grid;
             justify-content: space-between;
-
-
-
             background-color: aqua;
+
+            .product{
+                background-color: pink;
+                width: 500px;
+            }
+        
+            .antal{
+                background-color: azure;
+                width: 150px;
+            }
+
+            .price{
+                background-color: burlywood;
+                width: 200px;
+            }
+
+            .cost{
+                background-color: lightgreen;
+                width: 250px;
+            }
+
             img{
                 margin-right: 12%;
             }

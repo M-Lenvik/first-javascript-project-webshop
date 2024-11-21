@@ -153,7 +153,7 @@ const products = [
 ];
 
 
-const basket = []
+
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 const ratingsDiv = document.querySelector('#rating');
@@ -205,24 +205,58 @@ printRatings();
 /*********************Sort by Name********************/
 const sortNameButton = document.querySelector('#sortByName');
 sortNameButton.addEventListener('click', sortProductsByName);
-let nameIsDescending = false; // Håller koll på nuvarande sorteringsordning
+//let nameIsDescending = false; // Håller koll på nuvarande sorteringsordning
+
+
+
+
 
 function sortProductsByName() {
-    if (nameIsDescending===false) {
+
+  const sorted = products.sort((a, b) => {
+    return a.name === b.name ? 0 : a.name < b.name ? -1 : 1;
+  });
+
+/*    if (nameIsDescending===true) {
         // Sortera i stigande ordning
-        products.sort((product1, product2) =>  product1.name.localeCompare(product2.name));
+        products.sort((product1, product2) =>  product1.name < product2.name);
         console.log("Omsorterat i stigande ordning:", products);
+        console.table(products);
     } 
     else {
         // Sortera i fallande ordning
-        products.sort((product1, product2) => product2.name.localeCompare(product1.name));
+        products.sort((product1, product2) => product2.name > product1.name);
         console.log("Omsorterat i fallande ordning:", products);
+        console.table(products);
     }
-    nameIsDescending = !nameIsDescending; // Växla sorteringsordning för nästa gång
+    nameIsDescending = !nameIsDescending; // Växla sorteringsordning för nästa gång*/
     printProductsList();
 }
-/*********************Sort by Price********************/
 
+
+/*chatgtp nedan. 
+const sortNameButton = document.querySelector('#sortByName');
+sortNameButton.addEventListener('click', sortProductsByName);
+
+let nameIsDescending = false;
+
+function sortProductsByName() {
+    if (nameIsDescending) {
+        products.sort((product1, product2) => product1.name.localeCompare(product2.name));
+        console.log("Stigande:", products);
+    } else {
+        products.sort((product1, product2) => product2.name.localeCompare(product1.name));
+        console.log("Fallande:", products);
+    }
+    nameIsDescending = !nameIsDescending;
+    printProductsList();
+}
+
+function printProductsList() {
+    console.log("Utskrift av produkter:", products);
+}*/
+/*********************Sort by Price********************/
+console.log("munklista:", products);
 const sortPriceButton = document.querySelector('#sortByPrice');
 sortPriceButton.addEventListener('click', sortProductsByPrice);
 let priceIsDescending = false; // Håller koll på nuvarande sorteringsordning
@@ -284,7 +318,7 @@ function sortProductsByName() {
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
-/*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:.MUNKARNA I HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
 function printProductsList(){
   //Rensa div:en före utskrift, annars blir det dubbelt vid knapptryck
   productsListDiv.innerHTML='';
@@ -315,22 +349,14 @@ function printProductsList(){
         <div>Räkna upp munkar: </div> */
   });
 
-
+/*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
   //Increase
   const increaseButtons = document.querySelectorAll('button.increase');
   increaseButtons.forEach(button=>{
     button.addEventListener('click', increaceProductCount);
   //  console.log('ökat antal');
-  });
+});
 
-
-  /****************************:.LÄGG TILL I VARUKORG.:/*************************** /
-  const shopping_cart_button = document.querySelectorAll('button.shopping_cart');
-  shopping_cart_button.forEach(button=>{
-    button.addEventListener('click', addedProduct);
-    //console.log('munkar i varukorg');
-  });
-  /****************************:.LÄGG TILL I VARUKORG.:/***************************/
 }
   printProductsList();
 
@@ -347,7 +373,7 @@ function printProductsList(){
       console.error('Det finns inte i listan');
       return;
     }
-    products[selectedProductIndex].amount +=1;
+    products[selectedProductIndex].amount +=1; //öka antalet med 1 för varje knapptryck
 
     //console.log('du vill köpa munkar: ');
     //console.log(products[selectedProductIndex].amount);
@@ -357,8 +383,20 @@ function printProductsList(){
     //Nu skrivs bara en munk ut i consolen, den måste räkna upp också
     
   printProductsList();
-  }
 
+
+  //event.target.focus();
+  
+  }
+//Jag får inte detta att fungera var jag än lägger koden. Fokuset ligger vissserlugen kvar, men knappen slutar att lägga till artiklar.
+  /*function increaceProductCount(){
+    this.focus();
+  }*/
+
+
+
+
+    const basket = []
   function addArticle(article){
     //här läggs till i arrayen
     //Skrivs sedan ut som med alla munkar
@@ -366,6 +404,7 @@ function printProductsList(){
     
     //console.log('detta är nya kundkorgen', basket);
     //console.log('kolla om det finns i basket sedan tidigare. -1 betyder negativt, 0 betyder att det finns:', kundkorg.findIndex(index=>index.id===article.id));
+
 
     const existedProduct=(basket.findIndex(index=>index.id===article.id));
     console.log('kolla om det finns i basket sedan tidigare. undefined betyder negativt, annars skrivs arrayen ut:', basket[existedProduct]);
@@ -389,19 +428,45 @@ function printProductsList(){
       console.log(item.name + " har " + item.amount + "st i varukorgen.");
     });
 
-    const shoppingProductCount = document.querySelector('#utskriftDiv'); //Talar om var den ska skrivas ut
+    //const shoppingProductCount = document.querySelector('#utskriftDiv'); //Talar om var den ska skrivas ut
+    const shoppingProductCount = document.querySelector('#shopping_list'); //Talar om var den ska skrivas ut
     console.log('Munkar vid +');
     //shoppingProductCount.innerHTML = 'Du har lagt ' + article.amount + 'st ' + article.name + ' i varukorgen'; 
     shoppingProductCount.innerHTML = ''; 
 
     basket.forEach(item => {
       // Skapa ett nytt <p>-element för varje article
+    
+      shoppingProductCount.innerHTML+=`
+
+      <div class="shopping_list">
+          <div class="product" id="product"> Vald munk: ${item.name} </div>          
+          <div class="antal" id="antal">Antal av munksorten: ${item.amount}</div>
+          <div class="price">Pris: ${item.price}</div>
+          <div class="cost">Summa: ${item.price*item.amount}</div>
+      </div>
+      `;
+    
+
+      /*denna fungerar!
       const p = document.createElement('p');
       p.textContent ="Du har lagt till " + item.name + " Du har " + item.amount + "st i varukorgen. De kostar " + item.price + " kr st. Total kostnad är: " + item.price*item.amount+ " kr";
           // Lägg till <p> till #utskriftDiv
-    shoppingProductCount.appendChild(p);
+          */
+    //shoppingProductCount.appendChild(p);
   });
   }
+
+//<div id="product">${item.name}</div>
+function printShoppinglist(){
+  shoppingListDiv.innerHTML += `
+    <div id="shopping_list">
+          
+          </div>
+
+`;
+}
+printShoppinglist();
 
     /****************************:.LÄGG TILL I VARUKORG.:/*************************** /
   function addedProduct (){
@@ -411,12 +476,7 @@ function printProductsList(){
   }
   /****************************:.LÄGG TILL I VARUKORG.:/***************************/
 
-  function printShoppinglist(){
-    shoppingListDiv.innerHTML += `
-      <div id="utskriftDiv"></div>
-  `;
-  }
-  printShoppinglist();
+
 
 /****************************:.LÄGG TILL I VARUKORG.:/***************************/
 

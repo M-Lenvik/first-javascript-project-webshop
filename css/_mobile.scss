@@ -174,6 +174,28 @@ h2{
         p{
             background-color: #ccc;
         }
+
+        .product{
+            margin-left: 0;
+            padding-left: 0;
+            background-color: pink;
+            width: 200px;
+        }
+    
+        .antal{
+            background-color: azure;
+            width: 200px;
+        }
+
+        .price{
+            background-color: burlywood;
+            width: 100px;
+        }
+
+        .cost{
+            background-color: lightgreen;
+            width: 50px;
+        }
     }
 }
 
