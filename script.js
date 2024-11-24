@@ -1,5 +1,3 @@
-
-
 const products = [
   {
     id: 1,
@@ -9,7 +7,7 @@ const products = [
     amount: 0,
     category: 'Crunchy',
     img: {
-      url: 'pictures/munk1.png',
+      url: 'pictures/caramell.png',
       width: 400,
       height: 400,
       alt: 'Karamellmunk'
@@ -24,7 +22,7 @@ const products = [
     amount: 0,
     category: 'Fruity',
     img: {
-      url: 'pictures/munk2.png',
+      url: 'pictures/rasberry.png',
       width: 400,
       height: 400,
       alt: 'Hallonmunk'
@@ -39,7 +37,7 @@ const products = [
     amount: 0,
     category: 'sweet',
     img: {
-      url: 'pictures/munk3.png',
+      url: 'pictures/chokolat.jpg',
       width: 400,
       height: 400,
       alt: 'Chokladmunk'
@@ -48,16 +46,16 @@ const products = [
 
   {
     id: 4,
-    name: 'Vanilj',
-    price: 40,
-    rating: 2,
+    name: 'Lunchmunk',
+    price: 70,
+    rating: 4,
     amount: 0,
-    category: 'sweet',
+    category: 'meal',
     img: {
-      url: 'pictures/munk3.png',
+      url: 'pictures/sushi_donut.jpg',
       width: 400,
       height: 400,
-      alt: 'Vaniljmunk'
+      alt: 'Lunchmunk'
     },
   },
 
@@ -69,7 +67,7 @@ const products = [
     amount: 0,
     category: 'Fruity',
     img: {
-      url: 'pictures/munk3.png',
+      url: 'pictures/strawberry.jpg',
       width: 400,
       height: 400,
       alt: 'Jordgubbsmunk'
@@ -84,7 +82,7 @@ const products = [
     amount: 0,
     category: 'sweet',
     img: {
-      url: 'pictures/munk3.png',
+      url: 'pictures/sugar.jpg',
       width: 400,
       height: 400,
       alt: 'Sockermunk'
@@ -99,7 +97,7 @@ const products = [
     amount: 0,
     category: 'sweet',
     img: {
-      url: 'pictures/munk3.png',
+      url: 'pictures/chokolat_frosting.jpg',
       width: 400,
       height: 400,
       alt: 'Munk med chokladglasyr'
@@ -114,7 +112,7 @@ const products = [
     amount: 0,
     category: 'Fruity',
     img: {
-      url: 'pictures/munk3.png',
+      url: 'pictures/blueberry.jpg',
       width: 400,
       height: 400,
       alt: 'Blåbärsmunk'
@@ -123,16 +121,16 @@ const products = [
 
   {
     id: 9,
-    name: 'Saffran',
+    name: 'Ägglikör',
     price: 50,
     rating: 1.5,
     amount: 0,
     category: 'Christmas special',
     img: {
-      url: 'pictures/munk3.png',
+      url: 'pictures/christmas_donut_1.jpg',
       width: 400,
       height: 400,
-      alt: 'Saffransmunk'
+      alt: 'Ägglikör'
     },
   },
 
@@ -144,10 +142,40 @@ const products = [
     amount: 0,
     category: 'Fruity',
     img: {
-      url: 'pictures/munk3.png',
+      url: 'pictures/appel.jpg',
       width: 400,
       height: 400,
       alt: 'Äppelmunk'
+    },
+  },
+
+  {
+    id: 11,
+    name: 'Kärleksmunk',
+    price: 50,
+    rating: 3.5,
+    amount: 0,
+    category: 'Lovely',
+    img: {
+      url: 'pictures/love.jpg',
+      width: 400,
+      height: 400,
+      alt: 'Kärleksmunk'
+    },
+  },
+
+  {
+    id: 12,
+    name: 'Diet',
+    price: 35,
+    rating: 0.5,
+    amount: 0,
+    category: 'diet',
+    img: {
+      url: 'pictures/diet.jpg',
+      width: 400,
+      height: 400,
+      alt: 'Dietmunk'
     },
   },
 ];
@@ -155,6 +183,7 @@ const products = [
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 const ratingsDiv = document.querySelector('#rating');
+const sumDiv = document.querySelector('#sum');
 const productsListDiv = document.querySelector('#products-list');
 const shoppingListDiv = document.querySelector('#shopping-list');
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -164,7 +193,7 @@ const shoppingListDiv = document.querySelector('#shopping-list');
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 function printRatings(){
   ratingsDiv.innerHTML += `
-  <button id="sortByName">Sortera på namn</button>
+  <button class="sortByName" id="sortByName">Sortera på namn</button>
   <button id="sortByPrice">Sortera på pris</button>
   <button id="sortByRating">Sortera på betyg</button>
   <button id="sortByCategory">Sortera på kategori</button>
@@ -309,6 +338,11 @@ function printProductsList(){ //Rensa div:en före utskrift, annars blir det dub
   
   
   //*******************Decrease för varje knapp*******************//
+  const decreaseButtons = document.querySelectorAll('button.decrease');
+  decreaseButtons.forEach(button=>{
+    button.addEventListener('click', decreaceProductCount); //console.log('minskat antal');
+  });
+
 }
 printProductsList();
 
@@ -328,15 +362,12 @@ function increaceProductCount(e){
   //console.log('du vill köpa munkar: ');
   //console.log(products[selectedProductIndex].amount);
     
-  addArticle(products[selectedProductIndex]); //lägger till i den tomma arrayen när functionen addArticle nedan körs
-  //console.log((products[selectedProductIndex])+(products[selectedProductIndex].amount)); //lägger till i den tomma arrayen när functionen addArticle nedan körs
+  adjustArticle(products[selectedProductIndex]); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
+  //console.log((products[selectedProductIndex])+(products[selectedProductIndex].amount)); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
   //Nu skrivs bara en munk ut i consolen, den måste räkna upp också
     
   printProductsList();
-
-
-
-    //event.target.focus();
+  //event.target.focus();
 }
 
 //Jag får inte detta att fungera var jag än lägger koden. Fokuset ligger vissserlugen kvar, men knappen slutar att lägga till artiklar.
@@ -345,17 +376,38 @@ this.focus();
 }*/
 
 
+//*******************Decrease för antal knapptryckningar******************* //
+//Decrease
+function decreaceProductCount(e){
+  const productId = Number(e.target.id.replace('decrease-', ''));
+  console.log('clicked on ', productId);
+  /*  console.log(e.target.id);/* <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->*/
+    
+  const selectedProductIndex = products.findIndex(product=>product.id===productId);
+  console.log('Varan har index: ', selectedProductIndex);
+
+  //KONTROLLERA ATT DET INTE ÄR NEGATIVT ANTAL I LISTAN, DET SKA INTE GÅ
+  if(selectedProductIndex === -1){
+    console.error('Det finns inte i listan');
+    return;
+  }
+  products[selectedProductIndex].amount -=1;
+  console.log(products[selectedProductIndex]);
+
+  adjustArticle(products[selectedProductIndex]); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
+
+  printProductsList();
+}
 
 //*******************Increase - lägg nya artiklar i ny array*******************//
 const basket = []
-function addArticle(article){
+function adjustArticle(article){
   //här läggs till i arrayen
   //Skrivs sedan ut som med alla munkar
   //console.log('skicka till basket:', article);
     
   //console.log('detta är nya kundkorgen', basket);
   //console.log('kolla om det finns i basket sedan tidigare. -1 betyder negativt, 0 betyder att det finns:', kundkorg.findIndex(index=>index.id===article.id));
-
 
   const existedProduct=(basket.findIndex(index=>index.id===article.id));
   console.log('kolla om det finns i basket sedan tidigare. undefined betyder negativt, annars skrivs arrayen ut:', basket[existedProduct]);
@@ -389,21 +441,23 @@ function addArticle(article){
     // Skapa ett nytt <p>-element för varje article
     
     shoppingProductCount.innerHTML+=`
-
       <div class="shopping_list">
-        <div class="product" id="product"> Vald munk: ${item.name} </div>          
-        <div class="antal" id="antal">Antal av munksorten: ${item.amount}</div>
+        <div class="product"> Vald munk: ${item.name}</div>     
+        <div class="pic">
+          <img src="${item.img.url}" alt="${item.img.alt}">
+        </div> 
+        <div class="antal">Antal av munksorten: ${item.amount}</div>
         <div class="price">Pris: ${item.price}</div>
         <div class="cost">Summa: ${item.price*item.amount}</div>
+        <div class="line"></div>
       </div>
     `;
     
-      /*denna fungerar!
-      const p = document.createElement('p');
-      p.textContent ="Du har lagt till " + item.name + " Du har " + item.amount + "st i varukorgen. De kostar " + item.price + " kr st. Total kostnad är: " + item.price*item.amount+ " kr";
-          // Lägg till <p> till #utskriftDiv
-          */
-    //shoppingProductCount.appendChild(p);
+    /*
+    sumDiv.innerHTML += `
+    <div id="sum">Summa: ${item.price*item.amount}</div>
+    `;
+    */
   });
 }
 
@@ -425,52 +479,26 @@ function addedProduct (){
 /****************************:.LÄGG TILL I VARUKORG.:/***************************/
 /****************************:.LÄGG TILL I VARUKORG.:/***************************/
 
-//*******************Decrease för varje knapp*******************//
-const decreaseButtons = document.querySelectorAll('button.decrease');
-decreaseButtons.forEach(button=>{
-  button.addEventListener('click', decreaceProductCount); //console.log('minskat antal');
-});
 
-//Decrease
-function decreaceProductCount(e){
-  const productId = Number(e.target.id.replace('decrease-', ''));
-  console.log('clicked on ', productId);
-  /*  console.log(e.target.id);/* <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->*/
-    
-  const selectedProductIndex = products.findIndex(product=>product.id===productId);
-  console.log('Varan har index: ', selectedProductIndex);
-
-  //KONTROLLERA ATT DET INTE ÄR NEGATIVT ANTAL I LISTAN, DET SKA INTE GÅ
-  if(selectedProductIndex === -1){
-    console.error('Det finns inte i listan');
-    return;
-  }
-  products[selectedProductIndex].amount -=1;
-  console.log(products[selectedProductIndex]);
-
-  printProductsList();
-}
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
 function getRatingHtml(rating) {
-  const halfStar = String(rating).indexOf('.');
-  let star = '';
-  for (let i = 0; i < rating; i++) {
-    star += `<span><img src="pictures/star.png" width="20" height="18" loading="lazy" alt="chokolate caramel donut"></span>`;
+  // Dela upp rating i heltals- och decimaldelar
+  const fullStars = Math.floor(rating); // Antal hela stjärnor
+  const isHalfStar = rating % 1 !== 0;  // Kontrollera om det finns en halv
+
+  let star = ''; // Loopa för att skapa hela stjärnor
+  for (let i = 0; i < fullStars; i++) {
+    star += `<span><img src="pictures/star.png" width="20" height="18" loading="lazy" alt="helt stjärna"></span>`;
   }
-  if (halfStar !== -1){
-    star += `<span><img src="pictures/star_half.png" width="20" height="18" loading="lazy" alt="chokolate caramel donut"></span>`;
+
+  if (isHalfStar) { // Lägg till en halv stjärna om det behövs
+    star += `<span><img src="pictures/star_half.png" width="20" height="18" loading="lazy" alt="halv stjärna"></span>`;
   }
+
   return star;
-  
-  /**
-  * 
-  * DEN HÄR FUNKTIONEN LOOPAR OCH SKRIVER UT ÄVEN HALVA STJÄRNOR SOM HELA, PLUS DEN HALVA.
-  * ÅTGÄRDA!
-  * 
-  */
 }
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PRINT-HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/

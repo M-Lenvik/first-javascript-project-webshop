@@ -21,14 +21,18 @@
 </head>
 
 <body>
-    <div class="base">
+    <div class="base" id="base">
     <header>
-        <h1>Gottfrids munkfabrik</h1>
+        <button class ="homeBtn">
+            <a href="#base"><h1>Gottfrids munkfabrik</h1></a>
+        </button>
         
+        <div class="header_container">
         <button class ="menuBtn">
             <a href="#shoping_cart">Kundkorg</a>
         </button>
-        <div>Summa</div>
+        <div id="sum">Summa</div>
+    </div>
     </header>
 
     <div class="rating" id = "rating">
@@ -83,42 +87,119 @@
         </div>
         <div class="line"></div>
         
-            <div class="article-expl">
-                <div class="product">Produkt</div>
-
-                <div class="antal">Antal</div>
-                <div class="price">Styckpris</div>
-                <div clas="cost">Delsumma</div>
-            </div>
-
-            <div class="cart">
-                <div id="shopping-list">
-                    
-                <!--
-                <div class="product" id="product">munk: 
-                <!- -Beställda munkar skrivs här-->
-                
-                <!--
-                <img src="pictures/munk1.png" width="100" height="90" loading="lazy" alt="XXXXXXXXXXX">
-                <div>Chokolate Donut
-                    <div>Smak: Choklad</div>
-                    <div>Storlek: Jumbo</div>
-                </div>
-                - ->
-                </div>
-
-                <div class="antal" id="antal">antal: </div>
-                <div class="price">Pris från javascript</div>
-                <div clas="cost">Summa från javascript
-                    <span>X</span>
-                </div>
-            här
-        -->
-            </div>
+        <div class="article-expl">
+            <div class="product">Produkt</div>
+            <div class="antal">Antal</div>
+            <div class="price">Styckpris</div>
+            <div clas="cost">Delsumma</div>
         </div>
-        <div><button>Använd rabattkod ></button></div>
+
+
+            <div id="shopping-list">
+            
+            <!--
+            <div class="product" id="product">munk: 
+            <!- -Beställda munkar skrivs här-->
+            
+            <!--
+            <img src="pictures/munk1.png" width="100" height="90" loading="lazy" alt="XXXXXXXXXXX">
+            <div>Chokolate Donut
+                <div>Smak: Choklad</div>
+                <div>Storlek: Jumbo</div>
+            </div>
+            - ->
+            </div>
+
+            <div class="antal" id="antal">antal: </div>
+            <div class="price">Pris från javascript</div>
+            <div clas="cost">Summa från javascript
+            <span>X</span>
+            </div>
+            -->
+            </div>
         
+        <div><button>Använd rabattkod ></button></div>
     </article>
 
-</div>
+
+    <form class="order">
+        <h4>Beställningsformulär</h4>
+        <div class="order_form">
+
+            <div class="costumer_info">
+            <label class="input"> Förnamn </label>          
+            <span class="customer_input">
+                <input type="text" placeholder="Skriv in ditt förnamn"><br>
+            </span>
+            </div>
+            
+            <div class="costumer_info">
+            <label class="input"> Efternamn </label>          
+            <span class="customer_input">
+                <input type="text" placeholder="Skriv in ditt efternamn"><br>
+            </span>
+            </div>
+
+            <div class="costumer_info">
+            <label class="input"> Adress </label>          
+            <span class="customer_input">
+                <input type="text" placeholder="Skriv in ditt gatunamn"><br>
+            </span>
+            </div>
+
+            <div class="costumer_info">
+            <label class="input"> Postnummer </label>          
+            <span class="customer_input">
+                <input type="number" placeholder="Skriv in ditt postnummer"><br>
+            </span>
+            </div>
+
+            <div class="costumer_info">
+            <label class="input"> Postort </label>          
+            <span class="customer_input">
+                <input type="text" placeholder="Skriv in din postort"><br>
+            </span>
+            </div>
+
+            <div class="costumer_info">
+            <label class="input"> Portkod </label>          
+            <span class="customer_input">
+                <input type="number" placeholder="Eventuell portkod"><br>
+            </span>
+            </div>
+
+            <div class="costumer_info">
+            <label class="input"> Phone </label>             
+            <span class="customer_input">
+                <input type="tel" placeholder="Phone number"><br>
+            </span>
+            </div>
+        
+            <div class="costumer_info">
+            <label class="input"> Email </label>            
+            <span class="customer_input">
+                <input type="email" placeholder="Email"><br>
+            </span>
+            </div>
+
+            <div class="costumer_info">
+            <label class="input"> Välj betalsätt </label>            
+            <span class="customer_input">
+                <input type="checkbox" id="card" name="card" value="card">
+                <label for="card">Kort</label><br>
+                <input type="checkbox" id="invoice" name="invoice" value="invoice">
+                <label for="invoice">Faktura</label><br>
+            </span>
+            </div>
+
+            
+        
+            <div class="buttons">
+            <input class="order_button" type="button" value="Order">
+            <input class="cancel_button" type="button" value="Cancel">
+            </div>
+        </div>
+      </form>
+
+    
 </body>

@@ -18,10 +18,8 @@ body {
 
 
 header {
-
     border: 2px solid blue;
     margin: 1px;
-    
     h1{ 
         width: 50%;
     }
@@ -116,6 +114,16 @@ header {
     padding-left: 2%;
     padding-right: 2%;
     
+    .line{
+        width: 100%;
+        height: 2px;
+        background-color: #676565;
+        margin-top: 2px;
+        margin-bottom: 5px;
+        grid-column: span 12;
+        position: relative;
+    }
+    
     .cart_heading{
         border: 0px solid purple;
         margin: 1px;
@@ -137,10 +145,7 @@ header {
     .cart{
         border: 2px solid orange;
         margin: 1px;
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        gap: 1em;
-    }
+}
 
     .product{
         grid-column: span 5;
@@ -164,30 +169,25 @@ header {
     }
 
         .shopping_list{
-
-            padding-right: 5%;
             display: grid;
-            justify-content: space-between;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1em;    
             background-color: aqua;
 
             .product{
                 background-color: pink;
-                width: 500px;
             }
         
             .antal{
                 background-color: azure;
-                width: 150px;
             }
 
             .price{
                 background-color: burlywood;
-                width: 200px;
             }
 
             .cost{
                 background-color: lightgreen;
-                width: 250px;
             }
 
             img{
