@@ -204,8 +204,10 @@ function printRatings(){
 printRatings();
 
   /*
+  //TO DO
+  //DETTA MÅSTE FUNGERA
   if (evt.keyCode==13){ //detta är koden för enter
-  console.log('ratingButton trycks på'); //DETTA MÅSTE FUNGERA
+  console.log('ratingButton trycks på'); 
   }*/
 
 /*********************Sort by Name********************/
@@ -238,7 +240,7 @@ function sortProductsByName() {
     });
   console.log("Fallande namnordning:", products);
   }
-  nameIsDescending = !nameIsDescending;
+  nameIsDescending = !nameIsDescending; // Växla sorteringsordning för nästa gång
   printProductsList();
 }
 /*********************Sort by Price********************/
@@ -297,11 +299,12 @@ function sortProductsByCategory() {
   categoryIsDescending = !categoryIsDescending;
   printProductsList();
 }
-/*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA SLUT.:*~*:._.:*~*:._.:*~*:._.:*~*/
+
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.MUNKARNA I HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
-function printProductsList(){ //Rensa div:en före utskrift, annars blir det dubbelt vid knapptryck
-  productsListDiv.innerHTML='';
+function printProductsList(){
+  productsListDiv.innerHTML=''; //Rensa div:en före utskrift, annars blir det dubbelt vid knapptryck
 
   products.forEach(product=>{
     productsListDiv.innerHTML += `
@@ -309,6 +312,7 @@ function printProductsList(){ //Rensa div:en före utskrift, annars blir det dub
         <div class="donut_description">
           <h3>${product.name}</h3>
           <p>${product.price} kr</p>
+          <p>${product.amount} st i varukorgen</p>
           <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
         </div>
         <div class="pic">
@@ -332,44 +336,36 @@ function printProductsList(){ //Rensa div:en före utskrift, annars blir det dub
   //*******************Increase för varje knapp*******************//
   const increaseButtons = document.querySelectorAll('button.increase');
   increaseButtons.forEach(button=>{
-    button.addEventListener('click', increaceProductCount);
-    //console.log('ökat antal');
+    button.addEventListener('click', increaceProductCount); //console.log('ökat antal');
   });
-  
   
   //*******************Decrease för varje knapp*******************//
   const decreaseButtons = document.querySelectorAll('button.decrease');
   decreaseButtons.forEach(button=>{
     button.addEventListener('click', decreaceProductCount); //console.log('minskat antal');
   });
-
 }
 printProductsList();
 
 //*******************Increase för antal knapptryckningar*******************//
 function increaceProductCount(e){
-  const productId = Number(e.target.id.replace('increase-', ''));
-  //console.log('clicked on ', productId);
-
-  const selectedProductIndex = products.findIndex(product=>product.id===productId);
-  //console.log('Varan har index: ', selectedProductIndex);
+  const productId = Number(e.target.id.replace('increase-', '')); //console.log('clicked on ', productId);
+  const selectedProductIndex = products.findIndex(product=>product.id===productId); //console.log('Varan har index: ', selectedProductIndex);
 
   if(selectedProductIndex === -1){ //Vald article måste ha minst index 0
     console.error('Det finns inte i listan');
     return;
   }
-  products[selectedProductIndex].amount +=1; //öka antalet med 1 för varje knapptryck
-  //console.log('du vill köpa munkar: ');
-  //console.log(products[selectedProductIndex].amount);
+
+  products[selectedProductIndex].amount +=1; //öka antalet med 1 för varje knapptryck //console.log('du vill köpa munkar: ' + (products[selectedProductIndex].amount));
     
-  adjustArticle(products[selectedProductIndex]); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
-  //console.log((products[selectedProductIndex])+(products[selectedProductIndex].amount)); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
-  //Nu skrivs bara en munk ut i consolen, den måste räkna upp också
-    
+  adjustArticle(products[selectedProductIndex]); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs //console.log((products[selectedProductIndex])+(products[selectedProductIndex].amount)); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
+
   printProductsList();
-  //event.target.focus();
+  //event.target.focus(); //TO DO - fokus kvar på knappen
 }
 
+//TO DO
 //Jag får inte detta att fungera var jag än lägger koden. Fokuset ligger vissserlugen kvar, men knappen slutar att lägga till artiklar.
 /*function increaceProductCount(){
 this.focus();
@@ -379,27 +375,24 @@ this.focus();
 //*******************Decrease för antal knapptryckningar******************* //
 //Decrease
 function decreaceProductCount(e){
-  const productId = Number(e.target.id.replace('decrease-', ''));
-  console.log('clicked on ', productId);
-  /*  console.log(e.target.id);/* <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->*/
-    
-  const selectedProductIndex = products.findIndex(product=>product.id===productId);
-  console.log('Varan har index: ', selectedProductIndex);
+  const productId = Number(e.target.id.replace('decrease-', '')); //console.log('clicked on ', productId); /*console.log(e.target.id);/* <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->*/
+  const selectedProductIndex = products.findIndex(product=>product.id===productId); //console.log('Varan har index: ', selectedProductIndex);
 
-  //KONTROLLERA ATT DET INTE ÄR NEGATIVT ANTAL I LISTAN, DET SKA INTE GÅ
-  if(selectedProductIndex === -1){
-    console.error('Det finns inte i listan');
+  if(products[selectedProductIndex].amount <= 0){ //kontrollera att det inte finns negativt antal i listan
+    products[selectedProductIndex].amount=0; //om det av någon anledning skulle hamna på minus antal sätts det tillbaka till 0.
+    console.error('Det går inte att köpa negativt antal av munkar');
     return;
   }
-  products[selectedProductIndex].amount -=1;
-  console.log(products[selectedProductIndex]);
 
-  adjustArticle(products[selectedProductIndex]); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
+  else{
+    products[selectedProductIndex].amount -=1; //console.log(products[selectedProductIndex]);
 
+    adjustArticle(products[selectedProductIndex]); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
+  }
   printProductsList();
 }
 
-//*******************Increase - lägg nya artiklar i ny array*******************//
+//*******************Increase - lägg nya artiklar i ny array - handledning med Jenny*******************//
 const basket = []
 function adjustArticle(article){
   //här läggs till i arrayen
@@ -428,7 +421,7 @@ function adjustArticle(article){
   //function för att skriva ut
   //kalla på funtionen fölr att skriva ut i html
   basket.forEach(item => {
-    console.log(item.name + " har " + item.amount + "st i varukorgen.");
+    console.log(item.name + " har " + item.amount + "st i varukorgen.");  
   });
 
   //const shoppingProductCount = document.querySelector('#utskriftDiv'); //Talar om var den ska skrivas ut
@@ -437,31 +430,33 @@ function adjustArticle(article){
   //shoppingProductCount.innerHTML = 'Du har lagt ' + article.amount + 'st ' + article.name + ' i varukorgen'; 
   shoppingProductCount.innerHTML = ''; 
 
-  basket.forEach(item => {
-    // Skapa ett nytt <p>-element för varje article
-    
-    shoppingProductCount.innerHTML+=`
-      <div class="shopping_list">
-        <div class="product"> Vald munk: ${item.name}</div>     
-        <div class="pic">
-          <img src="${item.img.url}" alt="${item.img.alt}">
-        </div> 
-        <div class="antal">Antal av munksorten: ${item.amount}</div>
-        <div class="price">Pris: ${item.price}</div>
-        <div class="cost">Summa: ${item.price*item.amount}</div>
-        <div class="line"></div>
-      </div>
-    `;
-    
-    /*
+  let totalSum = 0;
+
+  basket.forEach(item => {    
+    if(item.amount>0){ //skriv bara ut i shoppingkorgen om det katiskt finns munkar i den
+      totalSum += item.amount*item.price;
+
+      shoppingProductCount.innerHTML+=`
+        <div class="shopping_list">
+          <div class="product"> Vald munk: ${item.name}</div>     
+          <div class="pic">
+            <img src="${item.img.url}" alt="${item.img.alt}">
+          </div> 
+          <div class="antal">Antal av munksorten: ${item.amount}</div>
+          <div class="price">Pris: ${item.price}</div>
+          <div class="cost">Summa: ${item.price*item.amount}</div>
+          <div class="line"></div>
+        </div>
+      `;
+    }
+
+    sumDiv.innerHTML = ''; 
     sumDiv.innerHTML += `
-    <div id="sum">Summa: ${item.price*item.amount}</div>
+    <div id="sum">Summa: ${totalSum}</div>
     `;
-    */
   });
 }
 
-//<div id="product">${item.name}</div>
 function printShoppinglist(){
   shoppingListDiv.innerHTML += `
     <div id="shopping_list">
@@ -477,9 +472,6 @@ function addedProduct (){
   shoppingProductCount.innerHTML = 'Du har lagt X antal munkar i varukorgen'; 
 }
 /****************************:.LÄGG TILL I VARUKORG.:/***************************/
-/****************************:.LÄGG TILL I VARUKORG.:/***************************/
-
-
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
@@ -491,13 +483,12 @@ function getRatingHtml(rating) {
 
   let star = ''; // Loopa för att skapa hela stjärnor
   for (let i = 0; i < fullStars; i++) {
-    star += `<span><img src="pictures/star.png" width="20" height="18" loading="lazy" alt="helt stjärna"></span>`;
+    star += `<img src="pictures/star.png" width="20" height="18" loading="lazy" alt="helt stjärna">`;
   }
 
   if (isHalfStar) { // Lägg till en halv stjärna om det behövs
-    star += `<span><img src="pictures/star_half.png" width="20" height="18" loading="lazy" alt="halv stjärna"></span>`;
+    star += `<img src="pictures/star_half.png" width="20" height="18" loading="lazy" alt="halv stjärna">`;
   }
-
   return star;
 }
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
