@@ -24,10 +24,10 @@ header {
     border: 2px solid blue;
     background-color: $client-light-blue;
     position: fixed;
-    display: flex;
+    display: block;
     z-index: 999;
     width: 100vw;
-    height: 4em;
+    height: 6.5em;
     justify-content: space-around;
 
     .homeBtn {
@@ -38,6 +38,7 @@ header {
         border: none;
         border-radius: 0;
         text-decoration: none;
+        display: block;
 
         h1{ 
         font-size: 2em;
@@ -51,7 +52,7 @@ header {
         padding: 0;
         position: relative;
         display: flex;
-        float: right;
+        float: left;
         justify-content: space-around;
         align-items: center;
     }
@@ -63,8 +64,8 @@ h2{
 
 .rating{
     width: 100%;
-    border: 2px solid red;
-    margin-top: 4em;
+    background-color: #ccc;
+    margin-top: 6.5em;
     position: relative;
     display: flex;
     float: right;
@@ -198,17 +199,7 @@ h2{
 }
 
 .product{
-    grid-column: span 1;
-    position: relative;
-}
-
-.product{
-    grid-column: span 3;
-    position: relative;
-}
-
-.antal{
-    grid-column: span 1;
+    grid-column: span 4;
     position: relative;
 }
 
@@ -230,8 +221,8 @@ h2{
     gap: 1em;
 
     .product{
-        background-color: pink;
-        grid-column: span 1;
+        background-color: rgb(211, 91, 111);
+        grid-column: span 2;
     }
 
     .pic {
@@ -245,17 +236,17 @@ h2{
             height: 100%;
         }
     }
-    
-    .antal{
-    background-color: azure;
-    }
 
     .price{
         background-color: burlywood;
+        grid-column: span 1;
+        position: relative;
     }
 
     .cost{
         background-color: lightgreen;
+        grid-column: span 1;
+        position: relative;
     }
 
     .line{

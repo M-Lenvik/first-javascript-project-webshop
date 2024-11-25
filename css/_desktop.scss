@@ -142,23 +142,18 @@ header {
     }
 
     .product {
-        grid-column: span 5;
-        position: relative;
-    }
-
-    .antal {
-        grid-column: span 3;
+        grid-column: span 6;
         position: relative;
     }
 
     .price {
-        grid-column: span 2;
+        grid-column: span 3;
         position: relative;
 
     }
 
     .cost {
-        grid-column: span 2;
+        grid-column: span 3;
         position: relative;
     }
 
@@ -170,7 +165,7 @@ header {
 
         .product {
             background-color: plum;
-            grid-column: span 2;
+            grid-column: span 3;
         }
 
         .pic {

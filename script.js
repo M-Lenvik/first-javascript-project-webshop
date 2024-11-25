@@ -203,12 +203,9 @@ function printRatings() {
 }
 printRatings();
 
-/*
-//TO DO
-//DETTA MÅSTE FUNGERA
-if (evt.keyCode==13){ //detta är koden för enter
-console.log('ratingButton trycks på'); 
-}*/
+function sortFocus(){
+  this.focus();
+}
 
 /*********************Sort by Name********************/
 const sortNameButton = document.querySelector('#sortByName');
@@ -351,6 +348,7 @@ printProductsList();
 function increaceProductCount(e) {
   const productId = Number(e.target.id.replace('increase-', '')); //console.log('clicked on ', productId);
   const selectedProductIndex = products.findIndex(product => product.id === productId); //console.log('Varan har index: ', selectedProductIndex);
+  const clickedButtonId = e.target.id; //variabel för att kunna behålla fokus på knappen
 
   if (selectedProductIndex === -1) { //Vald article måste ha minst index 0
     console.error('Det finns inte i listan');
@@ -362,21 +360,15 @@ function increaceProductCount(e) {
   adjustArticle(products[selectedProductIndex]); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs //console.log((products[selectedProductIndex])+(products[selectedProductIndex].amount)); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
 
   printProductsList();
-  //event.target.focus(); //TO DO - fokus kvar på knappen
+  document.querySelector(`#${clickedButtonId}`).focus(); //fokus ligger kvar på knappen vid tryck med enter
 }
-
-//TO DO
-//Jag får inte detta att fungera var jag än lägger koden. Fokuset ligger vissserlugen kvar, men knappen slutar att lägga till artiklar.
-/*function increaceProductCount(){
-this.focus();
-}*/
-
 
 //*******************Decrease för antal knapptryckningar******************* //
 //Decrease
 function decreaceProductCount(e) {
   const productId = Number(e.target.id.replace('decrease-', '')); //console.log('clicked on ', productId); /*console.log(e.target.id);/* <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->*/
   const selectedProductIndex = products.findIndex(product => product.id === productId); //console.log('Varan har index: ', selectedProductIndex);
+  const clickedDecreaseButton = e.target.id;
 
   if (products[selectedProductIndex].amount <= 0) { //kontrollera att det inte finns negativt antal i listan
     products[selectedProductIndex].amount = 0; //om det av någon anledning skulle hamna på minus antal sätts det tillbaka till 0.
@@ -390,6 +382,7 @@ function decreaceProductCount(e) {
     adjustArticle(products[selectedProductIndex]); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
   }
   printProductsList();
+  document.querySelector(`#${clickedDecreaseButton}`).focus();
 }
 
 //*******************Increase - lägg nya artiklar i ny array - handledning med Jenny*******************//
@@ -416,11 +409,10 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
 
       shoppingProductCount.innerHTML += `
         <div class="shopping_list">
-          <div class="product"> Vald munk: ${item.name}</div>     
+          <div class="product">${item.name} ${item.amount} st</div>     
           <div class="pic">
             <img src="${item.img.url}" alt="${item.img.alt}">
           </div> 
-          <div class="antal">Antal av munksorten: ${item.amount}</div>
           <div class="price">Pris: ${item.price}</div>
           <div class="cost">Summa: ${item.price * item.amount}</div>
           <div class="line"></div>
