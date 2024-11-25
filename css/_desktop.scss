@@ -9,7 +9,7 @@ $client-black: rgb(0, 0, 0);
 
 @function rem($size) {
     @return calc($size / 16) * 1rem;
- }
+}
 
 
 body {
@@ -20,32 +20,33 @@ body {
 header {
     border: 2px solid blue;
     margin: 1px;
-    h1{ 
+
+    h1 {
         width: 50%;
     }
 }
 
-.rating{
+.rating {
     width: 60%;
     border: 2px solid red;
 }
 
-.donuts{
+.donuts {
     border: 2px dotted black;
     margin-left: 0;
     width: 100vw;
-    
-    .donut{
+
+    .donut {
         border: 2px solid brown;
         margin-top: 15px;
         margin-left: 25vw;
         width: 50vw;
-        
 
 
-        .donut_description{
 
-            h3{
+        .donut_description {
+
+            h3 {
                 font-size: 2em;
             }
         }
@@ -108,31 +109,31 @@ header {
 
 */
 
-.shoping_cart{
+.shoping_cart {
     border: 2px solid green;
     margin-top: 15px;
     padding-left: 2%;
     padding-right: 2%;
-    
-    .line{
+
+    .line {
         background-color: #676565;
         margin-top: 2px;
         margin-bottom: 5px;
         grid-column: span 12;
         position: relative;
     }
-    
-    .cart_heading{
+
+    .cart_heading {
         border: 0px solid purple;
         margin: 1px;
         background-color: $client-pink;
 
-        h4{
+        h4 {
             font-size: 2em;
         }
     }
 
-    .article-expl{
+    .article-expl {
         display: grid;
         position: sticky;
         grid-template-columns: repeat(12, 1fr);
@@ -140,64 +141,64 @@ header {
         border: 2px solid blue;
     }
 
-    .product{
+    .product {
         grid-column: span 5;
         position: relative;
     }
 
-    .antal{
+    .antal {
         grid-column: span 3;
         position: relative;
     }
 
-    .price{
+    .price {
         grid-column: span 2;
         position: relative;
 
     }
 
-    .cost{
+    .cost {
         grid-column: span 2;
         position: relative;
     }
 
-        .shopping_list{
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1em;    
-            background-color: aqua;
+    .shopping_list {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 1em;
+        background-color: aqua;
 
-            .product{
-                background-color: plum;
-                grid-column: span 2;
-            }
-        
-            .pic {
-                grid-column: span 3;
-                position: relative;
-                width: 50%;
-            
-                img {
-                    object-fit: cover;
-                    width: 100%;
-                    height: 100%;
-                }
-            }
+        .product {
+            background-color: plum;
+            grid-column: span 2;
+        }
 
-            .antal{
-                background-color: azure;
-            }
+        .pic {
+            grid-column: span 3;
+            position: relative;
+            width: 50%;
 
-            .price{
-                background-color: burlywood;
-            }
-
-            .cost{
-                background-color: lightgreen;
-            }
-
-            img{
-                margin-right: 12%;
+            img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
             }
         }
+
+        .antal {
+            background-color: azure;
+        }
+
+        .price {
+            background-color: burlywood;
+        }
+
+        .cost {
+            background-color: lightgreen;
+        }
+
+        img {
+            margin-right: 12%;
+        }
+    }
 }
