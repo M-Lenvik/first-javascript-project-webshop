@@ -27,12 +27,12 @@ header {
     display: block;
     z-index: 999;
     width: 100vw;
-    height: 6.5em;
+    height: 7em;
     justify-content: space-around;
 
     .homeBtn {
         background-color: transparent;
-        height: 4em;
+        height: 4.5em;
         width: fit-content;
         white-space: nowrap;
         border: none;
@@ -55,6 +55,10 @@ header {
         float: left;
         justify-content: space-around;
         align-items: center;
+
+        .sum{
+            padding-bottom: 0.5em;
+        }
     }
 }
 
@@ -65,7 +69,7 @@ h2{
 .rating{
     width: 100%;
     background-color: #ccc;
-    margin-top: 6.5em;
+    margin-top: 7em;
     position: relative;
     display: flex;
     float: right;
@@ -286,25 +290,4 @@ h2{
             grid-column: span 5;
         }
     }
-}
-
-
-
-
-
-const day = new Date();
-const hour = day.getHours(); // Hämta timmen som ett heltal
-const minutes = day.getMinutes(); // Hämta minuter som ett heltal
-
-console.log ('Klockan är ' + hour +':'+ minutes);
-
-// Kontrollera att det är måndag och att klockan är efter 13:00
-if (day.getDay() === 2 && (hour > 13 || (hour === 13 && minutes > 0))) {
-  products.forEach(product => {
-    product.price = Math.round(product.price * 1.1); // Öka priset med 10%
-  });
-  console.log('Måndagspriser tillämpade:', products);
-} 
-else {
-  console.log('Det är inte efter kl. 13 på måndag.');
 }

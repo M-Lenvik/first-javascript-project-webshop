@@ -198,18 +198,14 @@ const dayOfWeek = day.getDay(); // Hämta veckodag (0 = söndag, 6 = lördag)
 console.log ('Klockan är ' + hour +':'+ minutes);
 
 /*************************Måndagsrabatt*************************/
-//Kontrollera att det är måndag och att klockan är efter 13:00
-const mondayDiscount = dayOfWeek === 2 && ((hour > 13 || (hour === 13 && minutes > 0)) && ((hour < 15 ) || (hour === 15 && minutes < 40)));
+//Kontrollera att det är måndag och att klockan är efter 10:00
+const mondayDiscount = dayOfWeek === 2 && ((hour > 18 || (hour === 18 && minutes > 1)) && ((hour < 19 ) || (hour === 19 && minutes < 0)));
 if (mondayDiscount) {
   products.forEach(product => {
     product.price = Math.round(product.price * 0.9); // Öka priset med 10%
-  });
-  //console.log('Måndagspriser tillämpade:', products);
+  }); //console.log('Måndagspriser tillämpade:', products);
 }
-else {
-  //console.log("Det är inte måndagsrabatt nu.");
-}
-/*************************Måndagsrabatt*************************/
+
 
 /*************************Helgpåslag*************************/
   //Kontrollera om det är helgpriser. Fredagar efter kl. 15 och fram till natten mellan söndag och måndag kl. 03.00 tillkommer ett helgpåslag på 15 % på alla munkar. 
@@ -266,8 +262,7 @@ function sortProductsByName() {
         return 1;
       }
       return 0;
-    });
-    //console.log("Stigande namnordning:", products);
+    }); //console.log("Stigande namnordning:", products);
   }
   else {
     const sorted = products.sort((product1, product2) => {
@@ -278,8 +273,7 @@ function sortProductsByName() {
         return -1;
       }
       return 0;
-    });
-    //console.log("Fallande namnordning:", products);
+    }); //console.log("Fallande namnordning:", products);
   }
   nameIsDescending = !nameIsDescending; // Växla sorteringsordning för nästa gång
   printProductsList();
@@ -451,51 +445,28 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   basket.forEach(item => {
     if (item.amount > 0) { //skriv bara ut i shoppingkorgen om det fatiskt finns munkar i den
       
+    //*************************Rabatt vid storköp*************************/
+    let discountedPrice = item.price;
+    if (item.amount >= 10) {
+      discountedPrice = Math.round(item.price * 0.9);
+      console.log('Beställning på fler än 10st ger 10% rabatt på den sorten');
+    }
+    totalSum += item.amount * discountedPrice; //Lägg till kostnaden (med eventuell rabatt) till totalSumman
+    //*************************Rabatt vid storköp*************************/
 
-      //*************************Rabatt vid storköp*************************/
-      let discountedPrice = item.price;
-      if (item.amount >= 10) {
-        discountedPrice = Math.round(item.price * 0.9);
-        console.log('Beställning på fler än 10st ger 10% rabatt på den sorten');
-      }
-      totalSum += item.amount * discountedPrice; //Lägg till kostnaden (med eventuell rabatt) till totalSumman
-      //*************************Rabatt vid storköp*************************/
+    //*************************Gratis frakt vid storköp*************************/
+    let freeDelivery = basket.reduce((sum, item) => sum + Math.round(item.amount), 0);
+    let shippingFee = 0;
 
-      //*************************Gratis frakt vid storköp*************************/
-      let freeDelivery = basket.reduce((sum, item) => sum + item.amount, 0);
-      let shippingFee = 0;
-
-      if (freeDelivery >= 15) {
-        shippingFee += 0;
-        console.log('Fler än 15 ger gratis frakt. Fraktavgift:' + shippingFee);
-      }
-      else {
-        shippingFee = (totalSum * 0.1) + 25;
-        console.log('Färre än 15 kostar frakten. Fraktavgift: ' + shippingFee);
-      }
-      //*************************Gratis frakt vid storköp*************************/
-
-    
-      //🤔🤔🤔🤔🤔🤔🤔🤔
-      /**
-       * Jag får ut rätt meddelande beroende på tidpunkt i consolen, 
-       * men jag förstår inte hur jag ska få ut <div> i html? Försöker på rad 450.
-       * regler för variabel mondayDiscount sätts på rad 199
-       */
-      // Element för måndagsrabatt
-      const mondayDiscountDiv = document.querySelector("#mondayDiscount");
-      if (mondayDiscount===true) { // Visa rabattmeddelandet
-        // mondayDiscountDiv.style.display = "block"; // Visa div för måndagsrabatt
-        //console.log('Måndagspriser SKA skrivas ut i varukorgen');
-      }
-      else {
-        //console.log('Det är inte efter kl. 13 på måndag.');
-        
-        if (mondayDiscount===false) { //Göm rabattmeddelandet
-        //mondayDiscountDiv.style.display = "none"; // Dölj div för måndagsrabatt
-        //console.log('Måndagspriser ska INTE skrivas ut i varukorgen');
-        }
-      }
+    if (freeDelivery >= 15) {
+      shippingFee += 0;
+      console.log('Fler än 15 ger gratis frakt. Fraktavgift:' + shippingFee);
+    }
+    else {
+      shippingFee = (totalSum * 0.1) + 25;
+      console.log('Färre än 15 kostar frakten. Fraktavgift: ' + shippingFee);
+    }
+    //*************************Gratis frakt vid storköp*************************/
 
       shoppingProductCount.innerHTML += `
         <div class="shopping_list">
@@ -510,6 +481,17 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
         </div>
       `;
     }
+
+    /*************************Måndagsrabatt*************************/
+    // Element för måndagsrabatt
+    const mondayDiscountDiv = document.querySelector("#mondayDiscount");
+    if (mondayDiscount===true) { // Visa rabattmeddelandet
+      mondayDiscountDiv.style.display = "block"; // Visa div för måndagsrabatt //console.log('Måndagspriser SKA skrivas ut i varukorgen');
+    }
+    else { //Göm rabattmeddelandet
+      mondayDiscountDiv.style.display = "none"; // Dölj div för måndagsrabatt //console.log('Måndagspriser ska INTE skrivas ut i varukorgen');
+    }
+
 
     sumDiv.innerHTML = '';
     sumDiv.innerHTML += `
