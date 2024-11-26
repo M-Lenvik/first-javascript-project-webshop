@@ -204,10 +204,10 @@ if (mondayDiscount) {
   products.forEach(product => {
     product.price = Math.round(product.price * 0.9); // Öka priset med 10%
   });
-  console.log('Måndagspriser tillämpade:', products);
+  //console.log('Måndagspriser tillämpade:', products);
 }
 else {
-  console.log("Det är inte måndagsrabatt nu.");
+  //console.log("Det är inte måndagsrabatt nu.");
 }
 /*************************Måndagsrabatt*************************/
 
@@ -224,10 +224,10 @@ if (isWeekend) { //Tillämpa helgpåslag på priserna
     product.price = Math.round(product.price * 1.15); // Öka priset med 15 %
   });
 
-  console.log("Helgpåslag tillämpat:", products);
+  //console.log("Helgpåslag tillämpat:", products);
 } 
 else {
-  console.log("Inget helgpåslag på vardagen.");
+  //console.log("Inget helgpåslag på vardagen.");
 }
 //*************************Helgpåslag*************************/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -267,7 +267,7 @@ function sortProductsByName() {
       }
       return 0;
     });
-    console.log("Stigande namnordning:", products);
+    //console.log("Stigande namnordning:", products);
   }
   else {
     const sorted = products.sort((product1, product2) => {
@@ -279,7 +279,7 @@ function sortProductsByName() {
       }
       return 0;
     });
-    console.log("Fallande namnordning:", products);
+    //console.log("Fallande namnordning:", products);
   }
   nameIsDescending = !nameIsDescending; // Växla sorteringsordning för nästa gång
   printProductsList();
@@ -293,11 +293,11 @@ let priceIsDescending = false; // Håller koll på nuvarande sorteringsordning
 function sortProductsByPrice() {
   if (priceIsDescending === true) { // Sortera i stigande ordning
     products.sort((product1, product2) => product1.price - product2.price);
-    console.log("Omsorterat i stigande ordning:", products);
+    //console.log("Omsorterat i stigande ordning:", products);
   }
   else { // Sortera i fallande ordning
     products.sort((product1, product2) => product2.price - product1.price);
-    console.log("Omsorterat i fallande ordning:", products);
+    //console.log("Omsorterat i fallande ordning:", products);
   }
   priceIsDescending = !priceIsDescending; // Växla sorteringsordning för nästa gång
   printProductsList();
@@ -310,11 +310,11 @@ let ratingIsDescending = false;
 function sortProductsByRating() {
   if (ratingIsDescending === true) {
     products.sort((product1, product2) => product1.rating - product2.rating);
-    console.log("Omsorterat i stigande ordning:", products);
+    //console.log("Omsorterat i stigande ordning:", products);
   }
   else {
     products.sort((product1, product2) => product2.rating - product1.rating);
-    console.log("Omsorterat i fallande ordning:", products);
+    //console.log("Omsorterat i fallande ordning:", products);
   }
   ratingIsDescending = !ratingIsDescending;
   printProductsList();
@@ -329,13 +329,13 @@ function sortProductsByCategory() {
     const sorted = products.sort((product1, product2) => {
       return product1.category === product2.category ? 0 : product1.category < product2.category ? -1 : 1;
     });
-    console.log("Omsorterat i stigande ordning:", products);
+    //console.log("Omsorterat i stigande ordning:", products);
   }
   else {
     const sorted = products.sort((product1, product2) => {
       return product1.category === product2.category ? 0 : product1.category < product2.category ? 1 : -1;
     });
-    console.log("Omsorterat i fallande ordning:", products);
+    //console.log("Omsorterat i fallande ordning:", products);
   }
   categoryIsDescending = !categoryIsDescending;
   printProductsList();
@@ -451,15 +451,30 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   basket.forEach(item => {
     if (item.amount > 0) { //skriv bara ut i shoppingkorgen om det fatiskt finns munkar i den
       
+
+      //*************************Rabatt vid storköp*************************/
       let discountedPrice = item.price;
       if (item.amount >= 10) {
         discountedPrice = Math.round(item.price * 0.9);
         console.log('Beställning på fler än 10st ger 10% rabatt på den sorten');
       }
       totalSum += item.amount * discountedPrice; //Lägg till kostnaden (med eventuell rabatt) till totalSumman
+      //*************************Rabatt vid storköp*************************/
 
+      //*************************Gratis frakt vid storköp*************************/
+      let freeDelivery = basket.reduce((sum, item) => sum + item.amount, 0);
+      let shippingFee = 0;
 
-      
+      if (freeDelivery >= 15) {
+        shippingFee += 0;
+        console.log('Fler än 15 ger gratis frakt. Fraktavgift:' + shippingFee);
+      }
+      else {
+        shippingFee = (totalSum * 0.1) + 25;
+        console.log('Färre än 15 kostar frakten. Fraktavgift: ' + shippingFee);
+      }
+      //*************************Gratis frakt vid storköp*************************/
+
     
       //🤔🤔🤔🤔🤔🤔🤔🤔
       /**
@@ -471,14 +486,14 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
       const mondayDiscountDiv = document.querySelector("#mondayDiscount");
       if (mondayDiscount===true) { // Visa rabattmeddelandet
         // mondayDiscountDiv.style.display = "block"; // Visa div för måndagsrabatt
-        console.log('Måndagspriser SKA skrivas ut i varukorgen');
+        //console.log('Måndagspriser SKA skrivas ut i varukorgen');
       }
       else {
-        console.log('Det är inte efter kl. 13 på måndag.');
+        //console.log('Det är inte efter kl. 13 på måndag.');
         
         if (mondayDiscount===false) { //Göm rabattmeddelandet
         //mondayDiscountDiv.style.display = "none"; // Dölj div för måndagsrabatt
-        console.log('Måndagspriser ska INTE skrivas ut i varukorgen');
+        //console.log('Måndagspriser ska INTE skrivas ut i varukorgen');
         }
       }
 
