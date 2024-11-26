@@ -399,7 +399,8 @@ function increaceProductCount(e) {
     return;
   }
 
-  products[selectedProductIndex].amount += 1; //öka antalet med 1 för varje knapptryck //console.log('du vill köpa munkar: ' + (products[selectedProductIndex].amount));
+  const amountOfProduct = products[selectedProductIndex];
+  amountOfProduct.amount += 1; //öka antalet med 1 för varje knapptryck //console.log('du vill köpa munkar: ' + (products[selectedProductIndex].amount));
 
   adjustArticle(products[selectedProductIndex]); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs //console.log((products[selectedProductIndex])+(products[selectedProductIndex].amount)); //lägger till i den tomma arrayen när functionen adjustArticle nedan körs
 
@@ -449,15 +450,23 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   shoppingProductCount.innerHTML = '';
   basket.forEach(item => {
     if (item.amount > 0) { //skriv bara ut i shoppingkorgen om det fatiskt finns munkar i den
-      totalSum += item.amount * item.price;
+      
+      let discountedPrice = item.price;
+      if (item.amount >= 10) {
+        discountedPrice = Math.round(item.price * 0.9);
+        console.log('Beställning på fler än 10st ger 10% rabatt på den sorten');
+      }
+      totalSum += item.amount * discountedPrice; //Lägg till kostnaden (med eventuell rabatt) till totalSumman
 
+
+      
     
-//🤔🤔🤔🤔🤔🤔🤔🤔
-/**
- * Jag får ut rätt meddelande beroende på tidpunkt i consolen, 
- * men jag förstår inte hur jag ska få ut <div> i html? Försöker på rad 450.
- * regler för variabel mondayDiscount sätts på rad 199
- */
+      //🤔🤔🤔🤔🤔🤔🤔🤔
+      /**
+       * Jag får ut rätt meddelande beroende på tidpunkt i consolen, 
+       * men jag förstår inte hur jag ska få ut <div> i html? Försöker på rad 450.
+       * regler för variabel mondayDiscount sätts på rad 199
+       */
       // Element för måndagsrabatt
       const mondayDiscountDiv = document.querySelector("#mondayDiscount");
       if (mondayDiscount===true) { // Visa rabattmeddelandet
@@ -481,7 +490,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
             <img src="${item.img.url}" alt="${item.img.alt}">
           </div> 
           <div class="price">Pris: ${item.price}</div>
-          <div class="cost">Summa: ${item.price * item.amount}</div>
+          <div class="cost">Summa: ${totalSum}</div>
           <div class="line"></div>
         </div>
       `;
