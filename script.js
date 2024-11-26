@@ -190,19 +190,24 @@ const shoppingListDiv = document.querySelector('#shopping-list');
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
+
 const day = new Date();
 const hour = day.getHours(); // Hämta timmen som ett heltal
 const minutes = day.getMinutes(); // Hämta minuter som ett heltal
 console.log ('Klockan är ' + hour +':'+ minutes);
 
+/*************************Måndagsrabatt*************************/
 // Kontrollera att det är måndag och att klockan är efter 13:00
-const mondayDiscount = day.getDay() === 2 && ((hour > 13 || (hour === 13 && minutes > 0)) && ((hour < 15 ) || (hour === 15 && minutes < 20)));
+const mondayDiscount = day.getDay() === 2 && ((hour > 13 || (hour === 13 && minutes > 0)) && ((hour < 16 ) || (hour === 16 && minutes < 20)));
 if (mondayDiscount) {
   products.forEach(product => {
-    product.price = Math.round(product.price * 1.1); // Öka priset med 10%
+    product.price = Math.round(product.price * 0.9); // Öka priset med 10%
   });
   console.log('Måndagspriser tillämpade:', products);
 }
+/*************************Måndagsrabatt*************************/
+
+
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
