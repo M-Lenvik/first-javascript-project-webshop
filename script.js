@@ -194,20 +194,42 @@ const shoppingListDiv = document.querySelector('#shopping-list');
 const day = new Date();
 const hour = day.getHours(); // Hämta timmen som ett heltal
 const minutes = day.getMinutes(); // Hämta minuter som ett heltal
+const dayOfWeek = day.getDay(); // Hämta veckodag (0 = söndag, 6 = lördag)
 console.log ('Klockan är ' + hour +':'+ minutes);
 
 /*************************Måndagsrabatt*************************/
-// Kontrollera att det är måndag och att klockan är efter 13:00
-const mondayDiscount = day.getDay() === 2 && ((hour > 13 || (hour === 13 && minutes > 0)) && ((hour < 16 ) || (hour === 16 && minutes < 20)));
+//Kontrollera att det är måndag och att klockan är efter 13:00
+const mondayDiscount = dayOfWeek === 2 && ((hour > 13 || (hour === 13 && minutes > 0)) && ((hour < 15 ) || (hour === 15 && minutes < 40)));
 if (mondayDiscount) {
   products.forEach(product => {
     product.price = Math.round(product.price * 0.9); // Öka priset med 10%
   });
   console.log('Måndagspriser tillämpade:', products);
 }
+else {
+  console.log("Det är inte måndagsrabatt nu.");
+}
 /*************************Måndagsrabatt*************************/
 
+/*************************Helgpåslag*************************/
+  //Kontrollera om det är helgpriser. Fredagar efter kl. 15 och fram till natten mellan söndag och måndag kl. 03.00 tillkommer ett helgpåslag på 15 % på alla munkar. 
+const isWeekend =
+  (dayOfWeek === 5 && (hour > 15 || (hour === 15 && minutes > 0))) || //Fredag efter 15:00
+  (dayOfWeek === 6) || //Hela lördagen
+  (dayOfWeek === 0) || //Hela sönagen
+  (dayOfWeek === 1 && (hour < 3 || (hour === 3 && minutes === 0))); //Natt mot måndag till kl. 03:00
 
+if (isWeekend) { //Tillämpa helgpåslag på priserna
+  products.forEach(product => {
+    product.price = Math.round(product.price * 1.15); // Öka priset med 15 %
+  });
+
+  console.log("Helgpåslag tillämpat:", products);
+} 
+else {
+  console.log("Inget helgpåslag på vardagen.");
+}
+//*************************Helgpåslag*************************/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
