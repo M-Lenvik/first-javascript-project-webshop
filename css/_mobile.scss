@@ -220,6 +220,11 @@ h2{
     grid-template-columns: repeat(6, 1fr);
     gap: 1em;
 
+    .mondayDiscount{
+        grid-column: span 6;
+        
+    }
+
     .product{
         background-color: rgb(211, 91, 111);
         grid-column: span 2;
@@ -284,3 +289,22 @@ h2{
 }
 
 
+
+
+
+const day = new Date();
+const hour = day.getHours(); // Hämta timmen som ett heltal
+const minutes = day.getMinutes(); // Hämta minuter som ett heltal
+
+console.log ('Klockan är ' + hour +':'+ minutes);
+
+// Kontrollera att det är måndag och att klockan är efter 13:00
+if (day.getDay() === 2 && (hour > 13 || (hour === 13 && minutes > 0))) {
+  products.forEach(product => {
+    product.price = Math.round(product.price * 1.1); // Öka priset med 10%
+  });
+  console.log('Måndagspriser tillämpade:', products);
+} 
+else {
+  console.log('Det är inte efter kl. 13 på måndag.');
+}

@@ -189,6 +189,23 @@ const shoppingListDiv = document.querySelector('#shopping-list');
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
+/*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
+const day = new Date();
+const hour = day.getHours(); // Hämta timmen som ett heltal
+const minutes = day.getMinutes(); // Hämta minuter som ett heltal
+console.log ('Klockan är ' + hour +':'+ minutes);
+
+// Kontrollera att det är måndag och att klockan är efter 13:00
+const mondayDiscount = day.getDay() === 2 && ((hour > 13 || (hour === 13 && minutes > 0)) && ((hour < 15 ) || (hour === 15 && minutes < 20)));
+if (mondayDiscount) {
+  products.forEach(product => {
+    product.price = Math.round(product.price * 1.1); // Öka priset med 10%
+  });
+  console.log('Måndagspriser tillämpade:', products);
+}
+/*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
+
+
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PRINT-HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 function printRatings() {
@@ -401,14 +418,37 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
 
   const shoppingProductCount = document.querySelector('#shopping_list'); //Talar om var den ska skrivas ut
   let totalSum = 0;
-  
+
   shoppingProductCount.innerHTML = '';
   basket.forEach(item => {
     if (item.amount > 0) { //skriv bara ut i shoppingkorgen om det fatiskt finns munkar i den
       totalSum += item.amount * item.price;
 
+    
+//🤔🤔🤔🤔🤔🤔🤔🤔
+/**
+ * Jag får ut rätt meddelande beroende på tidpunkt i consolen, 
+ * men jag förstår inte hur jag ska få ut <div> i html? Försöker på rad 450.
+ * regler för variabel mondayDiscount sätts på rad 199
+ */
+      // Element för måndagsrabatt
+      const mondayDiscountDiv = document.querySelector("#mondayDiscount");
+      if (mondayDiscount===true) { // Visa rabattmeddelandet
+        // mondayDiscountDiv.style.display = "block"; // Visa div för måndagsrabatt
+        console.log('Måndagspriser SKA skrivas ut i varukorgen');
+      }
+      else {
+        console.log('Det är inte efter kl. 13 på måndag.');
+        
+        if (mondayDiscount===false) { //Göm rabattmeddelandet
+        //mondayDiscountDiv.style.display = "none"; // Dölj div för måndagsrabatt
+        console.log('Måndagspriser ska INTE skrivas ut i varukorgen');
+        }
+      }
+
       shoppingProductCount.innerHTML += `
         <div class="shopping_list">
+        <div class="mondayDiscount" id="mondayDiscount" style="display: none;">Måndagsrabatt: 10 % på hela beställningen!</div>
           <div class="product">${item.name} ${item.amount} st</div>     
           <div class="pic">
             <img src="${item.img.url}" alt="${item.img.alt}">
@@ -464,3 +504,10 @@ function getRatingHtml(rating) {
 }
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PRINT-HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
+
+/*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
+
+
+
+
+/*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
