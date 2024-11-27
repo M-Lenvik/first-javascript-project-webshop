@@ -168,7 +168,7 @@ h2{
 
 .shoping_cart{
     position: relative;
-    min-height: 100vh;
+    min-height: vh;
     margin-top: 4em;
 
     background-color: pink;
@@ -223,6 +223,10 @@ h2{
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 1em;
+
+    .added_notice{
+        grid-column: span 6;
+    }
 
     .mondayDiscount{
         grid-column: span 6;
@@ -301,8 +305,8 @@ h2{
     }
 }
 
-.order_page{
-    display: block;
+#order_page{
+    display: none;
 
     /******************************kom ihåg att ändra display till none;!****************/
 
@@ -325,9 +329,14 @@ h2{
             background-color: lightgray;
             grid-column: span 5;
         }
+
+        button{
+            width: 12em;
+            height: 2em;
+        }
     }
 
-    .order_confirmation{
+    #order_confirmation{
 
         display: block;
 

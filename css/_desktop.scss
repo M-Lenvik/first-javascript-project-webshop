@@ -163,6 +163,10 @@ header {
         gap: 1em;
         background-color: aqua;
 
+        .added_notice{
+            grid-column: span 12;
+        }
+
         .mondayDiscount{
             grid-column: span 12;
         }

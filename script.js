@@ -187,6 +187,7 @@ const sumDiv = document.querySelector('#sum');
 const totalsumDiv = document.querySelector('#totalsum');
 const productsListDiv = document.querySelector('#products-list');
 const shoppingListDiv = document.querySelector('#shopping-list');
+const orderPageDiv = document.querySelector("#order_page");
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
@@ -200,7 +201,7 @@ console.log ('Klockan är ' + hour +':'+ minutes);
 
 /*************************Måndagsrabatt*************************/
 //Kontrollera att det är måndag och att klockan är efter 10:00
-const mondayDiscount = dayOfWeek === 2 && ((hour > 18 || (hour === 18 && minutes > 1)) && ((hour < 19 ) || (hour === 19 && minutes < 0)));
+const mondayDiscount = dayOfWeek === 1 && ((hour > 18 || (hour === 18 && minutes > 1)) && ((hour < 19 ) || (hour === 19 && minutes < 0)));
 if (mondayDiscount) {
   products.forEach(product => {
     product.price = Math.round(product.price * 0.9); //Minska priset med 10%
@@ -474,7 +475,6 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
         //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
       shoppingProductCount.innerHTML += `
         <div class="shopping_list">
-          <div class="mondayDiscount" id="mondayDiscount">Måndagsrabatt: 10 % på hela beställningen!</div>
           <div class="product">${item.name} ${item.amount} st</div>     
           <div class="pic">
             <img src="${item.img.url}" alt="${item.img.alt}">
@@ -484,24 +484,19 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
           <div class="line"></div>
         </div>
       `;
-    }
 
-    /*************************Måndagsrabatt*************************/
-    // Element för måndagsrabatt
-    const mondayDiscountDiv = document.querySelector("#mondayDiscount");
-    if (mondayDiscount===true) { // Visa rabattmeddelandet
-      mondayDiscountDiv.style.display = "block"; // Visa div för måndagsrabatt //console.log('Måndagspriser SKA skrivas ut i varukorgen');
-    }
-    else { //Göm rabattmeddelandet
-      mondayDiscountDiv.style.display = "none"; // Dölj div för måndagsrabatt //console.log('Måndagspriser ska INTE skrivas ut i varukorgen');
-    }
 
-    const invoiceDiv = document.querySelector("#invoice");
-    if (totalSum>800){
-      invoiceDiv.style.display = "none"; //console.log('ej fakturaköp');
-    }
-    /*************************Måndagsrabatt*************************/
 
+      /********************Jag vill lägga denna utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
+      orderConfirmationDiv.innerHTML = '';
+      orderConfirmationDiv.innerHTML += `
+        <div class="mondayDiscount" id="mondayDiscount">Måndagsrabatt: 10 % på hela beställningen!</div>
+        <div>Du har beställt ${item.amount} st ${item.name}. Dessa kostar ${item.price}kr st. Totalkostnad är ${item.amount*item.price}kr</div>
+        <div>Fraktkostnad: ${shippingFee}</div>
+        <div>Att betala: ${item.amount*item.price+shippingFee}</div>
+      `;
+      /********************Jag vill lägga denna utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
+    }
   
     totalsumDiv.innerHTML = '';
     totalsumDiv.innerHTML += `
@@ -510,10 +505,46 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
 
     sumDiv.innerHTML = '';
     sumDiv.innerHTML += `
+    <div class="mondayDiscount" id="mondayDiscount">Måndagsrabatt: 10 % på hela beställningen!</div>
     <div id="sum">Summa: ${totalSum}</div>
-    `;
+    `; 
   });
+
+  /*************************Måndagsrabatt*************************/
+  // Element för måndagsrabatt
+  const mondayDiscountDiv = document.querySelector("#mondayDiscount");
+  if (mondayDiscount) { // Visa rabattmeddelandet
+    mondayDiscountDiv.style.display = "block"; // Visa div för måndagsrabatt //console.log('Måndagspriser SKA skrivas ut i varukorgen');
+  }
+  else { //Göm rabattmeddelandet
+    mondayDiscountDiv.style.display = "none"; // Dölj div för måndagsrabatt //console.log('Måndagspriser ska INTE skrivas ut i varukorgen');
+  }
+  /*************************Måndagsrabatt*************************/
+  /*************************Ej faktura*************************/
+  const invoiceDiv = document.querySelector("#invoice");
+  if (totalSum>800){
+    invoiceDiv.style.display = "none"; //console.log('ej fakturaköp');
+  }
+  /*************************Ej faktura*************************/
+
+  /********************Jag vill lägga denna utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
+  //const ticker = setInterval(showTooSlowMessage);
+  const tooSlowNoticeDiv = document.querySelector("#too_slow_notice");
+  showTooSlowMessage();
+
+  function showTooSlowMessage() {
+    console.log('<div class="too_slow_notice" id="too_slow_notice"><p>här<p/></div>');
+    //tooSlowNoticeDiv.innerHTML='Du är för långsam';
+    setTimeout(clearBasket, 10000);
+  }
+
+  function clearBasket(){
+    shoppingProductCount.innerHTML = '';
+    alert('Du är för långsam');
+  }
+  /********************Jag vill lägga denna utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
 }
+
 
 function printShoppinglist() {
   shoppingListDiv.innerHTML += `
@@ -535,7 +566,10 @@ function addedProduct (){
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
-const orderPageDiv = document.querySelector("#order_page");
+
+
+
+//const orderPageDiv = document.querySelector("#order_page");
 const orderButtonDiv = document.querySelector("#order_button");
 
 orderButtonDiv.addEventListener("click", function() { //Eventlyssnare för button order_button
@@ -544,34 +578,41 @@ orderButtonDiv.addEventListener("click", function() { //Eventlyssnare för butto
 
 function showFormPage() {
   orderPageDiv.style.display = "block"; //Först när klappen order_page trycks på visas formuläret
+
 }
 
 
-const orderConfirmationDiv = document.querySelector("#order_confirmation");
-const confirmationButtonDiv = document.querySelector("#confirm_order_button");
-
-confirmationButtonDiv.addEventListener("click", function() { //Eventlyssnare för button order_button
-  showOrderPage();
-});
+/****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
+/****************************:.FLYTTA DENNA --> FLYTTAS HIT.:/***************************/
 
 
+/****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
+  /****************************:.FLYTTA DENNA.:/***************************/
+  const orderConfirmationDiv = document.querySelector("#order_confirmation");
+  const confirmationButtonDiv = document.querySelector("#confirm_order_button");
+  
+  confirmationButtonDiv.addEventListener("click", handleClick);
+  function handleClick() {
+    showOrderPage();
+    confirmationButtonDiv.removeEventListener("click", handleClick); // Ta bort lyssnaren
+  }
 
 
+  function showOrderPage() {
+    orderConfirmationDiv.style.display = "block"; //Först när knappen order_page trycks på visas formuläret
+    
+    //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
+    orderConfirmationDiv.innerHTML += `
 
+      <div>SKRIV UT BESTÄLLNINGSBEKRÄFTELSEN HÄR</div>
 
-function showOrderPage() {
-  orderConfirmationDiv.style.display = "block"; //Först när knappen order_page trycks på visas formuläret
-
-
-
-  //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
-  shoppingProductCount.innerHTML += `
-  <div class="shopping_list">
-    <div>Pris: ${item.name}</div>
-  </div>
-`;
-}
-
+        <div class="mondayDiscount" id="mondayDiscount">Måndagsrabatt: 10 % på hela beställningen!</div>
+        <div>Du har beställt ${item.amount} st ${item.name}. Dessa kostar ${item.price}kr st. Totalkostnad är ${item.amount*item.price}kr</div>
+        <div>Fraktkostnad: </div>
+    `;
+  }
+  /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
+/****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
