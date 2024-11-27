@@ -35,7 +35,7 @@
                 <button class="menuBtn">
                     <a href="#shoping_cart">Kundkorg</a>
                 </button>
-                <div class="sum" id="sum">Summa</div>
+                <div class="sum" id="totalsum"></div>
             </div>
         </header>
 
@@ -119,13 +119,18 @@
             <span>X</span>
             </div>
             -->
+            <div class="buttons">
+                    <input class="order_button" id="order_button" type="button" value="Beställ">
+                    <input class="cancel_button" type="button" value="Avbryt">
+                </div>
             </div>
 
+            <div id="sum"></div>
             <div><button>Använd rabattkod ></button></div>
         </article>
 
-
-        <form class="order">
+        <div class="order_page" id="order_page">
+        <form class="form_page">
             <h4>Beställningsformulär</h4>
             <div class="order_form">
 
@@ -190,19 +195,26 @@
                     <span class="customer_input">
                         <input type="checkbox" id="card" name="card" value="card">
                         <label for="card">Kort</label><br>
-                        <input type="checkbox" id="invoice" name="invoice" value="invoice">
-                        <label for="invoice">Faktura</label><br>
+                        <label class="invoice"  id="invoice">
+                            <input class="invoice" type="checkbox" id="invoice" name="invoice" value="invoice">
+                            Faktura
+                        </label>
                     </span>
                 </div>
-
-
-
                 <div class="buttons">
-                    <input class="order_button" type="button" value="Order">
-                    <input class="cancel_button" type="button" value="Cancel">
+                    <input class="confirm_order_button" id="confirm_order_button" type="button" value="Bekräfta beställning">
                 </div>
+                
+            </div>
+
+            <div class="order_confirmation" id="order_confirmation">
+                Här ska sammanställning av kunduppgifter och beställning visas
             </div>
         </form>
+
+        </div>
+
+        
     </div>
     <script src="script.js"></script>
 </body>
