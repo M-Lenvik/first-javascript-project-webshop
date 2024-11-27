@@ -121,17 +121,13 @@
             <span>X</span>
             </div>
             -->
-            <div class="buttons">
+                <div class="buttons">
                     <input class="order_button" id="order_button" type="button" value="Beställ">
                     <input class="cancel_button" type="button" value="Avbryt">
                 </div>
             </div>
 
             <div id="sum"></div>
-            <div><button>Använd rabattkod ></button></div>
-
-
-            
 
             <!----------------------FLYTTA DENNA--------------------------->
             <div class="buttons">
@@ -140,14 +136,13 @@
                 </button>
 
             <!----------------------FLYTTA DENNA--------------------------->
-
-
         </article>
 
         <div class="order_page" id="order_page">
-            <form class="form_page">
+            <!--TÄNK PÅ TILLGÄNGLIGHET HÄR. KOLLA UPP FIELDSET  OCH LEGEND https://webdesignskolan.se/html/formular/formular.php-->
+            <form class="form_page" id="form_page">
                 <h4>Beställningsformulär</h4>
-                <div class="order_form">
+                <div class="order_form" id="order_form">
 
                     <div class="costumer_info">
                         <label class="input"> Förnamn </label>
@@ -208,23 +203,58 @@
                     <div class="costumer_info">
                         <label class="input"> Välj betalsätt </label>
                         <span class="customer_input">
-                            <input type="checkbox" id="card" name="card" value="card">
-                            <label for="card">Kort</label><br>
-                            <label class="invoice"  id="invoice">
-                                <input class="invoice" type="checkbox" id="invoice" name="invoice" value="invoice">
-                                Faktura
-                            </label>
+
+                            <input class="card" id="card" type="checkbox" id="card" name="card" value="card">
+                            <label class="card" id="card" for="card">Kort</label><br>
+                            
+                            <span id="card_information">
+                            <!--Finns i javascript-->
+                            </span>
+
+                            <input class="invoice" id="invoice" type="checkbox" name="invoice" value="invoice">
+                            <label class="invoice" id="invoice" for="invoice">Faktura</label>
+
+                            <span id="invoice_information">
+                                <!--Finns i javascript-->
+                            </span>
+    
+                        </span>
+                    </div>
+
+                    <div class="costumer_info">
+                        <label class="input"></label>
+                        <span class="customer_input">
+                            <input type="checkbox" id="person_id" name="person_id" value="person_id">
+                            <label for="person_id">* Jag godkänner behandling av personuppgifter</label>
+                        </span>
+                    </div>
+
+                    <div class="costumer_info">
+                        <label class="input"></label>
+                        <span class="customer_input">
+                            <input type="checkbox" checked="checked" id="newsletter" name="newsletter" value="newsletter">
+                            <label for="newsletter">Jag vill gärna ha Gottfrids nyhetsbrev</label>
                         </span>
                     </div>
 
 
                                 <!----------------------FLYTTA HIT DENNA--------------------------->
-                    
-                    <div class="order_confirmation" id="order_confirmation">
-                        Här ska sammanställning av kunduppgifter och beställning visas
-                    </div>
                 </div>
             </form>
+
+            <div>
+                <input id="discount_information" type="text" placeholder="Ange din rabattkod"><br>
+                <button id="discount_button">Använd rabattkod></button>
+            </div>
+
+            <div class="order_confirmation" id="order_confirmation">
+                Här ska sammanställning av kunduppgifter och beställning visas
+            </div>
+
+            <div class="buttons">
+                <input class="order_button" id="confirm_order_button" type="button" value="Beställ">
+                <input class="cancel_button" id="cancel_order_button" type="button" value="Avbryt">
+            </div>
         </div>
 
         

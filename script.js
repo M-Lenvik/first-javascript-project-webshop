@@ -527,7 +527,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   }
   /*************************Ej faktura*************************/
 
-  /********************Jag vill lägga denna utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
+  /********************Jag vill lägga dessa utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
   //const ticker = setInterval(showTooSlowMessage);
   const tooSlowNoticeDiv = document.querySelector("#too_slow_notice");
   showTooSlowMessage();
@@ -535,16 +535,48 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   function showTooSlowMessage() {
     console.log('<div class="too_slow_notice" id="too_slow_notice"><p>här<p/></div>');
     //tooSlowNoticeDiv.innerHTML='Du är för långsam';
-    setTimeout(clearBasket, 10000);
+    setTimeout(clearBasket, 100000);
   }
 
   function clearBasket(){
     shoppingProductCount.innerHTML = '';
+    orderConfirmationDiv.innerHTML = '';
     alert('Du är för långsam');
   }
-  /********************Jag vill lägga denna utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
+
+  /**********Denna görs dubbelt, jag vill lägga in rensningen av varukorgen i samma funktion som rensar formuläret*****/
+  const cancelOrderButton = document.querySelector("#cancel_order_button");
+  const form = document.querySelector("#form_page");
+  cancelOrderButton.addEventListener("click", function() {
+    clearOrder();
+  });
+
+  function clearOrder() {
+    shoppingProductCount.innerHTML = '';
+    orderConfirmationDiv.innerHTML = '';
+  }/**********Denna görs dubbelt, jag vill lägga in rensningen av varukorgen i samma funktion som rensar formuläret*****/
+  /********************Jag vill lägga dessa utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
 }
 
+const cancelOrderButton = document.querySelector("#cancel_order_button");
+const form = document.querySelector("#form_page");
+
+cancelOrderButton.addEventListener("click", function() {
+  clearOrder();
+});
+
+function clearOrder() {
+  //  shoppingProductCount.innerHTML = '';
+  //  orderConfirmationDiv.innerHTML = '';
+  //  orderFormDiv.innerHTML = '';
+  if (form) {
+    form.reset(); // Återställ formuläret
+  }
+
+  else {
+    console.error("Formuläret hittades inte.");
+  }
+}
 
 function printShoppinglist() {
   shoppingListDiv.innerHTML += `
@@ -567,24 +599,18 @@ function addedProduct (){
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
-
-
 //const orderPageDiv = document.querySelector("#order_page");
-const orderButtonDiv = document.querySelector("#order_button");
+const orderButton = document.querySelector("#order_button");
 
-orderButtonDiv.addEventListener("click", function() { //Eventlyssnare för button order_button
+orderButton.addEventListener("click", function() { //Eventlyssnare för button order_button
   showFormPage();
 });
 
 function showFormPage() {
   orderPageDiv.style.display = "block"; //Först när klappen order_page trycks på visas formuläret
-
 }
-
-
 /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
 /****************************:.FLYTTA DENNA --> FLYTTAS HIT.:/***************************/
-
 
 /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
   /****************************:.FLYTTA DENNA.:/***************************/
@@ -596,7 +622,6 @@ function showFormPage() {
     showOrderPage();
     confirmationButtonDiv.removeEventListener("click", handleClick); // Ta bort lyssnaren
   }
-
 
   function showOrderPage() {
     orderConfirmationDiv.style.display = "block"; //Först när knappen order_page trycks på visas formuläret
@@ -613,6 +638,42 @@ function showFormPage() {
   }
   /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
 /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
+
+/********************************FORMULÄRALTERNATIV*************************/
+const cardCheckbox = document.querySelector("#card");
+const cardInformationInput = document.querySelector("#card_information");
+
+cardCheckbox.addEventListener("click", handleCard);
+function handleCard() {
+  cardInformationInput.innerHTML += `
+  <input type="number" placeholder="Kortnummer"><br>
+  <input type="number" placeholder="MM//ÅÅ"><br>
+  <input type="number" placeholder="CVC"><br>
+    `;
+    /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
+}
+
+const invoiceCheckbox = document.querySelector("#invoice");
+const invoiceInformationInput = document.querySelector("#invoice_information");
+
+invoiceCheckbox.addEventListener("click", handleInvoice);
+function handleInvoice() {
+  invoiceInformationInput.innerHTML += `
+  <input type="number" placeholder="Personnummer"><br>
+    `;
+    /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
+}
+
+const discountButton = document.querySelector("#discount_button");
+const discountInput = document.querySelector("#discount_information");
+
+discountButton.addEventListener("click", handleDiscount);
+function handleDiscount() {
+
+alert('Du har använt rabattkoden ' + discountInput.value);
+}
+
+/********************************FORMULÄRALTERNATIV*************************/
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
 

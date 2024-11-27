@@ -28,6 +28,7 @@ header {
     z-index: 999;
     width: 100vw;
     height: 7em;
+    margin-bottom: 0.5em;
     justify-content: space-around;
 
     .homeBtn {
@@ -69,7 +70,7 @@ h2{
 .rating{
     width: 100%;
     background-color: #ccc;
-    margin-top: 7em;
+    margin-top: 7.5em;
     position: relative;
     display: flex;
     float: right;
