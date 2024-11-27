@@ -427,6 +427,7 @@ function decreaceProductCount(e) {
 
 //*******************Increase - lägg nya artiklar i ny array - handledning med Jenny*******************//
 const basket = []
+
 function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan ut som med alla munkar
 
   const existedProduct = (basket.findIndex(index => index.id === article.id)); //console.log('kolla om det finns i basket sedan tidigare. undefined betyder negativt, annars skrivs arrayen ut:', basket[existedProduct]);
@@ -439,6 +440,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   }
   //console.log('kundkorgen innehåller NU', basket, 'vald munk i array:', article.name);
 
+  //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
   const shoppingProductCount = document.querySelector('#shopping_list'); //Talar om var den ska skrivas ut
   let totalSum = 0;
 
@@ -469,6 +471,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
       }
       //*************************Gratis frakt vid storköp*************************/
 
+        //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
       shoppingProductCount.innerHTML += `
         <div class="shopping_list">
           <div class="mondayDiscount" id="mondayDiscount">Måndagsrabatt: 10 % på hela beställningen!</div>
@@ -551,9 +554,22 @@ confirmationButtonDiv.addEventListener("click", function() { //Eventlyssnare fö
   showOrderPage();
 });
 
+
+
+
+
+
 function showOrderPage() {
-  orderConfirmationDiv.style.display = "block"; //Först när klappen order_page trycks på visas formuläret
-  
+  orderConfirmationDiv.style.display = "block"; //Först när knappen order_page trycks på visas formuläret
+
+
+
+  //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
+  shoppingProductCount.innerHTML += `
+  <div class="shopping_list">
+    <div>Pris: ${item.name}</div>
+  </div>
+`;
 }
 
 
