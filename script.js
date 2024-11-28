@@ -187,7 +187,7 @@ const sumDiv = document.querySelector('#sum');
 const totalsumDiv = document.querySelector('#totalsum');
 const productsListDiv = document.querySelector('#products-list');
 const shoppingListDiv = document.querySelector('#shopping-list');
-const orderPageDiv = document.querySelector("#order_page");
+const orderPageDiv = document.querySelector('#order_page');
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
@@ -512,7 +512,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
 
   /*************************Måndagsrabatt*************************/
   // Element för måndagsrabatt
-  const mondayDiscountDiv = document.querySelector("#mondayDiscount");
+  const mondayDiscountDiv = document.querySelector('#mondayDiscount');
   if (mondayDiscount) { // Visa rabattmeddelandet
     mondayDiscountDiv.style.display = "block"; // Visa div för måndagsrabatt //console.log('Måndagspriser SKA skrivas ut i varukorgen');
   }
@@ -521,7 +521,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   }
   /*************************Måndagsrabatt*************************/
   /*************************Ej faktura*************************/
-  const invoiceDiv = document.querySelector("#invoice");
+  const invoiceDiv = document.querySelector('#invoice');
   if (totalSum>800){
     invoiceDiv.style.display = "none"; //console.log('ej fakturaköp');
   }
@@ -529,7 +529,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
 
   /********************Jag vill lägga dessa utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
   //const ticker = setInterval(showTooSlowMessage);
-  const tooSlowNoticeDiv = document.querySelector("#too_slow_notice");
+  const tooSlowNoticeDiv = document.querySelector('#too_slow_notice');
   showTooSlowMessage();
 
   function showTooSlowMessage() {
@@ -545,9 +545,9 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   }
 
   /**********Denna görs dubbelt, jag vill lägga in rensningen av varukorgen i samma funktion som rensar formuläret*****/
-  const cancelOrderButton = document.querySelector("#cancel_order_button");
-  const form = document.querySelector("#form_page");
-  cancelOrderButton.addEventListener("click", function() {
+  const cancelOrderButton = document.querySelector('#cancel_order_button');
+  const form = document.querySelector('#form_page');
+  cancelOrderButton.addEventListener('click', function() {
     clearOrder();
   });
 
@@ -558,10 +558,10 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   /********************Jag vill lägga dessa utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
 }
 
-const cancelOrderButton = document.querySelector("#cancel_order_button");
-const form = document.querySelector("#form_page");
+const cancelOrderButton = document.querySelector('#cancel_order_button');
+const form = document.querySelector('#form_page');
 
-cancelOrderButton.addEventListener("click", function() {
+cancelOrderButton.addEventListener('click', function() {
   clearOrder();
 });
 
@@ -599,10 +599,10 @@ function addedProduct (){
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
-//const orderPageDiv = document.querySelector("#order_page");
-const orderButton = document.querySelector("#order_button");
+//const orderPageDiv = document.querySelector('#order_page');
+const orderButton = document.querySelector('#order_button');
 
-orderButton.addEventListener("click", function() { //Eventlyssnare för button order_button
+orderButton.addEventListener('click', function() { //Eventlyssnare för button order_button
   showFormPage();
 });
 
@@ -614,13 +614,13 @@ function showFormPage() {
 
 /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
   /****************************:.FLYTTA DENNA.:/***************************/
-  const orderConfirmationDiv = document.querySelector("#order_confirmation");
-  const confirmationButtonDiv = document.querySelector("#confirm_order_button");
+  const orderConfirmationDiv = document.querySelector('#order_confirmation');
+  const confirmationButtonDiv = document.querySelector('#confirm_order_button');
   
-  confirmationButtonDiv.addEventListener("click", handleClick);
+  confirmationButtonDiv.addEventListener('click', handleClick);
   function handleClick() {
     showOrderPage();
-    confirmationButtonDiv.removeEventListener("click", handleClick); // Ta bort lyssnaren
+    confirmationButtonDiv.removeEventListener('click', handleClick); // Ta bort lyssnaren
   }
 
   function showOrderPage() {
@@ -640,10 +640,10 @@ function showFormPage() {
 /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
 
 /********************************FORMULÄRALTERNATIV*************************/
-const cardCheckbox = document.querySelector("#card");
-const cardInformationInput = document.querySelector("#card_information");
+const cardCheckbox = document.querySelector('#card');
+const cardInformationInput = document.querySelector('#card_information');
 
-cardCheckbox.addEventListener("click", handleCard);
+cardCheckbox.addEventListener('click', handleCard);
 function handleCard() {
   cardInformationInput.innerHTML += `
   <input type="number" placeholder="Kortnummer"><br>
@@ -653,10 +653,10 @@ function handleCard() {
     /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
 }
 
-const invoiceCheckbox = document.querySelector("#invoice");
-const invoiceInformationInput = document.querySelector("#invoice_information");
+const invoiceCheckbox = document.querySelector('#invoice');
+const invoiceInformationInput = document.querySelector('#invoice_information');
 
-invoiceCheckbox.addEventListener("click", handleInvoice);
+invoiceCheckbox.addEventListener('click', handleInvoice);
 function handleInvoice() {
   invoiceInformationInput.innerHTML += `
   <input type="number" placeholder="Personnummer"><br>
@@ -664,10 +664,10 @@ function handleInvoice() {
     /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
 }
 
-const discountButton = document.querySelector("#discount_button");
-const discountInput = document.querySelector("#discount_information");
+const discountButton = document.querySelector('#discount_button');
+const discountInput = document.querySelector('#discount_information');
 
-discountButton.addEventListener("click", handleDiscount);
+discountButton.addEventListener('click', handleDiscount);
 function handleDiscount() {
 
 alert('Du har använt rabattkoden ' + discountInput.value);
