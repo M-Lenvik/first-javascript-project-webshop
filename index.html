@@ -35,17 +35,18 @@
                 <button class="menuBtn">
                     <a href="#shoping_cart">Kundkorg</a>
                 </button>
-                <div class="sum" id="totalsum"></div>
+                <div class="sum" id="totalsum">SUMMA UPPE </div>
             </div>
         </header>
 
         <div class="rating" id="rating">
-            <!--Anges i javascript-->
-            <!--
-        <div>A-Z</div>
-        <button id="sortByRating">Sortera 1-2</button>
-        <div>Filtrera</div>
-        -->
+            <!--Anges INTE i javascript-->
+            <button class="sortByName" id="sortByName">Sortera på namn</button>
+            <button id="sortByPrice">Sortera på pris</button>
+            <button id="sortByRating">Sortera på betyg</button>
+            <button id="sortByCategory">Sortera på kategori</button>
+          
+            <div>Filtrera</div>
         </div>
 
         <main class="donuts">
@@ -83,7 +84,9 @@
             </section>
         </main>
 
-        <article class="shoping_cart" id="shoping_cart">
+
+        <div id="cart-summary">Skriv ut köpta munkar</div>
+        <article class="shoping_cart" id="shoping_cart" id="mondayDiscount">
             <div class="line"></div>
             <div class="cart_heading">
                 <h4>Varukorg</h4>
@@ -121,13 +124,14 @@
             <span>X</span>
             </div>
             -->
-                <div class="buttons">
-                    <input class="order_button" id="order_button" type="button" value="Beställ">
+                <div class="shopping_cart_buttons" id="shopping_cart_buttons">
+                    <input class="order_button" id="order_button" type="button" value="Beställ (orderButton)">
                     <input class="cancel_button" type="button" value="Avbryt">
                 </div>
-            </div>
+            <div id="sum">NERE</div>
+        </div>
 
-            <div id="sum"></div>
+            
 
             <!----------------------FLYTTA DENNA--------------------------->
             <div class="buttons">
@@ -138,81 +142,81 @@
             <!----------------------FLYTTA DENNA--------------------------->
         </article>
 
-        <div class="order_page" id="order_page">
+        <div class="order_page" id="order_page"> O R D E R P A G E  D I V
             <!--TÄNK PÅ TILLGÄNGLIGHET HÄR. KOLLA UPP FIELDSET  OCH LEGEND https://webdesignskolan.se/html/formular/formular.php-->
             <form class="form_page" id="form_page">
                 <h4>Beställningsformulär</h4>
                 <div class="order_form" id="order_form">
 
                     <div class="costumer_info">
-                        <label class="input"> Förnamn </label>
+                        <label for="first_name" class="input"> Förnamn </label>
                         <span class="customer_input">
-                            <input type="text" placeholder="Skriv in ditt förnamn"><br>
+                            <input id="first_name" type="text" placeholder="Skriv in ditt förnamn" required><br>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label class="input"> Efternamn </label>
+                        <label for="last_name" class="input"> Efternamn </label>
                         <span class="customer_input">
-                            <input type="text" placeholder="Skriv in ditt efternamn"><br>
+                            <input id="last_name" type="text" placeholder="Skriv in ditt efternamn" required><br>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label class="input"> Adress </label>
+                        <label for="adress" class="input"> Adress </label>
                         <span class="customer_input">
-                            <input type="text" placeholder="Skriv in ditt gatunamn"><br>
+                            <input id="adress" type="text" placeholder="Skriv in ditt gatunamn" required><br>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label class="input"> Postnummer </label>
+                        <label for="zip_code" class="input"> Postnummer </label>
                         <span class="customer_input">
-                            <input type="number" placeholder="Skriv in ditt postnummer"><br>
+                            <input id="zip_code"  type="number" placeholder="Skriv in ditt postnummer" required><br>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label class="input"> Postort </label>
+                        <label for="postal_address" class="input"> Postort </label>
                         <span class="customer_input">
-                            <input type="text" placeholder="Skriv in din postort"><br>
+                            <input id="postal_address" type="text" placeholder="Skriv in din postort" required><br>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label class="input"> Portkod </label>
+                        <label for="port_code" class="input"> Portkod </label>
                         <span class="customer_input">
-                            <input type="number" placeholder="Eventuell portkod"><br>
+                            <input id="port_code" type="number" placeholder="Eventuell portkod"><br>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label class="input"> Phone </label>
+                        <label for="phone" class="input"> Phone </label>
                         <span class="customer_input">
-                            <input type="tel" placeholder="Phone number"><br>
+                            <input id="phone" type="tel" placeholder="Phone number" pattern="[0-9]{10,15}" required>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label class="input"> Email </label>
+                        <label for="email" class="input"> Email </label>
                         <span class="customer_input">
-                            <input type="email" placeholder="Email"><br>
+                            <input id="email" type="email" placeholder="Email" required><br>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label class="input"> Välj betalsätt </label>
+                        <label for="payment_method" class="input"> Välj betalsätt </label>
                         <span class="customer_input">
 
-                            <input class="card" id="card" type="checkbox" id="card" name="card" value="card">
-                            <label class="card" id="card" for="card">Kort</label><br>
+                            <label for="card">Kort</label>
+                            <input id="card" type="radio" name="card">
                             
                             <span id="card_information">
                             <!--Finns i javascript-->
                             </span>
 
-                            <input class="invoice" id="invoice" type="checkbox" name="invoice" value="invoice">
-                            <label class="invoice" id="invoice" for="invoice">Faktura</label>
+                            <label for="invoice">Faktura</label>
+                            <input id="invoice" type="radio" name="invoice">
 
                             <span id="invoice_information">
                                 <!--Finns i javascript-->
@@ -224,19 +228,18 @@
                     <div class="costumer_info">
                         <label class="input"></label>
                         <span class="customer_input">
-                            <input type="checkbox" id="person_id" name="person_id" value="person_id">
                             <label for="person_id">* Jag godkänner behandling av personuppgifter</label>
+                            <input id="person_id" type="checkbox" name="person_id" value="person_id" required>
                         </span>
                     </div>
 
                     <div class="costumer_info">
                         <label class="input"></label>
                         <span class="customer_input">
-                            <input type="checkbox" checked="checked" id="newsletter" name="newsletter" value="newsletter">
                             <label for="newsletter">Jag vill gärna ha Gottfrids nyhetsbrev</label>
+                            <input id="newsletter" type="checkbox" checked="checked" name="newsletter" value="newsletter">
                         </span>
                     </div>
-
 
                                 <!----------------------FLYTTA HIT DENNA--------------------------->
                 </div>
@@ -246,7 +249,7 @@
                 <input id="discount_information" type="text" placeholder="Ange din rabattkod"><br>
                 <button id="discount_button">Använd rabattkod></button>
             </div>
-
+            O R D E R   C O N F I R M A T I O N
             <div class="order_confirmation" id="order_confirmation">
                 Här ska sammanställning av kunduppgifter och beställning visas
             </div>

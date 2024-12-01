@@ -183,11 +183,17 @@ const products = [
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 const ratingsDiv = document.querySelector('#rating');
-const sumDiv = document.querySelector('#sum');
-const totalsumDiv = document.querySelector('#totalsum');
+const sumDiv = document.querySelector('#sum'); //Summa nere
+const totalsumDiv = document.querySelector('#totalsum'); //Summa uppe
 const productsListDiv = document.querySelector('#products-list');
 const shoppingListDiv = document.querySelector('#shopping-list');
 const orderPageDiv = document.querySelector('#order_page');
+
+const mondayDiscountDiv = document.querySelector('#mondayDiscount');
+
+
+const orderConfirmationDiv = document.querySelector('#order_confirmation');
+const confirmationButtonDiv = document.querySelector('#confirm_order_button');
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
@@ -199,51 +205,15 @@ const minutes = day.getMinutes(); // Hämta minuter som ett heltal
 const dayOfWeek = day.getDay(); // Hämta veckodag (0 = söndag, 6 = lördag)
 console.log ('Klockan är ' + hour +':'+ minutes);
 
-/*************************Måndagsrabatt*************************/
-//Kontrollera att det är måndag och att klockan är efter 10:00
-const mondayDiscount = dayOfWeek === 1 && ((hour > 18 || (hour === 18 && minutes > 1)) && ((hour < 19 ) || (hour === 19 && minutes < 0)));
-if (mondayDiscount) {
-  products.forEach(product => {
-    product.price = Math.round(product.price * 0.9); //Minska priset med 10%
-  }); //console.log('Måndagspriser tillämpade:', products);
-}
-/*************************Måndagsrabatt*************************/
 
-/*************************Helgpåslag*************************/
-  //Kontrollera om det är helgpriser. Fredagar efter kl. 15 och fram till natten mellan söndag och måndag kl. 03.00 tillkommer ett helgpåslag på 15 % på alla munkar. 
-const isWeekend =
-  (dayOfWeek === 5 && (hour > 15 || (hour === 15 && minutes > 0))) || //Fredag efter 15:00
-  (dayOfWeek === 6) || //Hela lördagen
-  (dayOfWeek === 0) || //Hela sönagen
-  (dayOfWeek === 1 && (hour < 3 || (hour === 3 && minutes === 0))); //Natt mot måndag till kl. 03:00
 
-if (isWeekend) { //Tillämpa helgpåslag på priserna
-  products.forEach(product => {
-    product.price = Math.round(product.price * 1.15); // Öka priset med 15 %
-  });
 
-  //console.log("Helgpåslag tillämpat:", products);
-} 
-else {
-  //console.log("Inget helgpåslag på vardagen.");
-}
-//*************************Helgpåslag*************************/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PRINT-HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
-function printRatings() {
-  ratingsDiv.innerHTML += `
-  <button class="sortByName" id="sortByName">Sortera på namn</button>
-  <button id="sortByPrice">Sortera på pris</button>
-  <button id="sortByRating">Sortera på betyg</button>
-  <button id="sortByCategory">Sortera på kategori</button>
 
-  <div>Filtrera</div>
-`;
-}
-printRatings();
 
 function sortFocus(){
   this.focus();
@@ -264,7 +234,7 @@ function sortProductsByName() {
         return 1;
       }
       return 0;
-    }); //console.log("Stigande namnordning:", products);
+    }); //console.log('Stigande namnordning:', products);
   }
   else {
     const sorted = products.sort((product1, product2) => {
@@ -275,13 +245,13 @@ function sortProductsByName() {
         return -1;
       }
       return 0;
-    }); //console.log("Fallande namnordning:", products);
+    }); //console.log('Fallande namnordning:', products);
   }
   nameIsDescending = !nameIsDescending; // Växla sorteringsordning för nästa gång
   printProductsList();
 }
 /*********************Sort by Price********************/
-console.log("munklista:", products);
+console.log('munklista:', products);
 const sortPriceButton = document.querySelector('#sortByPrice');
 sortPriceButton.addEventListener('click', sortProductsByPrice);
 let priceIsDescending = false; // Håller koll på nuvarande sorteringsordning
@@ -289,11 +259,11 @@ let priceIsDescending = false; // Håller koll på nuvarande sorteringsordning
 function sortProductsByPrice() {
   if (priceIsDescending === true) { // Sortera i stigande ordning
     products.sort((product1, product2) => product1.price - product2.price);
-    //console.log("Omsorterat i stigande ordning:", products);
+    //console.log('Omsorterat i stigande ordning:', products);
   }
   else { // Sortera i fallande ordning
     products.sort((product1, product2) => product2.price - product1.price);
-    //console.log("Omsorterat i fallande ordning:", products);
+    //console.log('Omsorterat i fallande ordning:', products);
   }
   priceIsDescending = !priceIsDescending; // Växla sorteringsordning för nästa gång
   printProductsList();
@@ -306,11 +276,11 @@ let ratingIsDescending = false;
 function sortProductsByRating() {
   if (ratingIsDescending === true) {
     products.sort((product1, product2) => product1.rating - product2.rating);
-    //console.log("Omsorterat i stigande ordning:", products);
+    //console.log('Omsorterat i stigande ordning:', products);
   }
   else {
     products.sort((product1, product2) => product2.rating - product1.rating);
-    //console.log("Omsorterat i fallande ordning:", products);
+    //console.log('Omsorterat i fallande ordning:', products);
   }
   ratingIsDescending = !ratingIsDescending;
   printProductsList();
@@ -320,18 +290,19 @@ const sortCategoryButton = document.querySelector('#sortByCategory');
 sortCategoryButton.addEventListener('click', sortProductsByCategory);
 let categoryIsDescending = false;
 
+
 function sortProductsByCategory() {
   if (categoryIsDescending === true) {
     const sorted = products.sort((product1, product2) => {
       return product1.category === product2.category ? 0 : product1.category < product2.category ? -1 : 1;
     });
-    //console.log("Omsorterat i stigande ordning:", products);
+    //console.log('Omsorterat i stigande ordning:', products);
   }
   else {
     const sorted = products.sort((product1, product2) => {
       return product1.category === product2.category ? 0 : product1.category < product2.category ? 1 : -1;
     });
-    //console.log("Omsorterat i fallande ordning:", products);
+    //console.log('Omsorterat i fallande ordning:', products);
   }
   categoryIsDescending = !categoryIsDescending;
   printProductsList();
@@ -339,16 +310,101 @@ function sortProductsByCategory() {
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA SLUT.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
+/***************************************************************/
+/*************************Måndagsrabatt*************************/
+/***************************************************************/
+//Kontrollera att det är måndag och att klockan är efter 10:00
+let mondayDiscountHour = false;
+if 
+(dayOfWeek === 1 && 
+((hour > 10 || (hour === 10 && minutes > 1)) && 
+((hour < 19 ) || (hour === 19 && minutes < 59)))
+) {
+    mondayDiscountHour = true;
+  }
+  function mondayDiscount(products){
+    if (mondayDiscountHour){
+      products.forEach(product => {
+      //product.price = 1;
+      product.price = Math.round(product.price * 0.9); //Minska priset med 10%
+    });
+  }
+  //console.log('ja på måndagspriser');
+  else {
+    return;
+  }
+}
+const mondayDiscountHours = mondayDiscount(products);
+/***************************************************************/
+/*************************Måndagsrabatt*************************/
+/***************************************************************/
+
+
+/***************************************************************/
+/*************************Helgpåslag*************************/
+/***************************************************************/
+let weekendPrices = false;
+  //Kontrollera om det är helgpriser. Fredagar efter kl. 15 och fram till natten mellan söndag och måndag kl. 03.00 tillkommer ett helgpåslag på 15 % på alla munkar. 
+  //const isWeekend =
+  if  (
+    (dayOfWeek === 5 && (hour > 15 || (hour === 15 && minutes > 0))) || // Fredag efter 15:00
+    dayOfWeek === 6 || // Hela lördagen
+    dayOfWeek === 0 || // Hela söndagen
+    (dayOfWeek === 1 && (hour < 3 || (hour === 3 && minutes === 0))) // Natt till måndag fram till kl. 03:00
+  ) {
+    weekendPrices = true;
+  }
+
+function applyWeekendPrices(basket){
+  if (weekendPrices) { //Tillämpa helgpåslag på priserna
+    basket.forEach(item => {
+      item.price = Math.round(item.price * 1.15); // Öka priset med 15 %
+      //item.price = 10;
+    });
+  }
+  else {
+    return;
+  //  console.log('Inget helgpåslag på vardagen.');
+  }
+  console.log('Helgpåslag tillämpat:');
+}
+/***************************************************************/
+//*************************Helgpåslag*************************/
+/***************************************************************/
+
+
+/***************************************************************/
+//*************************Rabatt vid storköp*************************/
+/***************************************************************/
+let bulkSum = 0;
+function bulkPurchaseDiscount(item){
+  let discountedPrice = item.price;
+  if (item.amount >= 10) {
+    //discountedPrice = 1;
+    discountedPrice = Math.round(item.price * 0.9);
+  }
+  const bulkSum = item.amount * discountedPrice; //Lägg till kostnaden (med eventuell storköpsrabatt) till totalSumman
+  console.log('Beställning på '+ item.amount + ' st av ',  item.name +' ger 10% rabatt. Totalpris: ' + item.amount*item.price + ' Pris per enhet efter rabatt st: ' + discountedPrice  + ' bulk: ' + bulkSum);
+  return bulkSum;
+}
+/***************************************************************/
+//*************************Rabatt vid storköp*************************/
+/***************************************************************/
+
+
+
+//*******************Increase - lägg nya artiklar i ny array - handledning med Jenny*******************//
 /*~*:._.:*~*:._.:*~*:._.:*~*:.MUNKARNA I HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
 function printProductsList() {
   productsListDiv.innerHTML = ''; //Rensa div:en före utskrift, annars blir det dubbelt vid knapptryck
 
   products.forEach(product => {
+    mondayDiscountHours;
     productsListDiv.innerHTML += `
       <article class="donut">
         <div class="donut_description">
           <h3>${product.name}</h3>
-          <p>${product.price} kr</p>
+          <p>${product.price} kr Skriv in text om måndagsrabatt</p>
           <p>${product.amount} st i varukorgen</p>
           <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
         </div>
@@ -369,6 +425,7 @@ function printProductsList() {
       <div>Räkna upp munkar: </div> */
   });
 
+  
   /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
   //*******************Increase för varje knapp*******************//
   const increaseButtons = document.querySelectorAll('button.increase');
@@ -381,13 +438,14 @@ function printProductsList() {
   decreaseButtons.forEach(button => {
     button.addEventListener('click', decreaceProductCount); //console.log('minskat antal');
   });
+  
 }
 printProductsList();
 
 //*******************Increase för antal knapptryckningar*******************//
 function increaceProductCount(e) {
   const productId = Number(e.target.id.replace('increase-', '')); //console.log('clicked on ', productId);
-  const selectedProductIndex = products.findIndex(product => product.id === productId); //console.log('Varan har index: ', selectedProductIndex);
+  const selectedProductIndex /*foundProductIndex i lektionsdemo*/ = products.findIndex(product => product.id === productId); //console.log('Varan har index: ', selectedProductIndex);
   const clickedButtonId = e.target.id; //variabel för att kunna behålla fokus på knappen
 
   if (selectedProductIndex === -1) { //Vald article måste ha minst index 0
@@ -426,158 +484,141 @@ function decreaceProductCount(e) {
   document.querySelector(`#${clickedDecreaseButton}`).focus();
 }
 
-//*******************Increase - lägg nya artiklar i ny array - handledning med Jenny*******************//
+let shoppingProductCount = document.querySelector('#shopping_list');
 const basket = []
+//let orderConfirmationDiv = document.querySelector('#order_confirmation'); // För orderinfo
 
 function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan ut som med alla munkar
-
+  let totalSum = 0;
+  let shippingFee = 0;
+  const shoppingProductCount = document.querySelector('#shopping_list'); //Talar om var den ska skrivas ut
   const existedProduct = (basket.findIndex(index => index.id === article.id)); //console.log('kolla om det finns i basket sedan tidigare. undefined betyder negativt, annars skrivs arrayen ut:', basket[existedProduct]);
 
   if (existedProduct === -1) {
     basket.push(article); //console.log('lagt till EN gång kundkorg', basket);
+      applyWeekendPrices(basket);
   }
   else {
     basket[existedProduct].amount + 1; //console.log('PLUSSAT PÅ i kundkorg', basket);
   }
-  //console.log('kundkorgen innehåller NU', basket, 'vald munk i array:', article.name);
-
-  //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
-  const shoppingProductCount = document.querySelector('#shopping_list'); //Talar om var den ska skrivas ut
-  let totalSum = 0;
 
   shoppingProductCount.innerHTML = '';
   basket.forEach(item => {
+    let bulkSumForItem = bulkPurchaseDiscount(item); // Få rabatterad summa
+    totalSum += bulkSumForItem; // Lägg till i totalSumman
+
     if (item.amount > 0) { //skriv bara ut i shoppingkorgen om det fatiskt finns munkar i den
-      
-      //*************************Rabatt vid storköp*************************/
-      let discountedPrice = item.price;
-      if (item.amount >= 10) {
-        discountedPrice = Math.round(item.price * 0.9);
-        console.log('Beställning på fler än 10st ger 10% rabatt på den sorten');
-      }
-      totalSum += item.amount * discountedPrice; //Lägg till kostnaden (med eventuell rabatt) till totalSumman
-      //*************************Rabatt vid storköp*************************/
+      //bulkPurchaseDiscount(item);
+      shopping_cart_buttons.style.display="flex";
 
-      //*************************Gratis frakt vid storköp*************************/
-      let freeDelivery = basket.reduce((sum, item) => sum + Math.round(item.amount), 0);
-      let shippingFee = 0;
-
-      if (freeDelivery >= 15) {
-        shippingFee += 0;
-        console.log('Fler än 15 ger gratis frakt. Fraktavgift:' + shippingFee);
-      }
-      else {
-        shippingFee = (totalSum * 0.1) + 25;
-        console.log('Färre än 15 kostar frakten. Fraktavgift: ' + shippingFee);
-      }
-      //*************************Gratis frakt vid storköp*************************/
-
-        //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
       shoppingProductCount.innerHTML += `
         <div class="shopping_list">
           <div class="product">${item.name} ${item.amount} st</div>     
           <div class="pic">
             <img src="${item.img.url}" alt="${item.img.alt}">
           </div> 
-          <div class="price">Pris: ${item.price}</div>
-          <div class="cost">Summa: ${item.amount*item.price}</div>
+          <div class="price">Pris nere: ${item.price}</div>
+          <div class="cost">Summa: ${bulkSumForItem} lägg till en text om rabatterat pris om så är fallet</div>
           <div class="line"></div>
+          <div id="shopping_cart_buttons"></div>
         </div>
       `;
-
-
-
-      /********************Jag vill lägga denna utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
-      orderConfirmationDiv.innerHTML = '';
-      orderConfirmationDiv.innerHTML += `
-        <div class="mondayDiscount" id="mondayDiscount">Måndagsrabatt: 10 % på hela beställningen!</div>
-        <div>Du har beställt ${item.amount} st ${item.name}. Dessa kostar ${item.price}kr st. Totalkostnad är ${item.amount*item.price}kr</div>
-        <div>Fraktkostnad: ${shippingFee}</div>
-        <div>Att betala: ${item.amount*item.price+shippingFee}</div>
-      `;
-      /********************Jag vill lägga denna utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
     }
-  
-    totalsumDiv.innerHTML = '';
-    totalsumDiv.innerHTML += `
-    <div id="totalsum">Summa: ${totalSum}</div>
-    `;
+    totalSum = item.amount*item.price; 
+    console.log('Totalpris', totalSum);
+    
+    /***************************************************************/
+    /*************************Gratis frakt vid storköp*************************/
+    /***************************************************************/
+    if (item.amount >= 15) {
+      shippingFee = 0;
+      console.log('Fler än 15 ger gratis frakt. Fraktavgift:' + shippingFee);
+    }
+    else{
+      shippingFee = Math.round(totalSum * 0.1) + 25;
+      console.log('Frakten är 10% + 25kr. Fraktavgift:' + shippingFee);
+    }
+    console.log('fraktkostnad: ', shippingFee);
+    /***************************************************************/
+    /*************************Gratis frakt vid storköp*************************/
+    /***************************************************************/
 
-    sumDiv.innerHTML = '';
-    sumDiv.innerHTML += `
-    <div class="mondayDiscount" id="mondayDiscount">Måndagsrabatt: 10 % på hela beställningen!</div>
-    <div id="sum">Summa: ${totalSum}</div>
-    `; 
+    //  totalSum = bulkSum; // Sätt om totalSum till rabatterad summa
+    
+    /*******************************måndagsrabatt texten syns alltid..? *******************/
   });
+ 
+ let totalCost = totalSum + shippingFee;
+  totalsumDiv.innerHTML = '';
+  totalsumDiv.innerHTML += `
+    <div id="totalsum">Summa uppe: ${totalSum}</div>
+  `;
 
-  /*************************Måndagsrabatt*************************/
-  // Element för måndagsrabatt
-  const mondayDiscountDiv = document.querySelector('#mondayDiscount');
-  if (mondayDiscount) { // Visa rabattmeddelandet
-    mondayDiscountDiv.style.display = "block"; // Visa div för måndagsrabatt //console.log('Måndagspriser SKA skrivas ut i varukorgen');
+ sumDiv.innerHTML = '';
+  if (mondayDiscountHour){
+    sumDiv.innerHTML += `
+    <div id="sum">Summa allra längst ner, med måndagspris: ${totalSum}</div>
+    `; 
+
+    if (!document.querySelector('#mondayDiscount')) {
+      const mondayDiscountDiv = document.createElement('div');
+      mondayDiscountDiv.id = 'mondayDiscount';
+      mondayDiscountDiv.style.display = 'block';
+      mondayDiscountDiv.textContent = 'Måndagsrabatt: 10 % på hela beställningen!';
+      document.body.appendChild(mondayDiscountDiv); // Lägg till i DOM, anpassa plats vid behov
+      console.log('ja');
+    }
   }
-  else { //Göm rabattmeddelandet
-    mondayDiscountDiv.style.display = "none"; // Dölj div för måndagsrabatt //console.log('Måndagspriser ska INTE skrivas ut i varukorgen');
+  else{
+  sumDiv.innerHTML += `
+  <div id="sum">Summa allra längst ner: ${totalSum} + ${shippingFee} = ${totalCost}</div>
+  `; 
+  console.log('inte måndagspriser idag');
   }
-  /*************************Måndagsrabatt*************************/
-  /*************************Ej faktura*************************/
+
   const invoiceDiv = document.querySelector('#invoice');
   if (totalSum>800){
-    invoiceDiv.style.display = "none"; //console.log('ej fakturaköp');
-  }
-  /*************************Ej faktura*************************/
-
-  /********************Jag vill lägga dessa utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
-  //const ticker = setInterval(showTooSlowMessage);
-  const tooSlowNoticeDiv = document.querySelector('#too_slow_notice');
-  showTooSlowMessage();
-
-  function showTooSlowMessage() {
-    console.log('<div class="too_slow_notice" id="too_slow_notice"><p>här<p/></div>');
-    //tooSlowNoticeDiv.innerHTML='Du är för långsam';
-    setTimeout(clearBasket, 100000);
+    invoiceDiv.style.display = 'none'; //console.log('ej fakturaköp');
   }
 
-  function clearBasket(){
-    shoppingProductCount.innerHTML = '';
-    orderConfirmationDiv.innerHTML = '';
-    alert('Du är för långsam');
-  }
+  //giveMondayDiscount();
+} 
+/*********************Här tar function adjustArticle slut */
 
-  /**********Denna görs dubbelt, jag vill lägga in rensningen av varukorgen i samma funktion som rensar formuläret*****/
+
+
+
+
+
+  /*****************************Avbryt beställning***************************/
   const cancelOrderButton = document.querySelector('#cancel_order_button');
   const form = document.querySelector('#form_page');
   cancelOrderButton.addEventListener('click', function() {
     clearOrder();
   });
-
   function clearOrder() {
+    const shoppingProductCount = document.querySelector('#shopping_list');
     shoppingProductCount.innerHTML = '';
     orderConfirmationDiv.innerHTML = '';
-  }/**********Denna görs dubbelt, jag vill lägga in rensningen av varukorgen i samma funktion som rensar formuläret*****/
-  /********************Jag vill lägga dessa utanför function adjustArticle(article) men når då ej shoppingProductCount.innerHTML*/
-}
-
-const cancelOrderButton = document.querySelector('#cancel_order_button');
-const form = document.querySelector('#form_page');
-
-cancelOrderButton.addEventListener('click', function() {
-  clearOrder();
-});
-
-function clearOrder() {
-  //  shoppingProductCount.innerHTML = '';
-  //  orderConfirmationDiv.innerHTML = '';
-  //  orderFormDiv.innerHTML = '';
-  if (form) {
-    form.reset(); // Återställ formuläret
+    shoppingListDiv.innerHTML += `
+      <div id="shopping_list">
+        <p>Varukorgen är tom</p>
+      </div>
+    `;
+    totalsumDiv.innerHTML = '';
+    sumDiv.innerHTML = '';
+    orderPageDiv.style.display = 'none';
+      //  orderFormDiv.innerHTML = '';
+    if (form) {
+      form.reset(); // Återställ formuläret
+    }
+    else {
+      console.error('Formuläret hittades inte.');
+    }
+    console.log('avbryt gick bra');
   }
-
-  else {
-    console.error("Formuläret hittades inte.");
-  }
-}
-
+  /*****************************Avbryt beställning***************************/
+  
 function printShoppinglist() {
   shoppingListDiv.innerHTML += `
     <div id="shopping_list">
@@ -597,25 +638,52 @@ function addedProduct (){
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
+
+
 /*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
-
-//const orderPageDiv = document.querySelector('#order_page');
 const orderButton = document.querySelector('#order_button');
-
+shopping_cart_buttons.style.display="none";
 orderButton.addEventListener('click', function() { //Eventlyssnare för button order_button
   showFormPage();
+  orderConfirmationDiv.innerHTML = '';
+  basket.forEach(item => {
+    orderConfirmationDiv.innerHTML += `
+    ORDERCONFIRMATION tryck inom viss tid
+      <div class="mondayDiscount" id="mondayDiscount">Måndagsrabatt: 10 % på hela beställningen!</div>
+      <div>Du har beställt ${item.amount} st ${item.name}. Dessa kostar ${item.price}kr st. Totalkostnad är ${item.amount*item.price}kr</div>
+      <div>Fraktkostnad:</div>
+      <div>Att betala: ${item.amount*item.price}</div>
+    `;
+    console.log('produktlista' + item.name);
+  });
+
+
+
+  showTooSlowMessage();
 });
-
 function showFormPage() {
-  orderPageDiv.style.display = "block"; //Först när klappen order_page trycks på visas formuläret
+  orderPageDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
 }
-/****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
-/****************************:.FLYTTA DENNA --> FLYTTAS HIT.:/***************************/
+
+
+function showTooSlowMessage() {
+//  console.log('<div class="too_slow_notice" id="too_slow_notice"><p>här<p/></div>');
+  //tooSlowNoticeDiv.innerHTML='Du är för långsam';
+  setTimeout(clearBasket, 100000);
+  alert('denna knapp aktiverar tömmning av kundkorg');
+}
+  //const ticker = setInterval(showTooSlowMessage);
+//const tooSlowNoticeDiv = document.querySelector('#too_slow_notice');
+//showTooSlowMessage();
+function clearBasket(){
+  const shoppingProductCount = document.querySelector('#shopping_list');
+  shoppingProductCount.innerHTML = '';
+  orderConfirmationDiv.innerHTML = '';
+  alert('Du är för långsam');
+}
+
 
 /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
-  /****************************:.FLYTTA DENNA.:/***************************/
-  const orderConfirmationDiv = document.querySelector('#order_confirmation');
-  const confirmationButtonDiv = document.querySelector('#confirm_order_button');
   
   confirmationButtonDiv.addEventListener('click', handleClick);
   function handleClick() {
@@ -624,7 +692,7 @@ function showFormPage() {
   }
 
   function showOrderPage() {
-    orderConfirmationDiv.style.display = "block"; //Först när knappen order_page trycks på visas formuläret
+    orderConfirmationDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
     
     //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
     orderConfirmationDiv.innerHTML += `
@@ -639,6 +707,9 @@ function showFormPage() {
   /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
 /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
 
+
+
+
 /********************************FORMULÄRALTERNATIV*************************/
 const cardCheckbox = document.querySelector('#card');
 const cardInformationInput = document.querySelector('#card_information');
@@ -650,7 +721,7 @@ function handleCard() {
   <input type="number" placeholder="MM//ÅÅ"><br>
   <input type="number" placeholder="CVC"><br>
     `;
-    /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
+  /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
 }
 
 const invoiceCheckbox = document.querySelector('#invoice');
@@ -667,11 +738,16 @@ function handleInvoice() {
 const discountButton = document.querySelector('#discount_button');
 const discountInput = document.querySelector('#discount_information');
 
+/***************************************************************/
+/*************************Rabattkod*************************/
+/***************************************************************/
 discountButton.addEventListener('click', handleDiscount);
 function handleDiscount() {
-
 alert('Du har använt rabattkoden ' + discountInput.value);
 }
+/***************************************************************/
+/*************************Rabattkod*************************/
+/***************************************************************/
 
 /********************************FORMULÄRALTERNATIV*************************/
 
@@ -686,11 +762,11 @@ function getRatingHtml(rating) {
 
   let star = ''; // Loopa för att skapa hela stjärnor
   for (let i = 0; i < fullStars; i++) {
-    star += `<img src="pictures/star.png" width="20" height="18" loading="lazy" alt="helt stjärna">`;
+    star += `<span><img src="pictures/star.png" width="20" height="18" loading="lazy" alt="helt stjärna"></span>`;
   }
 
   if (isHalfStar) { // Lägg till en halv stjärna om det behövs
-    star += `<img src="pictures/star_half.png" width="20" height="18" loading="lazy" alt="halv stjärna">`;
+    star += `<span><img src="pictures/star_half.png" width="20" height="18" loading="lazy" alt="halv stjärna"></span>`;
   }
   return star;
 }
