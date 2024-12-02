@@ -60,6 +60,10 @@ header {
         .sum{
             padding-bottom: 0.5em;
         }
+        img{
+            width: 2em;
+            height: auto;
+        }
     }
 }
 
@@ -273,7 +277,7 @@ h2{
         position: relative;
     }
 
-    #shopping_cart_buttons {
+    .shopping_cart_buttons {
         position: relative;
         display: none;
         justify-content: center;

@@ -188,22 +188,22 @@ const totalsumDiv = document.querySelector('#totalsum'); //Summa uppe
 const productsListDiv = document.querySelector('#products-list');
 const shoppingListDiv = document.querySelector('#shopping-list');
 const orderPageDiv = document.querySelector('#order_page');
-
+const cancelOrderButton = document.querySelector('#cancel_order_button');
+const cancelButton = document.querySelector('#cancel_button');
 const mondayDiscountDiv = document.querySelector('#mondayDiscount');
-
-
 const orderConfirmationDiv = document.querySelector('#order_confirmation');
 const confirmationButtonDiv = document.querySelector('#confirm_order_button');
+const orderConfirmationSumDiv = document.querySelector('#order_confirmation_sum');
+const visaDiv = document.querySelector('#visa');
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
-
 const day = new Date();
 const hour = day.getHours(); // Hämta timmen som ett heltal
 const minutes = day.getMinutes(); // Hämta minuter som ett heltal
 const dayOfWeek = day.getDay(); // Hämta veckodag (0 = söndag, 6 = lördag)
-console.log ('Klockan är ' + hour +':'+ minutes);
+console.log ('Klockan är ' + hour +':'+ minutes + ', och det är dag: ' + dayOfWeek);
 
 
 
@@ -315,21 +315,20 @@ function sortProductsByCategory() {
 /***************************************************************/
 //Kontrollera att det är måndag och att klockan är efter 10:00
 let mondayDiscountHour = false;
-if 
-(dayOfWeek === 1 && 
-((hour > 10 || (hour === 10 && minutes > 1)) && 
-((hour < 19 ) || (hour === 19 && minutes < 59)))
-) {
+
+if (day.getDay() === 1 && 
+((hour > 0 || (hour === 0 && minutes > 0)) && 
+((hour < 9 ) || (hour === 9 && minutes < 59)))) {
     mondayDiscountHour = true;
   }
+
   function mondayDiscount(products){
+    const day = new Date();
     if (mondayDiscountHour){
       products.forEach(product => {
-      //product.price = 1;
       product.price = Math.round(product.price * 0.9); //Minska priset med 10%
     });
   }
-  //console.log('ja på måndagspriser');
   else {
     return;
   }
@@ -346,19 +345,20 @@ const mondayDiscountHours = mondayDiscount(products);
 let weekendPrices = false;
   //Kontrollera om det är helgpriser. Fredagar efter kl. 15 och fram till natten mellan söndag och måndag kl. 03.00 tillkommer ett helgpåslag på 15 % på alla munkar. 
   //const isWeekend =
-  if  (
-    (dayOfWeek === 5 && (hour > 15 || (hour === 15 && minutes > 0))) || // Fredag efter 15:00
-    dayOfWeek === 6 || // Hela lördagen
-    dayOfWeek === 0 || // Hela söndagen
-    (dayOfWeek === 1 && (hour < 3 || (hour === 3 && minutes === 0))) // Natt till måndag fram till kl. 03:00
+  if (
+    (day.getDay() === 5 && (hour > 15 || (hour === 15 && minutes > 0))) || // Fredag efter 15:00
+    day.getDay() === 6 || // Hela lördagen
+    day.getDay() === 0 || // Hela söndagen
+    (day.getDay() === 1 && (hour < 3 || (hour === 3 && minutes === 0))) // Natt till måndag fram till kl. 03:00
   ) {
     weekendPrices = true;
   }
 
-function applyWeekendPrices(basket){
+function applyWeekendPrices(products){
+  const dayOfWeek = day.getDay();
   if (weekendPrices) { //Tillämpa helgpåslag på priserna
-    basket.forEach(item => {
-      item.price = Math.round(item.price * 1.15); // Öka priset med 15 %
+    products.forEach(product => {
+      product.price = Math.round(product.price * 1.15); // Öka priset med 15 %
       //item.price = 10;
     });
   }
@@ -368,6 +368,8 @@ function applyWeekendPrices(basket){
   }
   console.log('Helgpåslag tillämpat:');
 }
+ weekendPrices = applyWeekendPrices(products); 
+ //jag förstår inte varför jag inte kan skriva const weekendPrices = ... när jag kan göra det för mondayDiscountHour?
 /***************************************************************/
 //*************************Helgpåslag*************************/
 /***************************************************************/
@@ -400,6 +402,7 @@ function printProductsList() {
 
   products.forEach(product => {
     mondayDiscountHours;
+    weekendPrices;
     productsListDiv.innerHTML += `
       <article class="donut">
         <div class="donut_description">
@@ -487,16 +490,19 @@ function decreaceProductCount(e) {
 let shoppingProductCount = document.querySelector('#shopping_list');
 const basket = []
 //let orderConfirmationDiv = document.querySelector('#order_confirmation'); // För orderinfo
-
+let totalSum = 0;
+let totalCost = 0;
+let shippingFee = 0;
 function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan ut som med alla munkar
-  let totalSum = 0;
-  let shippingFee = 0;
+  totalSum = 0;
+
+  shippingFee = 0;
   const shoppingProductCount = document.querySelector('#shopping_list'); //Talar om var den ska skrivas ut
   const existedProduct = (basket.findIndex(index => index.id === article.id)); //console.log('kolla om det finns i basket sedan tidigare. undefined betyder negativt, annars skrivs arrayen ut:', basket[existedProduct]);
 
   if (existedProduct === -1) {
     basket.push(article); //console.log('lagt till EN gång kundkorg', basket);
-      applyWeekendPrices(basket);
+    //  applyWeekendPrices(basket);
   }
   else {
     basket[existedProduct].amount + 1; //console.log('PLUSSAT PÅ i kundkorg', basket);
@@ -509,7 +515,6 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
 
     if (item.amount > 0) { //skriv bara ut i shoppingkorgen om det fatiskt finns munkar i den
       //bulkPurchaseDiscount(item);
-      shopping_cart_buttons.style.display="flex";
 
       shoppingProductCount.innerHTML += `
         <div class="shopping_list">
@@ -517,28 +522,34 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
           <div class="pic">
             <img src="${item.img.url}" alt="${item.img.alt}">
           </div> 
-          <div class="price">Pris nere: ${item.price}</div>
+          <div class="price">Styckpris: ${item.price}</div>
           <div class="cost">Summa: ${bulkSumForItem} lägg till en text om rabatterat pris om så är fallet</div>
           <div class="line"></div>
           <div id="shopping_cart_buttons"></div>
         </div>
-      `;
+      `;   
     }
-    totalSum = item.amount*item.price; 
-    console.log('Totalpris', totalSum);
+  });
+    //totalSum += item.amount*item.price; 
+    console.log('Totalpris för sorten', totalSum);
     
     /***************************************************************/
     /*************************Gratis frakt vid storköp*************************/
     /***************************************************************/
-    if (item.amount >= 15) {
+    let totalItems = 0;
+    basket.forEach(item => {
+      totalItems += item.amount;
+    });
+    
+    // Kontrollera om antalet produkter ger gratis frakt
+    if (totalItems >= 15) {
       shippingFee = 0;
       console.log('Fler än 15 ger gratis frakt. Fraktavgift:' + shippingFee);
-    }
-    else{
-      shippingFee = Math.round(totalSum * 0.1) + 25;
+    } else {
+      shippingFee = Math.round(totalSum * 0.1) + 25; // Frakt = 10% av totalsumman + 25 kr
       console.log('Frakten är 10% + 25kr. Fraktavgift:' + shippingFee);
     }
-    console.log('fraktkostnad: ', shippingFee);
+
     /***************************************************************/
     /*************************Gratis frakt vid storköp*************************/
     /***************************************************************/
@@ -546,34 +557,38 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
     //  totalSum = bulkSum; // Sätt om totalSum till rabatterad summa
     
     /*******************************måndagsrabatt texten syns alltid..? *******************/
-  });
- 
- let totalCost = totalSum + shippingFee;
-  totalsumDiv.innerHTML = '';
-  totalsumDiv.innerHTML += `
-    <div id="totalsum">Summa uppe: ${totalSum}</div>
-  `;
+    
+    totalCost = totalSum + shippingFee;
 
- sumDiv.innerHTML = '';
+    totalsumDiv.innerHTML = '';
+    totalsumDiv.innerHTML += `
+      <div id="totalsum">Du har köpt munkar för: ${totalSum}kr</div>
+    `;
+
+  sumDiv.innerHTML = '';
   if (mondayDiscountHour){
     sumDiv.innerHTML += `
-    <div id="sum">Summa allra längst ner, med måndagspris: ${totalSum}</div>
+    <div id="sum">Idag är det måndag! Det firar vi med 10% på hela beställningen!</div>
+    <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
+    <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
+    <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
     `; 
 
     if (!document.querySelector('#mondayDiscount')) {
       const mondayDiscountDiv = document.createElement('div');
       mondayDiscountDiv.id = 'mondayDiscount';
       mondayDiscountDiv.style.display = 'block';
-      mondayDiscountDiv.textContent = 'Måndagsrabatt: 10 % på hela beställningen!';
-      document.body.appendChild(mondayDiscountDiv); // Lägg till i DOM, anpassa plats vid behov
+      document.body.appendChild(mondayDiscountDiv); //Lägg till i DOM
       console.log('ja');
     }
   }
   else{
   sumDiv.innerHTML += `
-  <div id="sum">Summa allra längst ner: ${totalSum} + ${shippingFee} = ${totalCost}</div>
+    <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
+    <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
+    <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
+    </div>
   `; 
-  console.log('inte måndagspriser idag');
   }
 
   const invoiceDiv = document.querySelector('#invoice');
@@ -591,11 +606,34 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
 
 
   /*****************************Avbryt beställning***************************/
-  const cancelOrderButton = document.querySelector('#cancel_order_button');
-  const form = document.querySelector('#form_page');
+
+  //const form = document.querySelector('#form_page');
   cancelOrderButton.addEventListener('click', function() {
-    clearOrder();
+    location.reload(); //Jag gjorde function clearOrder nedan, som återställer allt på sidan. Men jag tänkte att med reload säkerställer jag att allt verkligen töms. Är det ok att göra så?
+    //clearOrder();
   });
+
+
+
+  cancelButton.addEventListener('click', function() {
+    //location.reload(); //Jag gjorde function clearOrder nedan, som återställer allt på sidan. Men jag tänkte att med reload säkerställer jag att allt verkligen töms. Är det ok att göra så?
+
+    const shoppingProductCount = document.querySelector('#shopping_list');
+    shoppingProductCount.innerHTML = '';
+    
+    shoppingListDiv.innerHTML += `
+      <div id="shopping_list">
+        <p>Varukorgen är tom</p>
+      </div>
+    `;
+    totalsumDiv.innerHTML = '';
+    sumDiv.innerHTML = '';
+   
+    console.log('avrbyt');
+  
+});
+
+  /*
   function clearOrder() {
     const shoppingProductCount = document.querySelector('#shopping_list');
     shoppingProductCount.innerHTML = '';
@@ -616,7 +654,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
       console.error('Formuläret hittades inte.');
     }
     console.log('avbryt gick bra');
-  }
+  }*/
   /*****************************Avbryt beställning***************************/
   
 function printShoppinglist() {
@@ -642,25 +680,28 @@ function addedProduct (){
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
 const orderButton = document.querySelector('#order_button');
-shopping_cart_buttons.style.display="none";
 orderButton.addEventListener('click', function() { //Eventlyssnare för button order_button
   showFormPage();
   orderConfirmationDiv.innerHTML = '';
+  orderConfirmationDiv.innerHTML = `
+  <div>Du har beställt: </div> `;
+
   basket.forEach(item => {
     orderConfirmationDiv.innerHTML += `
-    ORDERCONFIRMATION tryck inom viss tid
-      <div class="mondayDiscount" id="mondayDiscount">Måndagsrabatt: 10 % på hela beställningen!</div>
-      <div>Du har beställt ${item.amount} st ${item.name}. Dessa kostar ${item.price}kr st. Totalkostnad är ${item.amount*item.price}kr</div>
-      <div>Fraktkostnad:</div>
-      <div>Att betala: ${item.amount*item.price}</div>
+      <div>${item.amount} st ${item.name}. Totalkostnad ${item.name} är ${item.amount*item.price}kr</div>
     `;
     console.log('produktlista' + item.name);
   });
 
-
+  orderConfirmationDiv.innerHTML += `
+  <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
+    <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
+    <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
+  `;
 
   showTooSlowMessage();
 });
+
 function showFormPage() {
   orderPageDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
 }
@@ -669,7 +710,7 @@ function showFormPage() {
 function showTooSlowMessage() {
 //  console.log('<div class="too_slow_notice" id="too_slow_notice"><p>här<p/></div>');
   //tooSlowNoticeDiv.innerHTML='Du är för långsam';
-  setTimeout(clearBasket, 100000);
+  setTimeout(clearBasket, 900000);
   alert('denna knapp aktiverar tömmning av kundkorg');
 }
   //const ticker = setInterval(showTooSlowMessage);
@@ -684,26 +725,60 @@ function clearBasket(){
 
 
 /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
-  
+  /*
   confirmationButtonDiv.addEventListener('click', handleClick);
   function handleClick() {
+    showFormPage();
     showOrderPage();
+    console.log('beställning lagd');
     confirmationButtonDiv.removeEventListener('click', handleClick); // Ta bort lyssnaren
   }
-
-  function showOrderPage() {
-    orderConfirmationDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
-    
     //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
-    orderConfirmationDiv.innerHTML += `
+  function showOrderPage() {
+    orderConfirmationSumDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
+    basket.forEach(item => {
+      orderConfirmationSumDiv.innerHTML += `
 
-      <div>SKRIV UT BESTÄLLNINGSBEKRÄFTELSEN HÄR</div>
+      <div>Beställningssammanfattning och kunduppgifter</div>
 
-        <div class="mondayDiscount" id="mondayDiscount">Måndagsrabatt: 10 % på hela beställningen!</div>
-        <div>Du har beställt ${item.amount} st ${item.name}. Dessa kostar ${item.price}kr st. Totalkostnad är ${item.amount*item.price}kr</div>
-        <div>Fraktkostnad: </div>
+      
+    
+      <div>${item.amount} st ${item.name}. Totalkostnad ${item.name} är ${item.amount*item.price}kr</div>
+      <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
+    <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
+    <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
+    
     `;
-  }
+    console.log('produktlista' + item.name);
+  });
+
+  }*/
+  const firstName = document.querySelector('#first_name');
+  //const confirmationButtonDiv = document.querySelector('#confirm_order_button');
+  confirmationButtonDiv.addEventListener('click', function() { //Eventlyssnare för button order_button
+    orderSum();
+    orderConfirmationSumDiv.innerHTML = '';
+    orderConfirmationSumDiv.innerHTML = `
+  <div>SAMMANSTÄLLNING ALL ORDERINFORMATION: </div> `;
+
+  basket.forEach(item => {
+    orderConfirmationSumDiv.innerHTML += `
+      <div>${item.amount} st ${item.name}. Totalkostnad ${item.name} är ${item.amount*item.price}kr</div>
+    `;
+    console.log('test' + item.name);
+  });
+
+  orderConfirmationSumDiv.innerHTML += `
+  <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
+    <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
+    <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
+  `;
+
+});
+
+function orderSum() {
+  visaDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
+}
   /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
 /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
 

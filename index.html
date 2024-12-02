@@ -33,7 +33,7 @@
 
             <div class="header_container">
                 <button class="menuBtn">
-                    <a href="#shoping_cart">Kundkorg</a>
+                    <a href="#shoping_cart"><img src="pictures/shopping_cart.png" width="96" height="96" loading="lazy" alt="shopping cart"></a>
                 </button>
                 <div class="sum" id="totalsum">SUMMA UPPE </div>
             </div>
@@ -124,22 +124,14 @@
             <span>X</span>
             </div>
             -->
-                <div class="shopping_cart_buttons" id="shopping_cart_buttons">
-                    <input class="order_button" id="order_button" type="button" value="Beställ (orderButton)">
-                    <input class="cancel_button" type="button" value="Avbryt">
-                </div>
-            <div id="sum">NERE</div>
+        </div>
+        <div id="sum">NERE</div>
+        <div class="shopping_cart_buttons" id="shopping_cart_buttons">
+            <input class="order_button" id="order_button" type="button" value="Beställ (orderButton)">
+            <input class="cancel_buttton" id="cancel_button" type="button" value="Avbryt i varukorg">
         </div>
 
-            
 
-            <!----------------------FLYTTA DENNA--------------------------->
-            <div class="buttons">
-                <button class="confirm_order_button" id="confirm_order_button" type="button" value="Bekräfta beställning">
-                    <p>Bekräfta beställning</p>
-                </button>
-
-            <!----------------------FLYTTA DENNA--------------------------->
         </article>
 
         <div class="order_page" id="order_page"> O R D E R P A G E  D I V
@@ -241,7 +233,13 @@
                         </span>
                     </div>
 
-                                <!----------------------FLYTTA HIT DENNA--------------------------->
+                                <!----------------------TA BORT DENNA?--------------------------- >
+            <div class="buttons">
+                <button class="confirm_order_button" id="confirm_order_button" type="button" value="Bekräfta beställning">
+                    <p>Bekräfta beställning</p>
+                </button>
+
+            < !----------------------TA BORT DENNA?--------------------------->
                 </div>
             </form>
 
@@ -250,9 +248,6 @@
                 <button id="discount_button">Använd rabattkod></button>
             </div>
             O R D E R   C O N F I R M A T I O N
-            <div class="order_confirmation" id="order_confirmation">
-                Här ska sammanställning av kunduppgifter och beställning visas
-            </div>
 
             <div class="buttons">
                 <input class="order_button" id="confirm_order_button" type="button" value="Beställ">
@@ -260,6 +255,15 @@
             </div>
         </div>
 
+        <div class="order_confirmation" id="order_confirmation">
+            Här ska sammanställning av kunduppgifter och beställning visas
+        </div>
+
+        <div id="visa">
+        <div class="order_confirmation_sum" id="order_confirmation_sum">
+            Beställningssammanfattning och kunduppgifter
+        </div>
+        </div>
         
     </div>
     <script src="script.js"></script>
