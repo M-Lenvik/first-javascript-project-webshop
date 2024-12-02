@@ -195,6 +195,7 @@ const orderConfirmationDiv = document.querySelector('#order_confirmation');
 const confirmationButtonDiv = document.querySelector('#confirm_order_button');
 const orderConfirmationSumDiv = document.querySelector('#order_confirmation_sum');
 const visaDiv = document.querySelector('#visa');
+const shopingCartBasket = document.querySelector('#shoping_cart');
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
@@ -433,7 +434,8 @@ function printProductsList() {
   //*******************Increase för varje knapp*******************//
   const increaseButtons = document.querySelectorAll('button.increase');
   increaseButtons.forEach(button => {
-    button.addEventListener('click', increaceProductCount); //console.log('ökat antal');
+    button.addEventListener('click', increaceProductCount); 
+    console.log('ökat antal');
   });
 
   //*******************Decrease för varje knapp*******************//
@@ -450,6 +452,7 @@ function increaceProductCount(e) {
   const productId = Number(e.target.id.replace('increase-', '')); //console.log('clicked on ', productId);
   const selectedProductIndex /*foundProductIndex i lektionsdemo*/ = products.findIndex(product => product.id === productId); //console.log('Varan har index: ', selectedProductIndex);
   const clickedButtonId = e.target.id; //variabel för att kunna behålla fokus på knappen
+  shopingCartBasket.style.display = "block";
 
   if (selectedProductIndex === -1) { //Vald article måste ha minst index 0
     console.error('Det finns inte i listan');
@@ -772,6 +775,7 @@ function clearBasket(){
   <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
     <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
     <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
+    <div id="totalcost">Totalt att betala: ${firstName} kr</div>
   `;
 
 });
