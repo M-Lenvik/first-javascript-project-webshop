@@ -191,11 +191,23 @@ const orderPageDiv = document.querySelector('#order_page');
 const cancelOrderButton = document.querySelector('#cancel_order_button');
 const cancelButton = document.querySelector('#cancel_button');
 const mondayDiscountDiv = document.querySelector('#mondayDiscount');
-const orderConfirmationDiv = document.querySelector('#order_confirmation');
+const orderDiv = document.querySelector('#order');
 const confirmationButtonDiv = document.querySelector('#confirm_order_button');
 const orderConfirmationSumDiv = document.querySelector('#order_confirmation_sum');
-const visaDiv = document.querySelector('#visa');
+const orderConfirmationDiv = document.querySelector('#order_confirmation');
 const shopingCartBasket = document.querySelector('#shoping_cart');
+const sortNameButton = document.querySelector('#sortByName');
+const sortPriceButton = document.querySelector('#sortByPrice');
+const sortRatingButton = document.querySelector('#sortByRating');
+const sortCategoryButton = document.querySelector('#sortByCategory');
+const orderButton = document.querySelector('#order_button');
+const cardCheckbox = document.querySelector('#card');
+const cardInformationInput = document.querySelector('#card_information');
+
+const discountButton = document.querySelector('#discount_button');
+const discountInput = document.querySelector('#discount_information');
+
+
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
@@ -221,7 +233,7 @@ function sortFocus(){
 }
 
 /*********************Sort by Name********************/
-const sortNameButton = document.querySelector('#sortByName');
+
 sortNameButton.addEventListener('click', sortProductsByName);
 let nameIsDescending = false; // Håller koll på nuvarande sorteringsordning
 
@@ -253,7 +265,7 @@ function sortProductsByName() {
 }
 /*********************Sort by Price********************/
 console.log('munklista:', products);
-const sortPriceButton = document.querySelector('#sortByPrice');
+
 sortPriceButton.addEventListener('click', sortProductsByPrice);
 let priceIsDescending = false; // Håller koll på nuvarande sorteringsordning
 
@@ -270,7 +282,7 @@ function sortProductsByPrice() {
   printProductsList();
 }
 /*********************Sort by Rating********************/
-const sortRatingButton = document.querySelector('#sortByRating');
+
 sortRatingButton.addEventListener('click', sortProductsByRating);
 let ratingIsDescending = false;
 
@@ -287,7 +299,7 @@ function sortProductsByRating() {
   printProductsList();
 }
 /*********************Sort by Category********************/
-const sortCategoryButton = document.querySelector('#sortByCategory');
+
 sortCategoryButton.addEventListener('click', sortProductsByCategory);
 let categoryIsDescending = false;
 
@@ -492,7 +504,7 @@ function decreaceProductCount(e) {
 
 let shoppingProductCount = document.querySelector('#shopping_list');
 const basket = []
-//let orderConfirmationDiv = document.querySelector('#order_confirmation'); // För orderinfo
+//let orderDiv = document.querySelector('#order_confirmation'); // För orderinfo
 let totalSum = 0;
 let totalCost = 0;
 let shippingFee = 0;
@@ -640,7 +652,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   function clearOrder() {
     const shoppingProductCount = document.querySelector('#shopping_list');
     shoppingProductCount.innerHTML = '';
-    orderConfirmationDiv.innerHTML = '';
+    orderDiv.innerHTML = '';
     shoppingListDiv.innerHTML += `
       <div id="shopping_list">
         <p>Varukorgen är tom</p>
@@ -682,22 +694,22 @@ function addedProduct (){
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
-const orderButton = document.querySelector('#order_button');
+
 orderButton.addEventListener('click', function() { //Eventlyssnare för button order_button
   showFormPage();
-  orderConfirmationDiv.innerHTML = '';
-  orderConfirmationDiv.innerHTML = `
+  orderDiv.innerHTML = '';
+  orderDiv.innerHTML = `
   <div>Du har beställt: </div> `;
 
   basket.forEach(item => {
-    orderConfirmationDiv.innerHTML += `
+    orderDiv.innerHTML += `
       <div>${item.amount} st ${item.name}. Totalkostnad ${item.name} är ${item.amount*item.price}kr</div>
     `;
     console.log('produktlista' + item.name);
   });
 
-  orderConfirmationDiv.innerHTML += `
-  <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
+  orderDiv.innerHTML += `
+    <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
     <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
     <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
   `;
@@ -714,15 +726,17 @@ function showTooSlowMessage() {
 //  console.log('<div class="too_slow_notice" id="too_slow_notice"><p>här<p/></div>');
   //tooSlowNoticeDiv.innerHTML='Du är för långsam';
   setTimeout(clearBasket, 900000);
-  alert('denna knapp aktiverar tömmning av kundkorg');
+//  alert('denna knapp aktiverar tömmning av kundkorg');
 }
   //const ticker = setInterval(showTooSlowMessage);
 //const tooSlowNoticeDiv = document.querySelector('#too_slow_notice');
 //showTooSlowMessage();
 function clearBasket(){
-  const shoppingProductCount = document.querySelector('#shopping_list');
+/*  const shoppingProductCount = document.querySelector('#shopping_list');
   shoppingProductCount.innerHTML = '';
-  orderConfirmationDiv.innerHTML = '';
+  orderDiv.innerHTML = ''; 
+  */
+  location.reload();
   alert('Du är för långsam');
 }
 
@@ -756,32 +770,41 @@ function clearBasket(){
   });
 
   }*/
-  const firstName = document.querySelector('#first_name');
+  //const firstName = document.querySelector('#first_name');
   //const confirmationButtonDiv = document.querySelector('#confirm_order_button');
   confirmationButtonDiv.addEventListener('click', function() { //Eventlyssnare för button order_button
     orderSum();
+    registerUser();
     orderConfirmationSumDiv.innerHTML = '';
     orderConfirmationSumDiv.innerHTML = `
-  <div>SAMMANSTÄLLNING ALL ORDERINFORMATION: </div> `;
-
+      <div id="order_confirmation_sum">
+      <p>Orderbekräftelse:</p>
+      <p>Hej ${userName} ${lastName}, du har köpt munkar idag!</p>
+      </div>
+  `;
   basket.forEach(item => {
     orderConfirmationSumDiv.innerHTML += `
-      <div>${item.amount} st ${item.name}. Totalkostnad ${item.name} är ${item.amount*item.price}kr</div>
+      <div>
+      <p>${item.name}, ${item.amount}st,  ${item.amount*item.price}kr</p>
+      </div>
     `;
-    console.log('test' + item.name);
   });
-
   orderConfirmationSumDiv.innerHTML += `
-  <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
+    <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
     <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
     <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
-    <div id="totalcost">Totalt att betala: ${firstName} kr</div>
-  `;
-
+  
+    <p>Din order kommer att skickas till:</p>
+    <p>${userName} ${lastName}</p>
+    <p>${adress} ${zipCode} ${postalAddress}</p>
+    <p>Leveransbekräftelse skickas till ${email}</p>
+    <p>Bud kommer att ringa dig före leverans på ${phone}</p>
+    </div>    
+    `;
 });
 
 function orderSum() {
-  visaDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
+  orderConfirmationDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
 }
   /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
 /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
@@ -790,21 +813,59 @@ function orderSum() {
 
 
 /********************************FORMULÄRALTERNATIV*************************/
-const cardCheckbox = document.querySelector('#card');
-const cardInformationInput = document.querySelector('#card_information');
 
-cardCheckbox.addEventListener('click', handleCard);
-function handleCard() {
+    /************************FORMULÄR********************/
+    /****************************************************/
+    const userNameInput = document.querySelector('#first_name');    
+    const lastNameInput = document.querySelector('#last_name');    
+    const adressInput = document.querySelector('#adress');    
+    const zipCodeInput = document.querySelector('#zip_code');    
+    const postalAddressInput = document.querySelector('#postal_address');    
+    const portCodeInput = document.querySelector('#port_code');    
+    const phoneInput = document.querySelector('#phone');    
+    const emailInput = document.querySelector('#email');    
+    const cardInput = document.querySelector('#card');    
+    const invoiceInput = document.querySelector('#invoice');    
+    const invoiceCheckbox = document.querySelector('#invoice');
+    const invoiceInformationInput = document.querySelector('#invoice_information');
+
+
+    let userName = '';
+    let lastName = '';
+    let adress = '';
+    let zipCode = '';
+    let postalAddress = '';
+    let portCode = '';
+    let phone = '';
+    let email = '';
+    let card = '';
+    let invoice = '';
+
+    function registerUser(){
+      userName = userNameInput.value;
+      lastName = lastNameInput.value;
+      adress = adressInput.value;
+      zipCode = zipCodeInput.value;
+      postalAddress = postalAddressInput.value;
+      portCode = portCodeInput.value;
+      phone = phoneInput.value;
+      email = emailInput.value;
+      card = cardInput.value;
+      invoice = invoiceInput.value;
+    }
+    /************************FORMULÄR********************/
+    /****************************************************/
+
+  cardCheckbox.addEventListener('click', handleCard);
+  function handleCard() {
   cardInformationInput.innerHTML += `
   <input type="number" placeholder="Kortnummer"><br>
   <input type="number" placeholder="MM//ÅÅ"><br>
   <input type="number" placeholder="CVC"><br>
     `;
   /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
-}
+  }
 
-const invoiceCheckbox = document.querySelector('#invoice');
-const invoiceInformationInput = document.querySelector('#invoice_information');
 
 invoiceCheckbox.addEventListener('click', handleInvoice);
 function handleInvoice() {
@@ -814,8 +875,7 @@ function handleInvoice() {
     /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
 }
 
-const discountButton = document.querySelector('#discount_button');
-const discountInput = document.querySelector('#discount_information');
+
 
 /***************************************************************/
 /*************************Rabattkod*************************/

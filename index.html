@@ -33,7 +33,7 @@
 
             <div class="header_container">
                 <button class="menuBtn">
-                    <a href="#shoping_cart_img"><img src="pictures/shopping_cart.png" width="96" height="96" loading="lazy" alt="shopping cart"></a>
+                    <a href="#shoping_cart"><img src="pictures/shopping_cart.png" width="96" height="96" loading="lazy" alt="shopping cart"></a>
                 </button>
                 <div class="sum" id="totalsum">SUMMA UPPE </div>
             </div>
@@ -135,6 +135,10 @@
         </article>
 
         <div class="order_page" id="order_page"> O R D E R P A G E  D I V
+            
+            <div class="order" id="order">
+            <!--    Här ska sammanställning av kunduppgifter och beställning visas -->
+            </div>
             <!--TÄNK PÅ TILLGÄNGLIGHET HÄR. KOLLA UPP FIELDSET  OCH LEGEND https://webdesignskolan.se/html/formular/formular.php-->
             <form class="form_page" id="form_page">
                 <h4>Beställningsformulär</h4>
@@ -250,18 +254,16 @@
             O R D E R   C O N F I R M A T I O N
 
             <div class="buttons">
-                <input class="order_button" id="confirm_order_button" type="button" value="Beställ">
+                <input class="order_button" id="confirm_order_button" type="button" value="Bekräfta beställning">
                 <input class="cancel_button" id="cancel_order_button" type="button" value="Avbryt">
             </div>
         </div>
 
-        <div class="order_confirmation" id="order_confirmation">
-            Här ska sammanställning av kunduppgifter och beställning visas
-        </div>
 
-        <div id="visa">
+        <div id="order_confirmation" class="order_confirmation">
         <div class="order_confirmation_sum" id="order_confirmation_sum">
-            Beställningssammanfattning och kunduppgifter
+        <!--    Beställningssammanfattning och kunduppgifter -->
+        <div class="customer_output"></div>
         </div>
         </div>
         

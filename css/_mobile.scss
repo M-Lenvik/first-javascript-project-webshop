@@ -316,37 +316,43 @@ h2{
 
     /******************************kom ihåg att ändra display till none;!****************/
 
-.form_page{
+    .form_page{
 
-    .order_form{
-        background-color: aquamarine;
+        .order_form{
+            background-color: aquamarine;
 
-        .costumer_info{
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 1em;
-            background-color: lightgreen;
+            .costumer_info{
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1em;
+                background-color: lightgreen;
+            }
+            .input{
+                background-color: #676565;
+                grid-column: span 1;
+            }
+            .customer_input{
+                background-color: lightgray;
+                grid-column: span 5;
+            }
+
+            button{
+                width: 12em;
+                height: 2em;
+            }
         }
-        .input{
-            background-color: #676565;
-            grid-column: span 1;
+
+        #order_confirmation{
+
+            display: block;
+
+            /******************************kom ihåg att ändra display till none;!****************/
         }
-        .customer_input{
-            background-color: lightgray;
-            grid-column: span 5;
-        }
-
-        button{
-            width: 12em;
-            height: 2em;
-        }
-    }
-
-    #order_confirmation{
-
-        display: block;
-
-        /******************************kom ihåg att ändra display till none;!****************/
     }
 }
+
+.order_confirmation{
+    .order_confirmation_sum{
+        background-color: orangered;
+    }
 }
