@@ -186,6 +186,7 @@ const ratingsDiv = document.querySelector('#rating');
 const sumDiv = document.querySelector('#sum'); //Summa nere
 const totalsumDiv = document.querySelector('#totalsum'); //Summa uppe
 const productsListDiv = document.querySelector('#products-list');
+let shoppingProductCount = document.querySelector('#shopping_list');
 const shoppingListDiv = document.querySelector('#shopping-list');
 const orderPageDiv = document.querySelector('#order_page');
 const cancelOrderButton = document.querySelector('#cancel_order_button');
@@ -211,29 +212,25 @@ const discountInput = document.querySelector('#discount_information');
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
-/*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:.TID.:*~*:._.:*~*:._.:*~*:._.:*~*/
 const day = new Date();
 const hour = day.getHours(); // Hämta timmen som ett heltal
 const minutes = day.getMinutes(); // Hämta minuter som ett heltal
 const dayOfWeek = day.getDay(); // Hämta veckodag (0 = söndag, 6 = lördag)
 console.log ('Klockan är ' + hour +':'+ minutes + ', och det är dag: ' + dayOfWeek);
+/*~*:._.:*~*:._.:*~*:._.:*~*:.TID.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
 
 
-/*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PRINT-HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
+
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
-
-
-function sortFocus(){
-  this.focus();
-}
-
-/*********************Sort by Name********************/
-
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/********************************Sort by Name******************************/
 sortNameButton.addEventListener('click', sortProductsByName);
 let nameIsDescending = false; // Håller koll på nuvarande sorteringsordning
 
@@ -263,9 +260,8 @@ function sortProductsByName() {
   nameIsDescending = !nameIsDescending; // Växla sorteringsordning för nästa gång
   printProductsList();
 }
-/*********************Sort by Price********************/
-console.log('munklista:', products);
 
+/*******************************Sort by Price******************************/
 sortPriceButton.addEventListener('click', sortProductsByPrice);
 let priceIsDescending = false; // Håller koll på nuvarande sorteringsordning
 
@@ -281,8 +277,8 @@ function sortProductsByPrice() {
   priceIsDescending = !priceIsDescending; // Växla sorteringsordning för nästa gång
   printProductsList();
 }
-/*********************Sort by Rating********************/
 
+/*******************************Sort by Rating******************************/
 sortRatingButton.addEventListener('click', sortProductsByRating);
 let ratingIsDescending = false;
 
@@ -298,11 +294,10 @@ function sortProductsByRating() {
   ratingIsDescending = !ratingIsDescending;
   printProductsList();
 }
-/*********************Sort by Category********************/
 
+/*******************************Sort by Category******************************/
 sortCategoryButton.addEventListener('click', sortProductsByCategory);
 let categoryIsDescending = false;
-
 
 function sortProductsByCategory() {
   if (categoryIsDescending === true) {
@@ -320,12 +315,15 @@ function sortProductsByCategory() {
   categoryIsDescending = !categoryIsDescending;
   printProductsList();
 }
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.SORTERA KNAPPARNA SLUT.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
-/***************************************************************/
-/*************************Måndagsrabatt*************************/
-/***************************************************************/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/***********************************Måndagsrabatt***********************************/
 //Kontrollera att det är måndag och att klockan är efter 10:00
 let mondayDiscountHour = false;
 
@@ -341,86 +339,72 @@ if (day.getDay() === 1 &&
       products.forEach(product => {
       product.price = Math.round(product.price * 0.9); //Minska priset med 10%
     });
+    console.log('idag är det måndag');
   }
   else {
-    return;
+    return; 
   }
 }
 const mondayDiscountHours = mondayDiscount(products);
-/***************************************************************/
-/*************************Måndagsrabatt*************************/
-/***************************************************************/
 
-
-/***************************************************************/
-/*************************Helgpåslag*************************/
-/***************************************************************/
+/***********************************Helgpåslag***********************************/
 let weekendPrices = false;
-  //Kontrollera om det är helgpriser. Fredagar efter kl. 15 och fram till natten mellan söndag och måndag kl. 03.00 tillkommer ett helgpåslag på 15 % på alla munkar. 
-  //const isWeekend =
-  if (
-    (day.getDay() === 5 && (hour > 15 || (hour === 15 && minutes > 0))) || // Fredag efter 15:00
-    day.getDay() === 6 || // Hela lördagen
-    day.getDay() === 0 || // Hela söndagen
-    (day.getDay() === 1 && (hour < 3 || (hour === 3 && minutes === 0))) // Natt till måndag fram till kl. 03:00
-  ) {
-    weekendPrices = true;
-  }
+  //Kontrollera om det är helgpriser. Fredagar efter kl. 15 och fram till natten mellan söndag och måndag kl. 03.00 tillkommer ett helgpåslag på 15 % på alla munkar.
+if (
+  (day.getDay() === 5 && (hour > 15 || (hour === 15 && minutes > 0))) || //Fredag efter 15:00
+  day.getDay() === 6 || // Hela lördagen
+  day.getDay() === 0 || // Hela söndagen
+  (day.getDay() === 1 && (hour < 3 || (hour === 3 && minutes === 0))) //Natt till måndag fram till kl. 03:00
+){
+  weekendPrices = true;
+}
 
 function applyWeekendPrices(products){
   const dayOfWeek = day.getDay();
   if (weekendPrices) { //Tillämpa helgpåslag på priserna
     products.forEach(product => {
       product.price = Math.round(product.price * 1.15); // Öka priset med 15 %
-      //item.price = 10;
     });
   }
   else {
     return;
-  //  console.log('Inget helgpåslag på vardagen.');
+  // console.log('Inget helgpåslag på vardagen.');
   }
   console.log('Helgpåslag tillämpat:');
 }
- weekendPrices = applyWeekendPrices(products); 
- //jag förstår inte varför jag inte kan skriva const weekendPrices = ... när jag kan göra det för mondayDiscountHour?
-/***************************************************************/
-//*************************Helgpåslag*************************/
-/***************************************************************/
+weekendPrices = applyWeekendPrices(products); 
 
-
-/***************************************************************/
-//*************************Rabatt vid storköp*************************/
-/***************************************************************/
+//***********************************Rabatt vid storköp***********************************/
 let bulkSum = 0;
 function bulkPurchaseDiscount(item){
   let discountedPrice = item.price;
   if (item.amount >= 10) {
-    //discountedPrice = 1;
     discountedPrice = Math.round(item.price * 0.9);
   }
-  const bulkSum = item.amount * discountedPrice; //Lägg till kostnaden (med eventuell storköpsrabatt) till totalSumman
+
+  bulkSum = item.amount * discountedPrice; //Lägg till kostnaden (med eventuell storköpsrabatt) till totalSumman
   console.log('Beställning på '+ item.amount + ' st av ',  item.name +' ger 10% rabatt. Totalpris: ' + item.amount*item.price + ' Pris per enhet efter rabatt st: ' + discountedPrice  + ' bulk: ' + bulkSum);
   return bulkSum;
 }
-/***************************************************************/
-//*************************Rabatt vid storköp*************************/
-/***************************************************************/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
-
-//*******************Increase - lägg nya artiklar i ny array - handledning med Jenny*******************//
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.MUNKARNA I HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
-function printProductsList() {
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+function printProductsList() { //funktion för att skriva ut munkarna vid inläsning av sidan
   productsListDiv.innerHTML = ''; //Rensa div:en före utskrift, annars blir det dubbelt vid knapptryck
 
   products.forEach(product => {
-    mondayDiscountHours;
-    weekendPrices;
+    mondayDiscountHours; //om det är måndag så aktiveras måndagspriser
+    weekendPrices; //om det är helg så aktiveras helgpriser
     productsListDiv.innerHTML += `
       <article class="donut">
         <div class="donut_description">
           <h3>${product.name}</h3>
-          <p>${product.price} kr Skriv in text om måndagsrabatt</p>
+          <p>${product.price}kr</p>
           <p>${product.amount} st i varukorgen</p>
           <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
         </div>
@@ -435,10 +419,6 @@ function printProductsList() {
         </div
       <article>
     `;
-    /*  <div class="buttons">
-        <button class="shopping_cart" id="shopping_cart">Lägg i varukorg</button>    
-      </div
-      <div>Räkna upp munkar: </div> */
   });
 
   
@@ -457,14 +437,27 @@ function printProductsList() {
   });
   
 }
-printProductsList();
+printProductsList(); //skriver ut munkarna
 
+function sortFocus(){ //funktion för att behålla fokus på aktuell knapp vid tangentbordsanvändning
+  this.focus();
+}
+
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:.MUNKARNA I HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+
+
+
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:LÄGG TILL & DRA IFRÅN MUNKAR.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 //*******************Increase för antal knapptryckningar*******************//
 function increaceProductCount(e) {
   const productId = Number(e.target.id.replace('increase-', '')); //console.log('clicked on ', productId);
   const selectedProductIndex /*foundProductIndex i lektionsdemo*/ = products.findIndex(product => product.id === productId); //console.log('Varan har index: ', selectedProductIndex);
   const clickedButtonId = e.target.id; //variabel för att kunna behålla fokus på knappen
-  shopingCartBasket.style.display = "block";
+  shopingCartBasket.style.display = "block"; //först näär man lägger till första munken visas varukorgen
 
   if (selectedProductIndex === -1) { //Vald article måste ha minst index 0
     console.error('Det finns inte i listan');
@@ -481,7 +474,6 @@ function increaceProductCount(e) {
 }
 
 //*******************Decrease för antal knapptryckningar******************* //
-//Decrease
 function decreaceProductCount(e) {
   const productId = Number(e.target.id.replace('decrease-', '')); //console.log('clicked on ', productId); /*console.log(e.target.id);/* <button class="increase" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->*/
   const selectedProductIndex = products.findIndex(product => product.id === productId); //console.log('Varan har index: ', selectedProductIndex);
@@ -501,26 +493,33 @@ function decreaceProductCount(e) {
   printProductsList();
   document.querySelector(`#${clickedDecreaseButton}`).focus();
 }
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:LÄGG TILL & DRA IFRÅN MUNKAR.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
-let shoppingProductCount = document.querySelector('#shopping_list');
+
+
+
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:KUNDKORGEN.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+//*******************Increase - lägg nya artiklar i ny array - handledning med Jenny*******************//
 const basket = []
-//let orderDiv = document.querySelector('#order_confirmation'); // För orderinfo
 let totalSum = 0;
 let totalCost = 0;
 let shippingFee = 0;
 function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan ut som med alla munkar
   totalSum = 0;
-
   shippingFee = 0;
+  totalCost = totalSum + shippingFee;
   const shoppingProductCount = document.querySelector('#shopping_list'); //Talar om var den ska skrivas ut
   const existedProduct = (basket.findIndex(index => index.id === article.id)); //console.log('kolla om det finns i basket sedan tidigare. undefined betyder negativt, annars skrivs arrayen ut:', basket[existedProduct]);
 
   if (existedProduct === -1) {
     basket.push(article); //console.log('lagt till EN gång kundkorg', basket);
-    //  applyWeekendPrices(basket);
   }
   else {
-    basket[existedProduct].amount + 1; //console.log('PLUSSAT PÅ i kundkorg', basket);
+    basket[existedProduct].amount + 1; //console.log('plussat på i kundkorg', basket);
   }
 
   shoppingProductCount.innerHTML = '';
@@ -529,8 +528,6 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
     totalSum += bulkSumForItem; // Lägg till i totalSumman
 
     if (item.amount > 0) { //skriv bara ut i shoppingkorgen om det fatiskt finns munkar i den
-      //bulkPurchaseDiscount(item);
-
       shoppingProductCount.innerHTML += `
         <div class="shopping_list">
           <div class="product">${item.name} ${item.amount} st</div>     
@@ -545,109 +542,166 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
       `;   
     }
   });
-    //totalSum += item.amount*item.price; 
-    console.log('Totalpris för sorten', totalSum);
-    
-    /***************************************************************/
-    /*************************Gratis frakt vid storköp*************************/
-    /***************************************************************/
-    let totalItems = 0;
-    basket.forEach(item => {
-      totalItems += item.amount;
-    });
-    
-    // Kontrollera om antalet produkter ger gratis frakt
-    if (totalItems >= 15) {
-      shippingFee = 0;
-      console.log('Fler än 15 ger gratis frakt. Fraktavgift:' + shippingFee);
-    } else {
-      shippingFee = Math.round(totalSum * 0.1) + 25; // Frakt = 10% av totalsumman + 25 kr
-      console.log('Frakten är 10% + 25kr. Fraktavgift:' + shippingFee);
-    }
+  //console.log('Totalpris för sorten', totalSum);
 
-    /***************************************************************/
-    /*************************Gratis frakt vid storköp*************************/
-    /***************************************************************/
 
-    //  totalSum = bulkSum; // Sätt om totalSum till rabatterad summa
+  /***************************************************************/
+  /*************************Gratis frakt vid storköp*************************/
+  /***************************************************************/
+  let totalItems = 0;
+  basket.forEach(item => {
+    totalItems += item.amount;
+  });
     
-    /*******************************måndagsrabatt texten syns alltid..? *******************/
+  // Kontrollera om antalet produkter ger gratis frakt
+  if (totalItems >= 15) {
+    shippingFee = 0;
+    console.log('Fler än 15 ger gratis frakt. Fraktavgift:' + shippingFee);
+  } else {
+    shippingFee = Math.round(totalSum * 0.1) + 25; // Frakt = 10% av totalsumman + 25 kr
+    console.log('Frakten är 10% + 25kr. Fraktavgift:' + shippingFee);
+  }
+  /***************************************************************/
+  /*************************Gratis frakt vid storköp*************************/
+  /***************************************************************/
     
-    totalCost = totalSum + shippingFee;
 
-    totalsumDiv.innerHTML = '';
-    totalsumDiv.innerHTML += `
-      <div id="totalsum">Du har köpt munkar för: ${totalSum}kr</div>
-    `;
+  totalCost = totalSum + shippingFee;
+
+  totalsumDiv.innerHTML = '';
+  totalsumDiv.innerHTML += `
+    <div id="totalsum">Du har köpt munkar för: ${totalSum}kr</div>
+  `;
 
   sumDiv.innerHTML = '';
+  sumDiv.innerHTML += `
+    <div id="sum">`;
   if (mondayDiscountHour){
     sumDiv.innerHTML += `
-    <div id="sum">Idag är det måndag! Det firar vi med 10% på hela beställningen!</div>
-    <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
-    <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
-    <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
-    `; 
-
-    if (!document.querySelector('#mondayDiscount')) {
-      const mondayDiscountDiv = document.createElement('div');
-      mondayDiscountDiv.id = 'mondayDiscount';
-      mondayDiscountDiv.style.display = 'block';
-      document.body.appendChild(mondayDiscountDiv); //Lägg till i DOM
-      console.log('ja');
-    }
-  }
-  else{
-  sumDiv.innerHTML += `
+      <p>Idag är det måndag! Det firar vi med 10% på alla munkar!</p>
+  `;}
+  sumDiv.innerHTML += `      
     <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
     <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
     <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
     </div>
   `; 
-  }
-
+  
   const invoiceDiv = document.querySelector('#invoice');
   if (totalSum>800){
     invoiceDiv.style.display = 'none'; //console.log('ej fakturaköp');
   }
-
-  //giveMondayDiscount();
 } 
-/*********************Här tar function adjustArticle slut */
+function printShoppinglist() {
+  shoppingListDiv.innerHTML += `
+    <div id="shopping_list">
+      <p>Varukorgen är tom</p>
+    </div>
+  `;
+}
+printShoppinglist();
+/*********************Här tar function adjustArticle slut************************/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:KUNDKORGEN.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
 
-
-
-
-  /*****************************Avbryt beställning***************************/
-
-  //const form = document.querySelector('#form_page');
-  cancelOrderButton.addEventListener('click', function() {
-    location.reload(); //Jag gjorde function clearOrder nedan, som återställer allt på sidan. Men jag tänkte att med reload säkerställer jag att allt verkligen töms. Är det ok att göra så?
-    //clearOrder();
-  });
-
-
-
-  cancelButton.addEventListener('click', function() {
-    //location.reload(); //Jag gjorde function clearOrder nedan, som återställer allt på sidan. Men jag tänkte att med reload säkerställer jag att allt verkligen töms. Är det ok att göra så?
-
-    const shoppingProductCount = document.querySelector('#shopping_list');
-    shoppingProductCount.innerHTML = '';
-    
-    shoppingListDiv.innerHTML += `
-      <div id="shopping_list">
-        <p>Varukorgen är tom</p>
-      </div>
-    `;
-    totalsumDiv.innerHTML = '';
-    sumDiv.innerHTML = '';
-   
-    console.log('avrbyt');
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:ORDER CONFIRMATION.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*****************************Avbryt beställning***************************/
+cancelButton.addEventListener('click', function() { //Avbryt i varukorgen
+  //location.reload(); 
   
+  const shoppingProductCount = document.querySelector('#shopping_list');
+  shoppingProductCount.innerHTML = '';
+    
+  shoppingListDiv.innerHTML += `
+    <div id="shopping_list">
+      <p>Varukorgen är tom</p>
+    </div>
+  `;
+  totalsumDiv.innerHTML = '';
+  sumDiv.innerHTML = '';
+   
+  console.log('avrbyt');  
 });
 
+/*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/************************FORMULÄR********************/
+const userNameInput = document.querySelector('#first_name');    
+const lastNameInput = document.querySelector('#last_name');    
+const adressInput = document.querySelector('#adress');    
+const zipCodeInput = document.querySelector('#zip_code');    
+const postalAddressInput = document.querySelector('#postal_address');    
+const portCodeInput = document.querySelector('#port_code');    
+const phoneInput = document.querySelector('#phone');    
+const emailInput = document.querySelector('#email');    
+const cardInput = document.querySelector('#card');    
+const invoiceInput = document.querySelector('#invoice');    
+const invoiceCheckbox = document.querySelector('#invoice');
+const invoiceInformationInput = document.querySelector('#invoice_information');
+
+let userName = '';
+let lastName = '';
+let adress = '';
+let zipCode = '';
+let postalAddress = '';
+let portCode = '';
+let phone = '';
+let email = '';
+let card = '';
+let invoice = '';
+
+function registerUser(){
+  userName = userNameInput.value;
+  lastName = lastNameInput.value;
+  adress = adressInput.value;
+  zipCode = zipCodeInput.value;
+  postalAddress = postalAddressInput.value;
+  portCode = portCodeInput.value;
+  phone = phoneInput.value;
+  email = emailInput.value;
+  card = cardInput.value;
+  invoice = invoiceInput.value;
+}
+    
+cardCheckbox.addEventListener('click', handleCard);
+function handleCard() {
+  cardInformationInput.innerHTML += `
+    <input type="number" placeholder="Kortnummer"><br>
+    <input type="number" placeholder="MM//ÅÅ"><br>
+    <input type="number" placeholder="CVC"><br>
+  `;
+  /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
+}  
+
+invoiceCheckbox.addEventListener('click', handleInvoice);
+function handleInvoice() {
+  invoiceInformationInput.innerHTML += `
+    <input type="number" placeholder="Personnummer"><br>
+  `;
+  /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
+}
+
+/*************************Rabattkod*************************/
+discountButton.addEventListener('click', handleDiscount);
+function handleDiscount() {
+alert('Du har använt rabattkoden ' + discountInput.value);
+}
+
+/*~*:._.:*~*:._.:*~*:._.:*~*:.KNAPPAR I FORMULÄRET.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*************************Avbryt*************************/
+cancelOrderButton.addEventListener('click', function() { //Avbryt där formuläret visas
+  location.reload();
+  /**
+   *Jag gjorde function clearOrder nedan, som återställer allt på sidan.
+   Men jag tänkte att med reload säkerställer jag att allt verkligen töms.
+   Är det ok att göra så?
+   */
+  //clearOrder();
+});
   /*
   function clearOrder() {
     const shoppingProductCount = document.querySelector('#shopping_list');
@@ -670,36 +724,13 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
     }
     console.log('avbryt gick bra');
   }*/
-  /*****************************Avbryt beställning***************************/
-  
-function printShoppinglist() {
-  shoppingListDiv.innerHTML += `
-    <div id="shopping_list">
-    <p>Varukorgen är tom</p>
-    </div>
-  `;
-}
-printShoppinglist();
 
-/****************************:.LÄGG TILL I VARUKORG.:/*************************** /
-function addedProduct (){
-  const shoppingProductCount = document.querySelector('#utskriftDiv');
-  console.log('Munkar');
-  shoppingProductCount.innerHTML = 'Du har lagt X antal munkar i varukorgen'; 
-}
-/****************************:.LÄGG TILL I VARUKORG.:/***************************/
-/*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
-
-
-
-
-/*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
-
+/********************************ORDERBEKRÄFTELSE I FORMULÄR*************************/
 orderButton.addEventListener('click', function() { //Eventlyssnare för button order_button
-  showFormPage();
+  showFormPage(); //Visar formuläret och sammanställning av kundkorgen
   orderDiv.innerHTML = '';
   orderDiv.innerHTML = `
-  <div>Du har beställt: </div> `;
+    <div>Du har beställt: </div> `;
 
   basket.forEach(item => {
     orderDiv.innerHTML += `
@@ -709,72 +740,37 @@ orderButton.addEventListener('click', function() { //Eventlyssnare för button o
   });
 
   orderDiv.innerHTML += `
-    <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
-    <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
-    <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
+    <div"><p>Totalt (exkl. frakt): ${totalSum} kr</p>
+    <p">Fraktkostnad: ${shippingFee} kr</p>
+    </p>Totalt att betala: ${totalCost} kr</p>
+    </div>
   `;
-
   showTooSlowMessage();
 });
+/*~*:._.:*~*:._.:*~*:._.:*~*:.KNAPPAR I FORMULÄRET.:*~*:._.:*~*:._.:*~*:._.:*~*/
+
 
 function showFormPage() {
-  orderPageDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
+  orderPageDiv.style.display = 'block'; //Först när knappen orderButton trycks på visas formuläret och sammanställning av kundkorgen
 }
-
 
 function showTooSlowMessage() {
-//  console.log('<div class="too_slow_notice" id="too_slow_notice"><p>här<p/></div>');
-  //tooSlowNoticeDiv.innerHTML='Du är för långsam';
   setTimeout(clearBasket, 900000);
-//  alert('denna knapp aktiverar tömmning av kundkorg');
 }
-  //const ticker = setInterval(showTooSlowMessage);
-//const tooSlowNoticeDiv = document.querySelector('#too_slow_notice');
-//showTooSlowMessage();
+
 function clearBasket(){
-/*  const shoppingProductCount = document.querySelector('#shopping_list');
-  shoppingProductCount.innerHTML = '';
-  orderDiv.innerHTML = ''; 
-  */
   location.reload();
   alert('Du är för långsam');
 }
 
+function orderSum() {
+  orderConfirmationDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
+}
 
-/****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
-  /*
-  confirmationButtonDiv.addEventListener('click', handleClick);
-  function handleClick() {
-    showFormPage();
-    showOrderPage();
-    console.log('beställning lagd');
-    confirmationButtonDiv.removeEventListener('click', handleClick); // Ta bort lyssnaren
-  }
-    //😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫😵‍💫
-  function showOrderPage() {
-    orderConfirmationSumDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
-    basket.forEach(item => {
-      orderConfirmationSumDiv.innerHTML += `
-
-      <div>Beställningssammanfattning och kunduppgifter</div>
-
-      
-    
-      <div>${item.amount} st ${item.name}. Totalkostnad ${item.name} är ${item.amount*item.price}kr</div>
-      <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
-    <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
-    <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
-    
-    `;
-    console.log('produktlista' + item.name);
-  });
-
-  }*/
-  //const firstName = document.querySelector('#first_name');
-  //const confirmationButtonDiv = document.querySelector('#confirm_order_button');
+/****************************Bekräfta beställning***************************/
   confirmationButtonDiv.addEventListener('click', function() { //Eventlyssnare för button order_button
-    orderSum();
-    registerUser();
+    orderSum(); //visar <div> med id order_confirmation. innen detta är den dold. Då visas beställningsbekräftelse och inmatade kunddata
+    registerUser(); //läser in input data från formuläret genom function registerUser
     orderConfirmationSumDiv.innerHTML = '';
     orderConfirmationSumDiv.innerHTML = `
       <div id="order_confirmation_sum">
@@ -785,7 +781,7 @@ function clearBasket(){
   basket.forEach(item => {
     orderConfirmationSumDiv.innerHTML += `
       <div>
-      <p>${item.name}, ${item.amount}st,  ${item.amount*item.price}kr</p>
+      <p>${item.name}, ${item.amount}st, ${item.amount*item.price}kr</p>
       </div>
     `;
   });
@@ -802,95 +798,10 @@ function clearBasket(){
     </div>    
     `;
 });
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:ORDER CONFIRMATION.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
-function orderSum() {
-  orderConfirmationDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
-}
-  /****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
-/****************************:.BESTÄLLNINGSBEKRÄFTELSE.:/***************************/
-
-
-
-
-/********************************FORMULÄRALTERNATIV*************************/
-
-    /************************FORMULÄR********************/
-    /****************************************************/
-    const userNameInput = document.querySelector('#first_name');    
-    const lastNameInput = document.querySelector('#last_name');    
-    const adressInput = document.querySelector('#adress');    
-    const zipCodeInput = document.querySelector('#zip_code');    
-    const postalAddressInput = document.querySelector('#postal_address');    
-    const portCodeInput = document.querySelector('#port_code');    
-    const phoneInput = document.querySelector('#phone');    
-    const emailInput = document.querySelector('#email');    
-    const cardInput = document.querySelector('#card');    
-    const invoiceInput = document.querySelector('#invoice');    
-    const invoiceCheckbox = document.querySelector('#invoice');
-    const invoiceInformationInput = document.querySelector('#invoice_information');
-
-
-    let userName = '';
-    let lastName = '';
-    let adress = '';
-    let zipCode = '';
-    let postalAddress = '';
-    let portCode = '';
-    let phone = '';
-    let email = '';
-    let card = '';
-    let invoice = '';
-
-    function registerUser(){
-      userName = userNameInput.value;
-      lastName = lastNameInput.value;
-      adress = adressInput.value;
-      zipCode = zipCodeInput.value;
-      postalAddress = postalAddressInput.value;
-      portCode = portCodeInput.value;
-      phone = phoneInput.value;
-      email = emailInput.value;
-      card = cardInput.value;
-      invoice = invoiceInput.value;
-    }
-    /************************FORMULÄR********************/
-    /****************************************************/
-
-  cardCheckbox.addEventListener('click', handleCard);
-  function handleCard() {
-  cardInformationInput.innerHTML += `
-  <input type="number" placeholder="Kortnummer"><br>
-  <input type="number" placeholder="MM//ÅÅ"><br>
-  <input type="number" placeholder="CVC"><br>
-    `;
-  /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
-  }
-
-
-invoiceCheckbox.addEventListener('click', handleInvoice);
-function handleInvoice() {
-  invoiceInformationInput.innerHTML += `
-  <input type="number" placeholder="Personnummer"><br>
-    `;
-    /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
-}
-
-
-
-/***************************************************************/
-/*************************Rabattkod*************************/
-/***************************************************************/
-discountButton.addEventListener('click', handleDiscount);
-function handleDiscount() {
-alert('Du har använt rabattkoden ' + discountInput.value);
-}
-/***************************************************************/
-/*************************Rabattkod*************************/
-/***************************************************************/
-
-/********************************FORMULÄRALTERNATIV*************************/
-
-/*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -910,11 +821,3 @@ function getRatingHtml(rating) {
   return star;
 }
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
-/*~*:._.:*~*:._.:*~*:._.:*~*:.PRINT-HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
-
-/*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
-
-
-
-
-/*~*:._.:*~*:._.:*~*:._.:*~*:.SPECIALREGLER.:*~*:._.:*~*:._.:*~*:._.:*~*/
