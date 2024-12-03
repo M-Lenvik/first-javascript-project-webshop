@@ -643,6 +643,11 @@ const invoiceInput = document.querySelector('#invoice');
 const invoiceCheckbox = document.querySelector('#invoice');
 const invoiceInformationInput = document.querySelector('#invoice_information');
 
+const emailRegex = new RegExp (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+const personIdRegex = new RegExp (/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
+
+
+
 let userName = '';
 let lastName = '';
 let adress = '';
@@ -653,6 +658,7 @@ let phone = '';
 let email = '';
 let card = '';
 let invoice = '';
+
 
 function registerUser(){
   userName = userNameInput.value;
@@ -666,7 +672,7 @@ function registerUser(){
   card = cardInput.value;
   invoice = invoiceInput.value;
 }
-    
+
 cardCheckbox.addEventListener('click', handleCard);
 function handleCard() {
   cardInformationInput.innerHTML += `
@@ -680,10 +686,72 @@ function handleCard() {
 invoiceCheckbox.addEventListener('click', handleInvoice);
 function handleInvoice() {
   invoiceInformationInput.innerHTML += `
-    <input type="number" placeholder="Personnummer"><br>
-  `;
+      <label for="personnummer" class="input">Personnummer: </label>
+      <input id="personnummer" type="text" placeholder="YYYYMMDD-XXXX"><br>
+    `;
   /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
+  //Jag tog mycket hjälp av chatGPT för att få detta rätt.
+  let okPersonnummer = false;
+  const personInput = document.querySelector('#personnummer');
+  personInput.addEventListener('input', () => {
+    const personnummer = personInput.value.trim();
+    if (personIdRegex.exec(personnummer)) {
+      personInput.style.borderColor = 'green'; // Indikera att det är giltigt
+      okPersonnummer = true;
+      console.log('Giltigt personnummer:', personnummer, okPersonnummer);
+    }
+    else {
+      console.log('Ogiltigt personnummer');
+      personInput.style.borderColor = 'red'; // Indikera att det är ogiltigt
+      okPersonnummer = false;
+    }
+    clikableButton(okPersonnummer); // Uppdatera knappens tillstånd
+  });
 }
+
+
+emailInput.addEventListener('click', epost);
+function epost() {
+  let test = false;
+emailInput.addEventListener('input', () => {
+  const email = emailInput.value.trim();
+const mail = emailRegex.exec(email);
+if (mail === null){
+  test = false;
+  console.log(test, 'ogiltig e-post');
+}
+else if (mail.length > 0){
+  test = true;
+  console.log(test, 'giltig e-post');
+}
+clikButton(test);
+});
+}
+
+
+
+function clikableButton(okPersonnummer) {
+  if (okPersonnummer) {
+    confirmationButtonDiv.disabled = false; // Aktivera knappen om personnumret är OK
+  console.log('ok personnummer');
+  } else {
+    confirmationButtonDiv.disabled = true; // Inaktivera knappen annars
+    console.log('INTE ok personnummer');
+  }
+}
+
+function clikButton(test) {
+  if (test) {
+    confirmationButtonDiv.disabled = false; // Aktivera knappen om personnumret är OK
+  console.log('ok email');
+  } else {
+    confirmationButtonDiv.disabled = true; // Inaktivera knappen annars
+    console.log('INTE ok email');
+  }
+}
+
+
+
 
 /*************************Rabattkod*************************/
 discountButton.addEventListener('click', handleDiscount);
@@ -767,8 +835,17 @@ function orderSum() {
   orderConfirmationDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
 }
 
+
+
+
+
+
+
+
+
 /****************************Bekräfta beställning***************************/
-  confirmationButtonDiv.addEventListener('click', function() { //Eventlyssnare för button order_button
+confirmationButtonDiv.disabled = true; // Gör knappen utgråad
+confirmationButtonDiv.addEventListener('click', function() { //Eventlyssnare för button order_button
     orderSum(); //visar <div> med id order_confirmation. innen detta är den dold. Då visas beställningsbekräftelse och inmatade kunddata
     registerUser(); //läser in input data från formuläret genom function registerUser
     orderConfirmationSumDiv.innerHTML = '';
