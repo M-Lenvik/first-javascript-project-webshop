@@ -340,6 +340,13 @@ h2{
                 width: 12em;
                 height: 2em;
             }
+
+            .error-message {
+                color: red;
+                font-size: 0.9em;
+                margin-left: 10px;
+                display: block;
+            }
         }
 
         #order_confirmation{
@@ -348,6 +355,8 @@ h2{
 
             /******************************kom ihåg att ändra display till none;!****************/
         }
+        
+
     }
 
 }

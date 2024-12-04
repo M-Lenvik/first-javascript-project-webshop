@@ -147,42 +147,47 @@
                     <div class="costumer_info">
                         <label for="first_name" class="input"> Förnamn </label>
                         <span class="customer_input">
-                            <input id="first_name" type="text" placeholder="Skriv in ditt förnamn" required><br>
+                            <input id="first_name" type="text" placeholder="Skriv in ditt förnamn" required>
+                            <span class="error_message" aria-live="polite"></span>
                         </span>
                     </div>
 
                     <div class="costumer_info">
                         <label for="last_name" class="input"> Efternamn </label>
                         <span class="customer_input">
-                            <input id="last_name" type="text" placeholder="Skriv in ditt efternamn" required><br>
+                            <input id="last_name" type="text" placeholder="Skriv in ditt efternamn" required>
+                            <span class="error_message" aria-live="polite"></span>
                         </span>
                     </div>
 
                     <div class="costumer_info">
                         <label for="adress" class="input"> Adress </label>
                         <span class="customer_input">
-                            <input id="adress" type="text" placeholder="Skriv in ditt gatunamn" required><br>
+                            <input id="adress" type="text" placeholder="Skriv in ditt gatunamn" required>
+                            <span class="error_message" aria-live="polite"></span>
                         </span>
                     </div>
 
                     <div class="costumer_info">
                         <label for="zip_code" class="input"> Postnummer </label>
                         <span class="customer_input">
-                            <input id="zip_code"  type="number" placeholder="Skriv in ditt postnummer" required><br>
+                            <input id="zip_code"  type="text" placeholder="Skriv in ditt postnummer" required>
+                            <span class="error_message" aria-live="polite"></span>
                         </span>
                     </div>
 
                     <div class="costumer_info">
                         <label for="postal_address" class="input"> Postort </label>
                         <span class="customer_input">
-                            <input id="postal_address" type="text" placeholder="Skriv in din postort" required><br>
+                            <input id="postal_address" type="text" placeholder="Skriv in din postort" required>
+                            <span class="error_message" aria-live="polite"></span>
                         </span>
                     </div>
 
                     <div class="costumer_info">
                         <label for="port_code" class="input"> Portkod </label>
                         <span class="customer_input">
-                            <input id="port_code" type="number" placeholder="Eventuell portkod"><br>
+                            <input id="port_code" type="text" placeholder="Eventuell portkod">
                         </span>
                     </div>
 
@@ -190,29 +195,35 @@
                         <label for="phone" class="input"> Phone </label>
                         <span class="customer_input">
                             <input id="phone" type="tel" placeholder="Phone number" pattern="[0-9]{10,15}" required>
+                            <span class="error_message" aria-live="polite"></span>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label for="email" class="input"> Email </label>
+                        <label for="email" class="input"> E-post </label>
                         <span class="customer_input">
-                            <input id="email" type="email" placeholder="Email" required><br>
+                            <input id="email" type="email" placeholder="Email" required>
+                            <span id="email_error" class="error_message" aria-live="polite"></span>
                         </span>
                     </div>
+
+
+                    
+                    
 
                     <div class="costumer_info">
                         <label for="payment_method" class="input"> Välj betalsätt </label>
                         <span class="customer_input">
 
                             <label for="card">Kort</label>
-                            <input id="card" type="radio" name="card">
+                            <input id="card" type="radio" name="payment" value="card">
                             
                             <span id="card_information">
                             <!--Finns i javascript-->
                             </span>
 
                             <label for="invoice">Faktura</label>
-                            <input id="invoice" type="radio" name="invoice">
+                            <input id="invoice" type="radio" name="payment" value="invoice">
 
                             <span id="invoice_information">
                                 <!--Finns i javascript-->
