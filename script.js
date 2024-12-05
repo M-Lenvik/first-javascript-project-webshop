@@ -636,17 +636,12 @@ const adressInput = document.querySelector('#adress');
 const zipCodeInput = document.querySelector('#zip_code');    
 const postalAddressInput = document.querySelector('#postal_address');    
 const portCodeInput = document.querySelector('#port_code');    
-const phoneInput = document.querySelector('#phone');
-const phoneError = document.querySelector('#phone_error'); 
-const emailInput = document.querySelector('#email');
-const emailError = document.querySelector('#email_error');   
-const errorMessage = document.querySelector('.error_message');   
+const phoneInput = document.querySelector('#phone');    
+const emailInput = document.querySelector('#email');    
 const cardInput = document.querySelector('#card');    
 const invoiceInput = document.querySelector('#invoice');    
 const invoiceCheckbox = document.querySelector('#invoice');
-
 const invoiceInformationInput = document.querySelector('#invoice_information');
-const personInput = document.querySelector('#personIdNumber');
 
 const nameRegex = new RegExp (/\w{2,}/); //Minst två tecken krävs
 const lastNameRegex = new RegExp (/\w{2,}/); //Minst två tecken krävs
@@ -663,16 +658,15 @@ let lastName = '';
 let adress = '';
 let zipCode = '';
 let postalAddress = '';
+let portCode = '';
 let phone = '';
 let email = '';
 let card = '';
 let invoice = '';
-let personId = '';
-let requirePersonIdNumber = false;
+let requirePersonnummer = false;
 
 
 function registerUser(){
-  console.warn(`Element för registerUser saknas i DOM.`)
   userName = userNameInput.value;
   lastName = lastNameInput.value;
   adress = adressInput.value;
@@ -683,49 +677,16 @@ function registerUser(){
   email = emailInput.value;
   card = cardInput.value;
   invoice = invoiceInput.value;
-  personId = personInput.value;
-console.log(`User: ${userName} ${lastName}`);
-    }
+}
 
-
-
-// Lägg till event-lyssnare på båda radioknapparna
-cardInput.addEventListener('change', handlePaymentChange);
-invoiceInput.addEventListener('change', handlePaymentChange);
-
-function handlePaymentChange() {
-  if (cardInput.checked) { //Om kort är valt visas kortinput och fakturainput tas bort
-    cardInformationInput.innerHTML += `
-      <input type="number" placeholder="Kortnummer"><br>
-      <input type="number" placeholder="MM//ÅÅ"><br>
-      <input type="number" placeholder="CVC"><br>
-    `;
-    invoiceInformationInput.innerHTML = ''; //Ta bort fakturafält
-  }
-
-  else if (invoiceInput.checked) {//Om faktura är valt visas fakturainput och kortinput tas bort
-    const requirePersonIdNumber = invoiceCheckbox.checked; //Kontrollera om faktura är vald som betalsätt
-    if (requirePersonIdNumber) {
-      invoiceInformationInput.innerHTML = `
-        <label for="personIdNumber" class="input">Personnummer: </label>
-        <input id="personIdNumber" type="text" placeholder="YYYYMMDD-XXXX"><br>
-      `;
-      cardInformationInput.innerHTML = ''; //Ta bort kortfält
-    }
-
-    //Lägg till validering för personnummer
-    const personInput = document.querySelector('#personIdNumber');
-    if (personInput) {
-      validateField(personInput, personIdRegex, '_validPersonIdNumber', 'personnummer');
-    }
-  } 
-  
-  else {
-    //Ta bort input-fält om faktura inte är vald
-    invoiceInformationInput.innerHTML = '';
-    validationStatus._validPersonIdNumber = true; //Återställ personnummer-kontroll till godkänd
-    clikableButton(); //Uppdatera knappens status
-  }
+cardCheckbox.addEventListener('click', handleCard);
+function handleCard() {
+  cardInformationInput.innerHTML += `
+    <input type="number" placeholder="Kortnummer"><br>
+    <input type="number" placeholder="MM//ÅÅ"><br>
+    <input type="number" placeholder="CVC"><br>
+  `;
+  /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
 }
 
 const fieldsToValidate = [
@@ -735,58 +696,117 @@ const fieldsToValidate = [
   { input: zipCodeInput, regex: zipCodeRegex, flag: '_zipCodeCheck', message: 'postnummer' },
   { input: postalAddressInput, regex: postalAdressRegex, flag: '_postalAddressCheck', message: 'postadress' },
   { input: phoneInput, regex: phoneRegex, flag: '_phoneCheck', message: 'telefonnummer' },
-  { input: emailInput, regex: emailRegex, flag: '_emailCheck', message: 'e-post', errorElement: 'emailError' },
-  { input: personInput, regex: personIdRegex, flag: '_validPersonIdNumber', message: 'personnummer' },
+  { input: emailInput, regex: emailRegex, flag: '_emailCheck', message: 'e-post' },
+
+  //  { input: personInput, regex: personIdRegex, flag: 'okPersonnummer', message: 'personnummer' },
 ];
 
 
+let okPersonnummer = false;
 // Objekt för att lagra valideringsstatus
 const validationStatus = {
   _userNameCheck: false,
+//  okPersonnummer: false,
   _lastNameCheck: false,
   _adressCheck: false,
   _zipCodeCheck: false,
   _postalAddressCheck: false,
+//  _portCode: false,
   _phoneCheck: false,
   _emailCheck: false,
-  _validPersonIdNumber: true, // Börjar som true om faktura inte är vald
+//  _card: false,
+//  _invoice: false,
+okPersonnummer: true, // Börjar som true om faktura inte är vald
 
 };
 
+// Lyssna på när faktura-radio-knappen klickas
+invoiceCheckbox.addEventListener('click', () => {
+  requirePersonnummer = invoiceCheckbox.checked; // Kontrollera om faktura är vald
+  if (requirePersonnummer) {
+  invoiceInformationInput.innerHTML += `
+      <label for="personnummer" class="input">Personnummer: </label>
+      <input id="personnummer" type="text" placeholder="YYYYMMDD-XXXX"><br>
+    `;
+  /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
+  //Jag tog mycket hjälp av chatGPT för att få detta rätt.
+/*
+  const personInput = document.querySelector('#personnummer');
+  personInput.addEventListener('input', () => {
+    const personnummer = personInput.value.trim();
+    if (personIdRegex.exec(personnummer)) {
+      personInput.style.borderColor = 'green'; // Indikera att det är giltigt
+      okPersonnummer = true;
+      console.log('Giltigt personnummer:', personnummer, okPersonnummer);
+    }
+    else {
+      console.log('Ogiltigt personnummer');
+      personInput.style.borderColor = 'red'; // Indikera att det är ogiltigt
+      okPersonnummer = false;
+    }
+    clikableButton(okPersonnummer); // Uppdatera knappens tillstånd
+  });*/
+
+// Lägg till validering för personnummer
+const personInput = document.querySelector('#personnummer');
+//validateField(personInput, personIdRegex, 'okPersonnummer', 'personnummer');
+} else {
+// Ta bort input-fält om faktura inte är vald
+invoiceInformationInput.innerHTML = '';
+validationStatus.okPersonnummer = true; // Återställ personnummer-kontroll till godkänd
+clikableButton(); // Uppdatera knappens status
+}
+});
+
+/*
+emailInput.addEventListener('click', epost);
+function epost() {
+emailInput.addEventListener('input', () => {
+  const email = emailInput.value.trim();
+const mail = emailRegex.exec(email);
+if (mail === null){
+  _emailCheck = false;
+  console.log(_emailCheck, 'ogiltig e-post');
+}
+else if (mail.length > 0){
+  _emailCheck = true;
+  console.log(_emailCheck, 'giltig e-post');
+}
+clikableButton(_emailCheck, _nameCheck);
+});
+}
+
+
+userNameInput.addEventListener('click', namn);
+function namn() {
+  userNameInput.addEventListener('input', () => {
+  const userName = userNameInput.value.trim();
+const name = nameRegex.exec(userName);
+if (name === null){
+  _nameCheck = false;
+  console.log(_nameCheck, 'inget namn');
+}
+else if (name.length > 0){
+  _nameCheck = true;
+  console.log(_nameCheck, 'namn ok');
+}
+//clikableButton(okPersonnummer, _emailCheck);
+});
+}
+
+*/
 // Funktion för att validera ett fält
 function validateField(input, regex, flag, message) {
-  
   input.addEventListener('input', () => {
-    const errorMessage = document.querySelector('.error_message');
-    if (!regex.test(input.value.trim())) {
-      input.classList.add('input-error');
-    } 
-    else {
-      input.classList.remove('input-error');
-      input.removeAttribute('aria-describedby');
-
-    }
     const value = input.value.trim();
     if (regex.test(value)) {
       validationStatus[flag] = true;
       input.style.borderColor = 'green'; // Indikera att inmatningen är giltig
-      errorMessage.innerHTML = ``;
       console.log(`Giltig ${message}:`, value);
-    } 
-    else {
-      let errorMessage = document.querySelector('.error_message');
-      if (!errorMessage) {
-        errorMessage = document.createElement('div');
-        errorMessage.class = 'error_message';
-        document.body.appendChild(errorMessage); // Eller lägg till det vid fältet
-      }
-    
+    } else {
       validationStatus[flag] = false;
       input.style.borderColor = 'red'; // Indikera att inmatningen är ogiltig
-      errorMessage.innerHTML = `
-      <div>Felmeddelande :)</div>
-    `;
-    console.log(`Ogiltig ${message}`);
+      console.log(`Ogiltig ${message}`);
     }
     // Kontrollera knappens status efter varje inmatning
     clikableButton();
@@ -795,11 +815,7 @@ function validateField(input, regex, flag, message) {
 
 // Lägg till validering på varje fält
 fieldsToValidate.forEach(({ input, regex, flag, message }) => {
-  if (input) {
-    validateField(input, regex, flag, message);
-  } else {
-    console.warn(`Element för ${message} saknas i DOM.`);
-  }
+  validateField(input, regex, flag, message);
 });
 
 // Funktion för att uppdatera knappens status
@@ -808,6 +824,30 @@ function clikableButton() {
   confirmationButtonDiv.disabled = !allValid; // Aktivera knappen endast om alla fält är giltiga
   console.log(allValid ? 'Alla fält är giltiga' : 'Vissa fält är ogiltiga');
 }
+
+/*
+function clikableButton(okPersonnummer, _emailCheck) {
+  if (okPersonnummer && _emailCheck) {
+    confirmationButtonDiv.disabled = false; // Aktivera knappen om personnumret är OK
+  console.log('ok inmatade värden');
+  } else {
+    confirmationButtonDiv.disabled = true; // Inaktivera knappen annars
+    console.log('något fält är fel inmatat');
+  }
+}
+  */
+/*
+function clikButton(test) {
+  if (test) {
+    confirmationButtonDiv.disabled = false; // Aktivera knappen om personnumret är OK
+  console.log('ok email');
+  } else {
+    confirmationButtonDiv.disabled = true; // Inaktivera knappen annars
+    console.log('INTE ok email');
+  }
+}
+*/
+
 
 
 /*************************Rabattkod*************************/
@@ -905,8 +945,6 @@ confirmationButtonDiv.disabled = true; // Gör knappen utgråad
 confirmationButtonDiv.addEventListener('click', function() { //Eventlyssnare för button order_button
     orderSum(); //visar <div> med id order_confirmation. innen detta är den dold. Då visas beställningsbekräftelse och inmatade kunddata
     registerUser(); //läser in input data från formuläret genom function registerUser
-
-    
     orderConfirmationSumDiv.innerHTML = '';
     orderConfirmationSumDiv.innerHTML = `
       <div id="order_confirmation_sum">
