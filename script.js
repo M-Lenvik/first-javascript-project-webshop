@@ -683,7 +683,7 @@ function registerUser(){
   email = emailInput.value;
   card = cardInput.value;
   invoice = invoiceInput.value;
-  personId = personInput.value;
+//  personId = personInput.value;
 console.log(`User: ${userName} ${lastName}`);
     }
 
@@ -758,14 +758,14 @@ function validateField(input, regex, flag, message) {
   
   input.addEventListener('input', () => {
     const errorMessage = document.querySelector('.error_message');
-    if (!regex.test(input.value.trim())) {
+  /*  if (!regex.test(input.value.trim())) {
       input.classList.add('input-error');
     } 
     else {
       input.classList.remove('input-error');
       input.removeAttribute('aria-describedby');
 
-    }
+    }*/
     const value = input.value.trim();
     if (regex.test(value)) {
       validationStatus[flag] = true;
@@ -774,12 +774,13 @@ function validateField(input, regex, flag, message) {
       console.log(`Giltig ${message}:`, value);
     } 
     else {
+      /*
       let errorMessage = document.querySelector('.error_message');
       if (!errorMessage) {
         errorMessage = document.createElement('div');
         errorMessage.class = 'error_message';
         document.body.appendChild(errorMessage); // Eller lägg till det vid fältet
-      }
+      }*/
     
       validationStatus[flag] = false;
       input.style.borderColor = 'red'; // Indikera att inmatningen är ogiltig
