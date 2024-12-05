@@ -672,6 +672,7 @@ let requirePersonIdNumber = false;
 
 
 function registerUser(){
+  console.warn(`Element för registerUser saknas i DOM.`)
   userName = userNameInput.value;
   lastName = lastNameInput.value;
   adress = adressInput.value;
@@ -683,7 +684,10 @@ function registerUser(){
   card = cardInput.value;
   invoice = invoiceInput.value;
   personId = personInput.value;
-}
+console.log(`User: ${userName} ${lastName}`);
+    }
+
+
 
 // Lägg till event-lyssnare på båda radioknapparna
 cardInput.addEventListener('change', handlePaymentChange);
@@ -901,6 +905,8 @@ confirmationButtonDiv.disabled = true; // Gör knappen utgråad
 confirmationButtonDiv.addEventListener('click', function() { //Eventlyssnare för button order_button
     orderSum(); //visar <div> med id order_confirmation. innen detta är den dold. Då visas beställningsbekräftelse och inmatade kunddata
     registerUser(); //läser in input data från formuläret genom function registerUser
+
+    
     orderConfirmationSumDiv.innerHTML = '';
     orderConfirmationSumDiv.innerHTML = `
       <div id="order_confirmation_sum">
