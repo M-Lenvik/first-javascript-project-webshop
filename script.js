@@ -637,13 +637,13 @@ const zipCodeInput = document.querySelector('#zip_code');
 const postalAddressInput = document.querySelector('#postal_address');    
 const portCodeInput = document.querySelector('#port_code');    
 const phoneInput = document.querySelector('#phone');    
-const emailInput = document.querySelector('#email');    
+const emailInput = document.querySelector('#email');   
 const cardInput = document.querySelector('#card');    
 const invoiceInput = document.querySelector('#invoice');    
 const invoiceCheckbox = document.querySelector('#invoice');
 
 const invoiceInformationInput = document.querySelector('#invoice_information');
-const personInput = document.querySelector('#personnummer');
+const personInput = document.querySelector('#personIdNumber');
 
 const nameRegex = new RegExp (/\w{2,}/); //Minst två tecken krävs
 const lastNameRegex = new RegExp (/\w{2,}/); //Minst två tecken krävs
@@ -665,7 +665,7 @@ let email = '';
 let card = '';
 let invoice = '';
 let personId = '';
-let requirePersonnummer = false;
+let requirePersonIdNumber = false;
 
 
 function registerUser(){
@@ -682,16 +682,43 @@ function registerUser(){
   personId = personInput.value;
 }
 
+// Lägg till event-lyssnare på båda radioknapparna
+cardInput.addEventListener('change', handlePaymentChange);
+invoiceInput.addEventListener('change', handlePaymentChange);
 
+function handlePaymentChange() {
+  if (cardInput.checked) { //Om kort är valt visas kortinput och fakturainput tas bort
+    cardInformationInput.innerHTML += `
+      <input type="number" placeholder="Kortnummer"><br>
+      <input type="number" placeholder="MM//ÅÅ"><br>
+      <input type="number" placeholder="CVC"><br>
+    `;
+    invoiceInformationInput.innerHTML = ''; //Ta bort fakturafält
+  }
 
-cardCheckbox.addEventListener('click', handleCard);
-function handleCard() {
-  cardInformationInput.innerHTML += `
-    <input type="number" placeholder="Kortnummer"><br>
-    <input type="number" placeholder="MM//ÅÅ"><br>
-    <input type="number" placeholder="CVC"><br>
-  `;
-  /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
+  else if (invoiceInput.checked) {//Om faktura är valt visas fakturainput och kortinput tas bort
+    const requirePersonIdNumber = invoiceCheckbox.checked; //Kontrollera om faktura är vald som betalsätt
+    if (requirePersonIdNumber) {
+      invoiceInformationInput.innerHTML = `
+        <label for="personIdNumber" class="input">Personnummer: </label>
+        <input id="personIdNumber" type="text" placeholder="YYYYMMDD-XXXX"><br>
+      `;
+      cardInformationInput.innerHTML = ''; //Ta bort kortfält
+    }
+
+    //Lägg till validering för personnummer
+    const personInput = document.querySelector('#personIdNumber');
+    if (personInput) {
+      validateField(personInput, personIdRegex, '_validPersonIdNumber', 'personnummer');
+    }
+  } 
+  
+  else {
+    //Ta bort input-fält om faktura inte är vald
+    invoiceInformationInput.innerHTML = '';
+    validationStatus._validPersonIdNumber = true; //Återställ personnummer-kontroll till godkänd
+    clikableButton(); //Uppdatera knappens status
+  }
 }
 
 const fieldsToValidate = [
@@ -702,7 +729,7 @@ const fieldsToValidate = [
   { input: postalAddressInput, regex: postalAdressRegex, flag: '_postalAddressCheck', message: 'postadress' },
   { input: phoneInput, regex: phoneRegex, flag: '_phoneCheck', message: 'telefonnummer' },
   { input: emailInput, regex: emailRegex, flag: '_emailCheck', message: 'e-post' },
-  { input: personInput, regex: personIdRegex, flag: '_okPersonnummer', message: 'personnummer' },
+  { input: personInput, regex: personIdRegex, flag: '_validPersonIdNumber', message: 'personnummer' },
 ];
 
 
@@ -715,34 +742,34 @@ const validationStatus = {
   _postalAddressCheck: false,
   _phoneCheck: false,
   _emailCheck: false,
-  _okPersonnummer: true, // Börjar som true om faktura inte är vald
+  _validPersonIdNumber: true, // Börjar som true om faktura inte är vald
 
 };
-
+/*
 // Lyssna på när faktura-radio-knappen klickas
 invoiceCheckbox.addEventListener('click', () => {
-  const requirePersonnummer = invoiceCheckbox.checked; // Kontrollera om faktura är vald
-  if (requirePersonnummer) {
+  const requirePersonIdNumber = invoiceCheckbox.checked; // Kontrollera om faktura är vald
+  if (requirePersonIdNumber) {
   invoiceInformationInput.innerHTML += `
-      <label for="personnummer" class="input">Personnummer: </label>
-      <input id="personnummer" type="text" placeholder="YYYYMMDD-XXXX"><br>
+      <label for="personIdNumber" class="input">Personnummer: </label>
+      <input id="personIdNumber" type="text" placeholder="YYYYMMDD-XXXX"><br>
     `;
   /************************SE TILL ATT OM MAN KLICKAR IGEN SÅ TÖMS INPUTFÄLTEN, OCH TILLBAKA IGEN OSV*************/
   //Jag tog mycket hjälp av chatGPT för att få detta rätt.
-
+/*
 // Lägg till validering för personnummer
-const personInput = document.querySelector('#personnummer');
+const personInput = document.querySelector('#personIdNumber');
 if (personInput) {
-  validateField(personInput, personIdRegex, '_okPersonnummer', 'personnummer');
+  validateField(personInput, personIdRegex, '_validPersonIdNumber', 'personIdNumber');
 }
 } else {
 // Ta bort input-fält om faktura inte är vald
 invoiceInformationInput.innerHTML = '';
-validationStatus._okPersonnummer = true; // Återställ personnummer-kontroll till godkänd
+validationStatus._validPersonIdNumber = true; // Återställ personnummer-kontroll till godkänd
 clikableButton(); // Uppdatera knappens status
 }
 });
-
+*/
 // Funktion för att validera ett fält
 function validateField(input, regex, flag, message) {
   input.addEventListener('input', () => {
