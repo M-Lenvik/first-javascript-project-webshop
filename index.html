@@ -32,21 +32,20 @@
             </button>
 
             <div class="header_container">
+                <div class="sum" id="totalsum"></div>
                 <button class="menuBtn">
                     <a href="#shoping_cart"><img src="pictures/shopping_cart.png" width="96" height="96" loading="lazy" alt="shopping cart"></a>
                 </button>
-                <div class="sum" id="totalsum">SUMMA UPPE </div>
+               
             </div>
         </header>
 
         <div class="rating" id="rating">
             <!--Anges INTE i javascript-->
-            <button class="sortByName" id="sortByName">Sortera på namn</button>
-            <button id="sortByPrice">Sortera på pris</button>
-            <button id="sortByRating">Sortera på betyg</button>
-            <button id="sortByCategory">Sortera på kategori</button>
-          
-            <div>Filtrera</div>
+            <button class="rating_btn" id="sortByName">Sortera på namn</button>
+            <button class="rating_btn" id="sortByPrice">Sortera på pris</button>
+            <button class="rating_btn" id="sortByRating">Sortera på betyg</button>
+            <button class="rating_btn" id="sortByCategory">Sortera på kategori</button>
         </div>
 
         <main class="donuts">
@@ -145,42 +144,44 @@
                 <div class="order_form" id="order_form">
 
                     <div class="costumer_info">
-                        <label for="first_name" class="input"> Förnamn </label>
+                        <label for="first_name" class="input"> Förnamn <span class="mandatory">*</span></label>
+                        
                         <span class="customer_input">
                             <input id="first_name" type="text" placeholder="Skriv in ditt förnamn" required>
-                            <span class="error_message" aria-live="polite"></span>
+                            <span id="error_message" aria-live="polite"></span>
+                            
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label for="last_name" class="input"> Efternamn </label>
+                        <label for="last_name" class="input"> Efternamn <span class="mandatory">*</span></label>
                         <span class="customer_input">
                             <input id="last_name" type="text" placeholder="Skriv in ditt efternamn" required>
-                            <span class="error_message" aria-live="polite"></span>
+                            <span aria-live="polite"></span>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label for="adress" class="input"> Adress </label>
+                        <label for="adress" class="input"> Adress <span class="mandatory">*</span></label>
                         <span class="customer_input">
                             <input id="adress" type="text" placeholder="Skriv in ditt gatunamn" required>
-                            <span class="error_message" aria-live="polite"></span>
+                            <span aria-live="polite"></span>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label for="zip_code" class="input"> Postnummer </label>
+                        <label for="zip_code" class="input"> Postnummer <span class="mandatory">*</span></label>
                         <span class="customer_input">
                             <input id="zip_code"  type="text" placeholder="Skriv in ditt postnummer" required>
-                            <span class="error_message" aria-live="polite"></span>
+                            <span aria-live="polite"></span>
                         </span>
                     </div>
 
                     <div class="costumer_info">
-                        <label for="postal_address" class="input"> Postort </label>
+                        <label for="postal_address" class="input"> Postort <span class="mandatory">*</span></label>
                         <span class="customer_input">
                             <input id="postal_address" type="text" placeholder="Skriv in din postort" required>
-                            <span class="error_message" aria-live="polite"></span>
+                            <span aria-live="polite"></span>
                         </span>
                     </div>
 
@@ -192,42 +193,45 @@
                     </div>
 
                     <div class="costumer_info">
-                        <label for="phone" class="input"> Phone </label>
+                        <label for="phone" class="input"> Phone <span class="mandatory">*</span></label>
                         <span class="customer_input">
                             <input id="phone" type="tel" placeholder="Phone number" pattern="[0-9]{10,15}" required>
+                            <span aria-live="polite"></span>
+                        </span>
+                    </div>
+
+                    <div class="costumer_info">
+                        <label for="email" class="input"> E-post <span class="mandatory">*</span></label>
+                        <span class="customer_input">
+                            <input id="email" type="email" placeholder="Email" required>
                             <span class="error_message" aria-live="polite"></span>
                         </span>
                     </div>
 
-                    <div class="costumer_info">
-                        <label for="email" class="input"> E-post </label>
-                        <span class="customer_input">
-                            <input id="email" type="email" placeholder="Email" required>
-                            <span id="email_error" class="error_message" aria-live="polite"></span>
-                        </span>
-                    </div>
-
 
                     
                     
 
                     <div class="costumer_info">
-                        <label for="payment_method" class="input"> Välj betalsätt </label>
+                        <label for="payment_method" class="input"> Välj betalsätt <span class="mandatory">*</span></label>
                         <span class="customer_input">
 
+                            <div>
                             <label for="card">Kort</label>
                             <input id="card" type="radio" name="payment" value="card">
                             
-                            <span id="card_information">
+                            <div id="card_information">
                             <!--Finns i javascript-->
-                            </span>
-
+                            </div>
+                        </div>
+                        <div>
                             <label for="invoice">Faktura</label>
                             <input id="invoice" type="radio" name="payment" value="invoice">
 
-                            <span id="invoice_information">
+                            <div id="invoice_information">
                                 <!--Finns i javascript-->
-                            </span>
+                            </div>
+                        </div>
     
                         </span>
                     </div>

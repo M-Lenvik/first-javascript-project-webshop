@@ -635,12 +635,11 @@ const lastNameInput = document.querySelector('#last_name');
 const adressInput = document.querySelector('#adress');    
 const zipCodeInput = document.querySelector('#zip_code');    
 const postalAddressInput = document.querySelector('#postal_address');    
-const portCodeInput = document.querySelector('#port_code');    
 const phoneInput = document.querySelector('#phone');
-const phoneError = document.querySelector('#phone_error'); 
+//const phoneError = document.querySelector('#phone_error'); 
 const emailInput = document.querySelector('#email');
-const emailError = document.querySelector('#email_error');   
-const errorMessage = document.querySelector('.error_message');   
+const emailError = document.querySelector('email_error');   
+const errorMessage = document.querySelector('#error_message');   
 const cardInput = document.querySelector('#card');    
 const invoiceInput = document.querySelector('#invoice');    
 const invoiceCheckbox = document.querySelector('#invoice');
@@ -665,11 +664,7 @@ let zipCode = '';
 let postalAddress = '';
 let phone = '';
 let email = '';
-let card = '';
-let invoice = '';
 let personId = '';
-let requirePersonIdNumber = false;
-
 
 function registerUser(){
   console.warn(`Element för registerUser saknas i DOM.`)
@@ -678,17 +673,35 @@ function registerUser(){
   adress = adressInput.value;
   zipCode = zipCodeInput.value;
   postalAddress = postalAddressInput.value;
-  portCode = portCodeInput.value;
   phone = phoneInput.value;
   email = emailInput.value;
-  card = cardInput.value;
-  invoice = invoiceInput.value;
-//  personId = personInput.value;
-console.log(`User: ${userName} ${lastName}`);
+  console.log(`User: ${userName} ${lastName}`);
     }
 
 
+    // Ny funktion för att kontrollera om ett betalsätt är valt
+function validatePaymentMethod() {
+  const isCardSelected = cardInput.checked;
+  const isInvoiceSelected = invoiceInput.checked;
 
+  if (isCardSelected || isInvoiceSelected) {
+    validationStatus._paymentMethodCheck = true;
+    errorMessage.innerHTML = ''; // Rensa eventuellt felmeddelande
+    console.log('Betalsätt är valt.');
+  } 
+  else {
+    validationStatus._paymentMethodCheck = false;
+    errorMessage.innerHTML = `
+      <span>Du måste välja ett betalsätt: Kort eller Faktura.</span>
+    `;
+    console.log('Inget betalsätt är valt.');
+  }
+}
+
+
+  // Lägg till event-lyssnare på radioknappar för att uppdatera betalningsstatus
+  cardInput.addEventListener('change', clikableButton);
+  invoiceInput.addEventListener('change', clikableButton);
 // Lägg till event-lyssnare på båda radioknapparna
 cardInput.addEventListener('change', handlePaymentChange);
 invoiceInput.addEventListener('change', handlePaymentChange);
@@ -707,7 +720,7 @@ function handlePaymentChange() {
     const requirePersonIdNumber = invoiceCheckbox.checked; //Kontrollera om faktura är vald som betalsätt
     if (requirePersonIdNumber) {
       invoiceInformationInput.innerHTML = `
-        <label for="personIdNumber" class="input">Personnummer: </label>
+        <label for="personIdNumber" class="input">Personnummer: </label></br>
         <input id="personIdNumber" type="text" placeholder="YYYYMMDD-XXXX"><br>
       `;
       cardInformationInput.innerHTML = ''; //Ta bort kortfält
@@ -716,7 +729,9 @@ function handlePaymentChange() {
     //Lägg till validering för personnummer
     const personInput = document.querySelector('#personIdNumber');
     if (personInput) {
+          validationStatus._validPersonIdNumber = false;
       validateField(personInput, personIdRegex, '_validPersonIdNumber', 'personnummer');
+//      validationStatus._validPersonIdNumber = true; //Återställ personnummer-kontroll till godkänd
     }
   } 
   
@@ -724,8 +739,10 @@ function handlePaymentChange() {
     //Ta bort input-fält om faktura inte är vald
     invoiceInformationInput.innerHTML = '';
     validationStatus._validPersonIdNumber = true; //Återställ personnummer-kontroll till godkänd
-    clikableButton(); //Uppdatera knappens status
+
   }
+  validatePaymentMethod();
+  clikableButton(); //Uppdatera knappens status
 }
 
 const fieldsToValidate = [
@@ -736,7 +753,7 @@ const fieldsToValidate = [
   { input: postalAddressInput, regex: postalAdressRegex, flag: '_postalAddressCheck', message: 'postadress' },
   { input: phoneInput, regex: phoneRegex, flag: '_phoneCheck', message: 'telefonnummer' },
   { input: emailInput, regex: emailRegex, flag: '_emailCheck', message: 'e-post', errorElement: 'emailError' },
-  { input: personInput, regex: personIdRegex, flag: '_validPersonIdNumber', message: 'personnummer' },
+//onödig?  { input: personInput, regex: personIdRegex, flag: '_validPersonIdNumber', message: 'personnummer' },
 ];
 
 
@@ -757,15 +774,16 @@ const validationStatus = {
 function validateField(input, regex, flag, message) {
   
   input.addEventListener('input', () => {
-    const errorMessage = document.querySelector('.error_message');
-  /*  if (!regex.test(input.value.trim())) {
+  //  const errorMessage = document.querySelector('#error_message');
+    //if else för ökad tillgänglighet
+    if (!regex.test(input.value.trim())) {
       input.classList.add('input-error');
     } 
     else {
       input.classList.remove('input-error');
       input.removeAttribute('aria-describedby');
-
-    }*/
+    }
+    
     const value = input.value.trim();
     if (regex.test(value)) {
       validationStatus[flag] = true;
@@ -774,27 +792,25 @@ function validateField(input, regex, flag, message) {
       console.log(`Giltig ${message}:`, value);
     } 
     else {
-      /*
-      let errorMessage = document.querySelector('.error_message');
+      let errorMessage = document.querySelector('#error_message');
       if (!errorMessage) {
         errorMessage = document.createElement('div');
-        errorMessage.class = 'error_message';
-        document.body.appendChild(errorMessage); // Eller lägg till det vid fältet
-      }*/
+        errorMessage.id = 'error_message';
+        document.body.appendChild(errorMessage); //Eller lägg till det vid fältet
+      }
     
       validationStatus[flag] = false;
-      input.style.borderColor = 'red'; // Indikera att inmatningen är ogiltig
+      input.style.borderColor = 'red'; //Indikera att inmatningen är ogiltig
       errorMessage.innerHTML = `
-      <div>Felmeddelande :)</div>
+      <span>Felaktigt inmatad ${message}. Korrekt  ${message} måste anges.</span>
     `;
     console.log(`Ogiltig ${message}`);
     }
-    // Kontrollera knappens status efter varje inmatning
-    clikableButton();
+    clikableButton(); //Kontrollera knappens status efter varje inmatning
   });
 }
 
-// Lägg till validering på varje fält
+//Lägg till validering på varje fält
 fieldsToValidate.forEach(({ input, regex, flag, message }) => {
   if (input) {
     validateField(input, regex, flag, message);
@@ -803,8 +819,12 @@ fieldsToValidate.forEach(({ input, regex, flag, message }) => {
   }
 });
 
-// Funktion för att uppdatera knappens status
+// Lägg till valideringsflagga för betalsätt
+validationStatus._paymentMethodCheck = false;
+//Funktion för att uppdatera knappens status
 function clikableButton() {
+  validatePaymentMethod();
+
   const allValid = Object.values(validationStatus).every(status => status);
   confirmationButtonDiv.disabled = !allValid; // Aktivera knappen endast om alla fält är giltiga
   console.log(allValid ? 'Alla fält är giltiga' : 'Vissa fält är ogiltiga');

@@ -14,32 +14,49 @@ $client-black: rgb(0, 0, 0);
 
 body {
     background-color: $client-light-blue;
+    padding: 1px;
 }
 
 .base {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
-    border: 2px solid blue;
+//    border: 2px solid blue;
     background-color: $client-light-blue;
+    overflow: hidden;
     position: fixed;
-    display: block;
     z-index: 999;
-    width: 100vw;
-    height: 7em;
-    margin-bottom: 0.5em;
-    justify-content: space-around;
+    width: 100%;
+    max-width: 100vw;
+    height: 8em;
+    padding: 1%;
+    background-size: 4px 3px;
+    border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+    box-sizing: border-box;
+    color: #41403e;
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
 
     .homeBtn {
-        background-color: transparent;
+        background-color: $client-light-blue;
         height: 4.5em;
-        width: fit-content;
+        width: 100vw;
         white-space: nowrap;
         border: none;
         border-radius: 0;
-        text-decoration: none;
-        display: block;
+        display: flex;
+        margin: 0 auto;
+
+        a{
+            text-decoration: none;
+        }
 
         h1{ 
         font-size: 2em;
@@ -48,43 +65,84 @@ header {
     }
 
     .header_container{
-        width: 40%;
-        margin: 0;
-        padding: 0;
-        position: relative;
+    //    background-color: #676565;
+        width: 60%;
         display: flex;
-        float: left;
         justify-content: space-around;
         align-items: center;
 
         .sum{
-            padding-bottom: 0.5em;
+        //    background-color: green;
+            width: 70%;
+            text-align: center;
         }
-        img{
-            width: 2em;
-            height: auto;
+        .menuBtn{
+        //    background-color: blue;
+            background-color: $client-light-blue;
+            width: 50px;
+            border: none;
+            border-radius: 0;
+            img{
+                width: 50px;
+            //    height: 4em;
+                height: auto;
+                
+            }
         }
     }
 }
 
-h2{
-    text-align: center;
-}
 
 .rating{
     width: 100%;
     background-color: #ccc;
-    margin-top: 7.5em;
-    position: relative;
+    margin-top: 8.5em;
+    margin-bottom: 1em;
     display: flex;
-    float: right;
     justify-content: space-around;
     align-items: center;
+    background-color: aqua;
 
-    .sortByName{
-        color: purple;
+.rating_btn{
+//style för knapp tagen från https://getcssscan.com/css-buttons-examples
+    align-self: center;
+    background-color: #fff;
+    background-image: none;
+    background-position: 0 90%;
+    background-repeat: repeat no-repeat;
+    background-size: 4px 3px;
+    border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+    box-sizing: border-box;
+    color: #41403e;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Neucha, sans-serif;
+    font-size: 1rem;
+    line-height: 23px;
+    outline: none;
+    padding: .75rem;
+    text-decoration: none;
+    transition: all 235ms ease-in-out;
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    }
+    .rating_btn {
+        box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+        transform: translate3d(0, 2px, 0);
+    }
+    .rating_btn {
+        box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
     }
 }
+
 
 .donuts{
     border: 2px dotted black;
@@ -93,6 +151,10 @@ h2{
     min-height: 100vh;
     width: 80%;
     margin-left: 10%;
+    
+    h2{
+        text-align: center;
+    }
 
     .donut{
         border: 2px solid brown;
@@ -328,13 +390,25 @@ h2{
                 background-color: lightgreen;
             }
             .input{
-                background-color: #676565;
-                grid-column: span 1;
+                background-color: #e43030;
+                grid-column: span 2;
+                
+                .mandatory {
+                    background-color: lightgray;
+                    color: red;
+                    position: relative;
+                    float: right;
+                    margin-right: -0.5em; /* Anpassa avståndet till fältet */
+                    font-size: 1.2em;
+                    line-height: 1;
+                }
             }
+            
             .customer_input{
                 background-color: lightgray;
-                grid-column: span 5;
+                grid-column: span 4;
             }
+
 
             button{
                 width: 12em;
