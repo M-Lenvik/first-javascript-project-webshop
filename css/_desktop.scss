@@ -16,6 +16,10 @@ body {
     background-color: $client-white;
 }
 
+base{
+    position: relative;
+}
+
 
 header {
     border: 2px solid blue;
@@ -31,16 +35,32 @@ header {
     border: 2px solid red;
 }
 
-.donuts {
+.donuts{
     border: 2px dotted black;
-    margin-left: 0;
-    width: 100vw;
-
-    .donut {
-        border: 2px solid brown;
-        margin-top: 15px;
-        margin-left: 25vw;
-        width: 50vw;
+    flex-direction: row;
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 1em;
+        justify-content: center;
+        min-height: 100vh;
+        width: 100%;
+        margin-left: 0;
+        
+        h2{
+            text-align: center;
+        }
+    
+        .donut{
+            grid-column: span 2;
+            max-width: 100%;
+            display: flex; 
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            box-sizing: border-box; 
+            background-color: lightyellow; /* För synlighet */
 
 
 

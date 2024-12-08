@@ -327,9 +327,9 @@ function sortProductsByCategory() {
 //Kontrollera att det är måndag och att klockan är efter 10:00
 let mondayDiscountHour = false;
 
-if (day.getDay() === 1 && 
+if (day.getDay() === 0 && 
 ((hour > 0 || (hour === 0 && minutes > 0)) && 
-((hour < 9 ) || (hour === 9 && minutes < 59)))) {
+((hour < 19 ) || (hour === 19 && minutes < 59)))) {
     mondayDiscountHour = true;
   }
 
@@ -401,7 +401,7 @@ function printProductsList() { //funktion för att skriva ut munkarna vid inläs
     mondayDiscountHours; //om det är måndag så aktiveras måndagspriser
     weekendPrices; //om det är helg så aktiveras helgpriser
     productsListDiv.innerHTML += `
-      <article class="donut">
+      <article class="donut" class="border">
         <div class="donut_description">
           <h3>${product.name}</h3>
           <p>${product.price}kr</p>
@@ -413,11 +413,11 @@ function printProductsList() { //funktion för att skriva ut munkarna vid inläs
         </div>
 
         <div class="buttons">
-          <button class="decrease" class="amount" id="decrease-${product.id}">-</button>
+          <button class="decrease" class="amount" class="border" id="decrease-${product.id}">-</button>
           <div class="number" id="number"><p>${product.amount}</p></div>
           <button class="increase" class="amount" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->
         </div
-      <article>
+      </article>
     `;
   });
 
@@ -523,6 +523,11 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   }
 
   shoppingProductCount.innerHTML = '';
+  shoppingProductCount.innerHTML = '';
+  if (mondayDiscountHour){
+    shoppingProductCount.innerHTML += `
+      <div class="monday"><p>Idag är det måndag!</br>Det firar vi med 10% på alla munkar!</p></div></div>
+  `;}
   basket.forEach(item => {
     let bulkSumForItem = bulkPurchaseDiscount(item); // Få rabatterad summa
     totalSum += bulkSumForItem; // Lägg till i totalSumman
@@ -530,12 +535,13 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
     if (item.amount > 0) { //skriv bara ut i shoppingkorgen om det fatiskt finns munkar i den
       shoppingProductCount.innerHTML += `
         <div class="shopping_list">
-          <div class="product">${item.name} ${item.amount} st</div>     
+        
+          <div class="product">${item.name}, ${item.amount} st</div>     
           <div class="pic">
             <img src="${item.img.url}" alt="${item.img.alt}">
           </div> 
-          <div class="price">Styckpris: ${item.price}</div>
-          <div class="cost">Summa: ${bulkSumForItem} lägg till en text om rabatterat pris om så är fallet</div>
+          <div class="price">${item.price}kr st</div>
+          <div class="cost">Totalt: ${bulkSumForItem}kr </div>
           <div class="line"></div>
           <div id="shopping_cart_buttons"></div>
         </div>
@@ -876,7 +882,7 @@ orderButton.addEventListener('click', function() { //Eventlyssnare för button o
   showFormPage(); //Visar formuläret och sammanställning av kundkorgen
   orderDiv.innerHTML = '';
   orderDiv.innerHTML = `
-    <div>Du har beställt: </div> `;
+    <div>Ordersammanställning:</div> `;
 
   basket.forEach(item => {
     orderDiv.innerHTML += `
@@ -931,7 +937,7 @@ confirmationButtonDiv.addEventListener('click', function() { //Eventlyssnare fö
     orderConfirmationSumDiv.innerHTML = '';
     orderConfirmationSumDiv.innerHTML = `
       <div id="order_confirmation_sum">
-      <p>Orderbekräftelse:</p>
+      <h6>Orderbekräftelse:</h6>
       <p>Hej ${userName} ${lastName}, du har köpt munkar idag!</p>
       </div>
   `;

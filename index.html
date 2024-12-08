@@ -24,7 +24,7 @@
 
 <body>
     <div class="base" id="base">
-        <header>
+        <header class="border">
             <button class="homeBtn">
                 <a href="#base">
                     <h1>Gottfrids munkfabrik</h1>
@@ -42,58 +42,35 @@
 
         <div class="rating" id="rating">
             <!--Anges INTE i javascript-->
-            <button class="rating_btn" id="sortByName">Sortera på namn</button>
-            <button class="rating_btn" id="sortByPrice">Sortera på pris</button>
-            <button class="rating_btn" id="sortByRating">Sortera på betyg</button>
-            <button class="rating_btn" id="sortByCategory">Sortera på kategori</button>
+            <button class="rating_btn" class="border" id="sortByName">Sortera på namn</button>
+            <button class="rating_btn" class="border" id="sortByPrice">Sortera på pris</button>
+            <button class="rating_btn" class="border" id="sortByRating">Sortera på betyg</button>
+            <button class="rating_btn" class="border" id="sortByCategory">Sortera på kategori</button>
         </div>
 
         <main class="donuts">
             <section>
                 <h2>Munksortiment</h2>
-                <article id="products-list">
+                <div id="products-list">
                     <!--ANGES I JS-->
-                </article>
-                <!--class = "donut" och class=donut_description-->
-
-                <!-- HÄR FINNS ALLA MUNKAR I HTML: DESSA SKA BORT-- >
-            <article class = "donut" id="products-list">
-                <div class="donut_description">
-                    <h3>Chokolate Caramel</h3>
-                    <p>5st</p>
-                    <p>90kr</p> 
-                    <span class="rate">Betyg: 5 5 stjärnor</span>
+                    <!--Alla artiklar skrivs ut i <div class="donut">
+                        individuell artikels skrivs ut i <div class="donut_description">
+                        Även knappar för att öka och minska antalet munkar
+                    -->
                 </div>
-
-                <div class="pic">
-                    <img src="pictures/munk1.png" width="100" height="90" loading="lazy" alt="chokolate caramel donut">
-                </div>
-                    
-                <div class="buttons">
-                    <button class="decrease"> - </button>
-                    <input type="number">
-                    <button class="decrease"> + </button>
-                </div>
-                
-                <! --<div class="buttons">
-                    <button class="shopping_cart" id="shopping_cart">Lägg i varukorg</button>    
-                </div>-- >
-            </article>
-        -->
             </section>
         </main>
 
 
-        <div id="cart-summary">Skriv ut köpta munkar</div>
         <article class="shoping_cart" id="shoping_cart" id="mondayDiscount">
             <div class="line"></div>
             <div class="cart_heading">
-                <h4>Varukorg</h4>
+                <h3>Varukorg</h3>
                 <div>Kundsupport: 08-634 30 30</div>
             </div>
             <div class="line"></div>
 
-            <div class="article-expl">
+            <div class="article_expl">
                 <div class="product">Produkt
                     <div class="too_slow_notice" id="too_slow_notice"></div>
                 </div>
@@ -101,46 +78,32 @@
                 <div clas="cost">Delsumma</div>
             </div>
 
-
             <div id="shopping-list">
 
                 <!--
             <div class="product" id="product">munk: 
             <!- -Beställda munkar skrivs här-->
 
-                <!--
-            <img src="pictures/munk1.png" width="100" height="90" loading="lazy" alt="XXXXXXXXXXX">
-            <div>Chokolate Donut
-                <div>Smak: Choklad</div>
-                <div>Storlek: Jumbo</div>
-            </div>
-            - ->
-            </div>
-
-            <div class="antal" id="antal">antal: </div>
-            <div class="price">Pris från javascript</div>
-            <div clas="cost">Summa från javascript
-            <span>X</span>
-            </div>
-            -->
         </div>
         <div id="sum">NERE</div>
         <div class="shopping_cart_buttons" id="shopping_cart_buttons">
-            <input class="order_button" id="order_button" type="button" value="Beställ (orderButton)">
-            <input class="cancel_buttton" id="cancel_button" type="button" value="Avbryt i varukorg">
+            <input class="order_button" id="order_button" type="button" value="Köp">
+            <input class="cancel_buttton" id="cancel_button" type="button" value="Avbryt">
         </div>
 
 
         </article>
 
-        <div class="order_page" id="order_page"> O R D E R P A G E  D I V
-            
+        <div class="order_page" id="order_page">
+            <div class="line"></div>
+                <h4>Ordersammanställning</h4>
+            <div class="line"></div>
             <div class="order" id="order">
             <!--    Här ska sammanställning av kunduppgifter och beställning visas -->
             </div>
             <!--TÄNK PÅ TILLGÄNGLIGHET HÄR. KOLLA UPP FIELDSET  OCH LEGEND https://webdesignskolan.se/html/formular/formular.php-->
             <form class="form_page" id="form_page">
-                <h4>Beställningsformulär</h4>
+                <h5>Beställningsformulär</h5>
                 <div class="order_form" id="order_form">
 
                     <div class="costumer_info">
@@ -208,10 +171,6 @@
                         </span>
                     </div>
 
-
-                    
-                    
-
                     <div class="costumer_info">
                         <label for="payment_method" class="input"> Välj betalsätt <span class="mandatory">*</span></label>
                         <span class="customer_input">
@@ -237,9 +196,9 @@
                     </div>
 
                     <div class="costumer_info">
-                        <label class="input"></label>
+                        <label class="input"><span class="mandatory">*</span></label>
                         <span class="customer_input">
-                            <label for="person_id">* Jag godkänner behandling av personuppgifter</label>
+                            <label for="person_id">Jag godkänner behandling av personuppgifter</label>
                             <input id="person_id" type="checkbox" name="person_id" value="person_id" required>
                         </span>
                     </div>
@@ -251,22 +210,16 @@
                             <input id="newsletter" type="checkbox" checked="checked" name="newsletter" value="newsletter">
                         </span>
                     </div>
-
-                                <!----------------------TA BORT DENNA?--------------------------- >
-            <div class="buttons">
-                <button class="confirm_order_button" id="confirm_order_button" type="button" value="Bekräfta beställning">
-                    <p>Bekräfta beställning</p>
-                </button>
-
-            < !----------------------TA BORT DENNA?--------------------------->
                 </div>
-            </form>
 
-            <div>
-                <input id="discount_information" type="text" placeholder="Ange din rabattkod"><br>
-                <button id="discount_button">Använd rabattkod></button>
+                <div class="discount_div">
+                <div class="discount_text">Har du en rabattkod? Grattis! Använd den här: </div>                
+                <div class="discount_input">
+                    <input id="discount_information" type="text" placeholder="Ange din rabattkod"><br>
+                    <button id="discount_button">Använd rabattkod></button>
+                </div>
             </div>
-            O R D E R   C O N F I R M A T I O N
+            </form>
 
             <div class="buttons">
                 <input class="order_button" id="confirm_order_button" type="button" value="Bekräfta beställning">
@@ -276,10 +229,9 @@
 
 
         <div id="order_confirmation" class="order_confirmation">
-        <div class="order_confirmation_sum" id="order_confirmation_sum">
-        <!--    Beställningssammanfattning och kunduppgifter -->
-        <div class="customer_output"></div>
-        </div>
+            <div class="order_confirmation_sum" id="order_confirmation_sum">
+                <!-- Beställningssammanfattning och kunduppgifter -->
+            </div>
         </div>
         
     </div>
