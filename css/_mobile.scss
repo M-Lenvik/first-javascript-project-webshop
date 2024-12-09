@@ -7,22 +7,22 @@ $client-light-blue: rgb(116, 192, 252);
 $client-white: rgb(250, 235, 215);
 $client-black: rgb(0, 0, 0);
 
-@function rem($size){
+@function rem($size) {
     @return calc($size / 16) * 1rem;
- }
+}
 
 
-body{
+body {
     background-color: $client-light-blue;
     padding: 1px;
 }
 
-.base{
+.base {
     display: flex;
     flex-direction: column;
 }
 
-.border{
+.border {
     border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
     border-style: solid;
     border-width: 2px;
@@ -33,8 +33,8 @@ body{
     border-top-right-radius: 15px 225px;
 }
 
-header{
-//    border: 2px solid blue;
+header {
+    //    border: 2px solid blue;
     background-color: $client-light-blue;
     overflow: hidden;
     position: fixed;
@@ -44,7 +44,7 @@ header{
     height: 8em;
     padding: 1%;
 
-    .homeBtn{
+    .homeBtn {
         background-color: $client-light-blue;
         height: 4.5em;
         width: 100vw;
@@ -54,46 +54,54 @@ header{
         display: flex;
         margin: 0 auto;
 
-        a{
+        a {
             text-decoration: none;
         }
 
-        h1{ 
-        font-size: 2em;
-        color: black;
+        p {
+            font-size: 2em;
+            color: black;
+
+
+            font-family: "Gloria Hallelujah", cursive;
+            font-weight: 400;
+            font-style: normal;
+            text-align: center;
         }
     }
 
-    .header_container{
-    //    background-color: #676565;
+    .header_container {
+        //    background-color: #676565;
         width: 60%;
         display: flex;
         justify-content: space-around;
         align-items: center;
 
-        .sum{
-        //    background-color: green;
+        .sum {
+            //    background-color: green;
             width: 70%;
             text-align: center;
         }
-        .menuBtn{
-        //    background-color: blue;
+
+        .menuBtn {
+            //    background-color: blue;
             background-color: $client-light-blue;
             width: 50px;
             border: none;
             border-radius: 0;
-            img{
+
+            img {
                 width: 50px;
-            //    height: 4em;
+                //    height: 4em;
                 height: auto;
-                
+
             }
         }
     }
 }
 
 
-.rating{
+.rating {
     width: 100%;
     margin-top: 8.5em;
     margin-bottom: 1em;
@@ -101,52 +109,56 @@ header{
     justify-content: space-around;
     align-items: center;
 
-.rating_btn{
-//style för knapp tagen från https://getcssscan.com/css-buttons-examples, inkl reglerna i .border
-    align-self: center;
-    background-color: #fff;
-    background-image: none;
-    background-position: 0 90%;
-    background-repeat: repeat no-repeat;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Neucha, sans-serif;
-    font-size: 1rem;
-    line-height: 23px;
-    outline: none;
-    padding: .75rem;
-    text-decoration: none;
-    transition: all 235ms ease-in-out;
-    //jag har border radius regler i min .border, men de appliceras inte här. jag kan inte förstå varför?
-    border-bottom-left-radius: 15px 255px;
-    border-bottom-right-radius: 225px 15px;
-    border-top-left-radius: 255px 15px;
-    border-top-right-radius: 15px 225px;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
+    .rating_btn {
+        //style för knapp tagen från https://getcssscan.com/css-buttons-examples, inkl reglerna i .border. Omarbetad
+        align-self: center;
+        background-color: #fff;
+        background-image: none;
+        background-position: 0 90%;
+        background-repeat: repeat no-repeat;
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Nunito", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-size: 1rem;
+        line-height: 23px;
+        outline: none;
+        padding: .75rem;
+        text-decoration: none;
+        transition: all 235ms ease-in-out;
+        //jag har border radius regler i min .border, men de appliceras inte här. jag kan inte förstå varför?
+        border-bottom-left-radius: 15px 255px;
+        border-bottom-right-radius: 225px 15px;
+        border-top-left-radius: 255px 15px;
+        border-top-right-radius: 15px 225px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
     }
-    .rating_btn{
+
+    .rating_btn {
         box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
         transform: translate3d(0, 2px, 0);
     }
-    .rating_btn{
+
+    .rating_btn {
         box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
     }
 }
 
-.donuts{
+.donuts {
     position: relative;
     display: block;
     min-height: 100vh;
     width: 80%;
     margin-left: 10%;
-    
-    h2{
+
+    h1 {
         text-align: center;
     }
 
-    .donut{
+    .donut {
         position: relative;
         display: flex;
         flex-wrap: wrap;
@@ -165,26 +177,27 @@ header{
         border-top-left-radius: 255px 15px;
         border-top-right-radius: 15px 225px;
 
-        .donut_description{
+        h2 {
+            font-size: 1.5em;
+            width: 100%;
+        }
+
+        .donut_description {
             width: 50%;
 
-            h3{
-                font-size: 1.5em;
-            }
-
-            .rate{
-                img{
+            .rate {
+                img {
                     display: inline;
                 }
             }
         }
 
-        .pic{
+        .pic {
             width: 50%;
             display: block;
             position: relative;
 
-            img{
+            img {
                 object-fit: cover;
                 width: 100%;
                 height: 100%;
@@ -195,8 +208,8 @@ header{
             }
         }
 
-        
-        .amount{
+
+        .amount {
             border: 2px solid #ccc;
             font-size: 16px;
             border-radius: 5px;
@@ -205,7 +218,7 @@ header{
             height: 30px;
         }
 
-        .number{
+        .number {
             border: 2px solid #ccc;
             font-size: 16px;
             border-radius: 5px;
@@ -213,14 +226,14 @@ header{
             width: 50px;
             height: 30px;
 
-            p{
+            p {
                 margin-left: 1em;
             }
-        }       
+        }
     }
 }
 
-.buttons{
+.buttons {
     position: relative;
     display: flex;
     justify-content: center;
@@ -229,33 +242,27 @@ header{
     align-items: center;
 }
 
-.line{
+.line {
     width: 100%;
     height: 2px;
-    background-color: #676565;
+    background-color: #000;
     margin-top: 2px;
     margin-bottom: 5px;
     grid-column: span 6;
     position: relative;
 }
 
-.shoping_cart{
+.shoping_cart {
     position: relative;
     min-height: vh;
     margin-top: 4em;
     padding: 2%;
     display: none;
-    
+
     background-color: rgb(211, 91, 111);
 
-    .line{
-        width: 100%;
-        height: 2px;
-        background-color: #000;
-        margin-bottom: 5px;
-    }
 
-    .cart_heading{
+    .cart_heading {
         margin: 1px;
         padding-right: 5%;
         display: flex;
@@ -264,79 +271,79 @@ header{
         justify-content: space-between;
         align-items: center;
 
-        h3{
+        h3 {
             font-size: 1.5em;
         }
-    }   
+    }
 
-    .article_expl{
+    .article_expl {
         background-color: #bdbdbd;
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: 1em;
-    
-        .product{
+
+        .product {
             grid-column: span 4;
             position: relative;
         }
-        
-        .price{
+
+        .price {
             grid-column: span 1;
             position: relative;
         }
-        
-        .cost{
+
+        .cost {
             grid-column: span 1;
             position: relative;
         }
-    
-        
     }
-    .monday{
+
+    .monday_discount {
         grid-column: span 6;
-        p{
+
+        p {
             font-size: 25px;
             text-align: center;
         }
     }
-    
-    .shopping_list{
+
+    .shopping_list {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: 1em 1em;
         background-color: pink;
 
 
-        .product{
+        .product {
             grid-column: span 2;
         }
 
-        .pic{
+        .pic {
             grid-column: span 2;
             position: relative;
             width: 100%;
-        
-            img{
+
+            img {
                 object-fit: cover;
                 width: 100%;
                 height: 100%;
             }
         }
 
-        .price{
+        .price {
             grid-column: span 1;
             position: relative;
         }
 
-        .cost{
+        .cost {
             grid-column: span 1;
             position: relative;
         }
 
 
-    
 
-        .shopping_cart_buttons{
+
+        .shopping_cart_buttons {
             position: relative;
             display: none;
             justify-content: center;
@@ -344,7 +351,7 @@ header{
             margin-top: 5px;
             align-items: center;
 
-            .order_button{
+            .order_button {
                 border: 2px solid #ccc;
                 font-size: 16px;
                 border-radius: 5px;
@@ -353,7 +360,7 @@ header{
                 height: 30px;
             }
 
-            .cancel_button{
+            .cancel_button {
                 border: 2px solid #ccc;
                 font-size: 16px;
                 border-radius: 5px;
@@ -361,7 +368,7 @@ header{
                 width: 50px;
                 height: 30px;
 
-                p{
+                p {
                     margin-left: 1em;
                 }
             }
@@ -370,87 +377,85 @@ header{
 }
 
 
-    
 
 
-.order_page{
+
+.order_page {
     display: none;
     padding: 7%;
 
-    h4{
+    h3 {
         font-size: 1.5em;
     }
-    .form_page{
 
+    .form_page {
         margin-top: 1em;
         background-color: lightgray;
-        h5{
+
+        h4 {
             font-size: 1.5em;
             border-bottom: 2px solid black;
             display: block;
             margin-bottom: 2px;
         }
 
-        .order_form{
+        .order_form {
 
-            .costumer_info{
+            .costumer_info {
                 display: grid;
                 grid-template-columns: repeat(6, 1fr);
                 gap: 1em;
             }
-            .input{
+
+            .input {
                 grid-column: span 2;
-                
-                .mandatory{
+
+                .mandatory {
                     color: red;
                     position: relative;
                     float: right;
-                    margin-right: -0.5em; /* Anpassa avståndet till fältet */
+                    margin-right: -0.5em;
+                    /* Anpassa avståndet till fältet */
                     font-size: 1.2em;
                     line-height: 1;
                 }
             }
-            
-            .customer_input{
+
+            .customer_input {
                 grid-column: span 4;
             }
 
 
-            button{
+            button {
                 width: 12em;
                 height: 2em;
             }
 
-            .error_message{
+            .error_message {
                 color: red;
                 font-size: 0.9em;
                 margin-left: 10px;
                 display: block;
             }
-
-
         }
 
-        #order_confirmation{
-
+        #order_confirmation {
             display: block;
-
-            /******************************kom ihåg att ändra display till none;!****************/
         }
-        
-        .discount_div{
+
+        .discount_div {
             padding-top: 1em;
             gap: 0;
             align-content: center;
 
-            .discount_text{
+            .discount_text {
                 margin-top: 0;
                 padding-top: 0;
                 margin-left: 1em;
                 margin-right: 1em;
             }
 
-            .discount_input{
+            .discount_input {
                 margin-top: 0;
                 padding-top: 0;
                 margin-left: 1em;
@@ -462,16 +467,16 @@ header{
     }
 }
 
-.order_confirmation{
+.order_confirmation {
     background-color: rgb(211, 91, 111);
     padding-left: 7%;
     padding-right: 7%;
 
-    .order_confirmation_sum{
+    .order_confirmation_sum {
         margin-top: 1em;
         background-color: lightgray;
-        
-        h6{
+
+        h5 {
             font-size: 1.5em;
             border-bottom: 2px solid black;
             display: block;

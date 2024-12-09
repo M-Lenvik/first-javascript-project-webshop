@@ -8,8 +8,9 @@
 
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Jockey+One&family=Roboto+Condensed&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
         rel="stylesheet">
+
 
     <meta name="description" content="Gottfrids munkfabrik">
     <meta name="author" content="Gottfrids munkfabrik">
@@ -25,106 +26,47 @@
 <body>
     <div class="base" id="base">
         <header class="border">
-            <button class="homeBtn">
+            <button class="homeBtn" aria-label="Knapp för att gå till toppen av huvudsidan">
                 <a href="#base">
-                    <h1>Gottfrids munkfabrik</h1>
+                    <p>Gottfrids munkfabrik</p>
                 </a>
             </button>
 
             <div class="header_container">
                 <div class="sum" id="total-sum"></div>
-                <button class="menuBtn">
-                    <a href="#shoping-cart"><img src="pictures/shopping_cart.png" width="96" height="96" loading="lazy" alt="shopping cart"></a>
+                <button class="menuBtn" aria-label="Knapp för kundkorg">
+                    <a href="#shoping-cart"><img src="pictures/shopping_cart.png" 
+                        width="96" height="96" loading="lazy" alt="shopping cart"></a>
                 </button>
             </div>
         </header>
 
-        <div class="rating" id="rating">
+        <div class="rating" id="rating" aria-description="Knappar för sortering">
             <!--Anges INTE i javascript-->
-            <button class="rating_btn" class="border" id="sort-by-name">Sortera på namn</button>
-            <button class="rating_btn" class="border" id="sort-by-price">Sortera på pris</button>
-            <button class="rating_btn" class="border" id="sort-by-rating">Sortera på betyg</button>
-            <button class="rating_btn" class="border" id="sort-by-category">Sortera på kategori</button>
+            <div class="border"><button class="rating_btn" id="sort-by-name">Sortera på namn</button></div>
+            <div class="border"><button class="rating_btn" id="sort-by-price">Sortera på pris</button></div>
+            <div class="border"><button class="rating_btn" id="sort-by-rating">Sortera på betyg</button></div>
+            <div class="border"><button class="rating_btn" id="sort-by-category">Sortera på kategori</button></div>
         </div>
 
-        
-            <div class="donuts">
-                
-                <div id="products-list">
-                    <!--ANGES I JS-->
-                    <!--Alla artiklar skrivs ut i <div class="donut">
+
+        <main class="donuts">
+            <h1>Munksortiment</h1>
+
+
+
+            <div id="products-list">
+                <!--ANGES I JS-->
+                <!--Alla artiklar skrivs ut i <div class="donut">
                         individuell artikels skrivs ut i <div class="donut_description">
                         Även knappar för att öka och minska antalet munkar
                     -->
-                </div>
-            </div> 
-            <!--
-            <div class="donuts">
-    
-                <div class="donut" class="border">
-                  <div class="donut_description">
-                    <h3>${product.name}</h3>
-                    <p>${product.price}kr</p>
-                    <p>${product.amount} st i varukorgen</p>
-                    <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
-                  </div>
-                  <div class="pic">
-                    <img src="${product.img.url}" alt="${product.img.alt}">
-                  </div>
-                </div>
-    
-                <div class="donut" class="border">
-                  <div class="donut_description">
-                    <h3>${product.name}</h3>
-                    <p>${product.price}kr</p>
-                    <p>${product.amount} st i varukorgen</p>
-                    <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
-                  </div>
-                  <div class="pic">
-                    <img src="${product.img.url}" alt="${product.img.alt}">
-                  </div>
-                </div>
-    
-                <div class="donut" class="border">
-                  <div class="donut_description">
-                    <h3>${product.name}</h3>
-                    <p>${product.price}kr</p>
-                    <p>${product.amount} st i varukorgen</p>
-                    <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
-                  </div>
-                  <div class="pic">
-                    <img src="${product.img.url}" alt="${product.img.alt}">
-                  </div>
-                </div>
-    
-                <div class="donut" class="border">
-                  <div class="donut_description">
-                    <h3>${product.name}</h3>
-                    <p>${product.price}kr</p>
-                    <p>${product.amount} st i varukorgen</p>
-                    <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
-                  </div>
-                  <div class="pic">
-                    <img src="${product.img.url}" alt="${product.img.alt}">
-                  </div>
-                </div>
-    
-                <div class="donut" class="border">
-                  <div class="donut_description">
-                    <h3>${product.name}</h3>
-                    <p>${product.price}kr</p>
-                    <p>${product.amount} st i varukorgen</p>
-                    <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
-                  </div>
-                  <div class="pic">
-                    <img src="${product.img.url}" alt="${product.img.alt}">
-                  </div>
-                </div>
             </div>
-        -->
-        
+        </main>
 
-        <article class="shoping_cart" id="shoping-cart" id="monday-discount">
+
+
+        <article class="shoping_cart" id="shoping-cart">
             <div class="line"></div>
             <div class="cart_heading">
                 <h3>Varukorg</h3>
@@ -132,15 +74,18 @@
             </div>
             <div class="line"></div>
 
+            <div id="monday-discount"></div>
+
             <div class="article_expl">
                 <div class="product">Produkt</div>
                 <div class="price">Styckpris</div>
-                <div clas="cost">Delsumma</div>
+                <div class="cost">Delsumma</div>
             </div>
+
 
             <div id="shopping-list">
 
-            <!--
+                <!--
             <div class="product" id="product">munk: 
             <!- -Beställda munkar skrivs här-->
 
@@ -154,130 +99,141 @@
 
         <div class="order_page" id="order-page">
             <div class="line"></div>
-                <h4>Ordersammanställning</h4>
+            <h4>Ordersammanställning</h4>
             <div class="line"></div>
             <div class="order" id="order">
-            <!--    Här ska sammanställning av kunduppgifter och beställning visas -->
+                <!--    Här ska sammanställning av kunduppgifter och beställning visas -->
             </div>
-            <!--TÄNK PÅ TILLGÄNGLIGHET HÄR. KOLLA UPP FIELDSET  OCH LEGEND https://webdesignskolan.se/html/formular/formular.php-->
+
             <form class="form_page" id="form_page">
                 <h5>Beställningsformulär</h5>
                 <div class="order_form" id="order_form">
+                    <fieldset>
+                        <legend>Formulär för kunduppgifter</legend>
 
-                    <div class="costumer_info">
-                        <label for="first_name" class="input"> Förnamn <span class="mandatory">*</span></label>
-                        
-                        <span class="customer_input">
-                            <input id="first-name" type="text" placeholder="Skriv in ditt förnamn" required>
-                            <span aria-live="polite"></span>
-                            
-                        </span>
-                    </div>
+                        <div class="costumer_info">
+                            <label for="first-name" class="input"> Förnamn <span class="mandatory">*</span></label>
 
-                    <div class="costumer_info">
-                        <label for="last_name" class="input"> Efternamn <span class="mandatory">*</span></label>
-                        <span class="customer_input">
-                            <input id="last-name" type="text" placeholder="Skriv in ditt efternamn" required>
-                            <span aria-live="polite"></span>
-                        </span>
-                    </div>
+                            <span class="customer_input">
+                                <input id="first-name" name="first-name" type="text" placeholder="Skriv in ditt förnamn"
+                                    required>
+                                <span aria-live="polite"></span>
 
-                    <div class="costumer_info">
-                        <label for="adress" class="input"> Adress <span class="mandatory">*</span></label>
-                        <span class="customer_input">
-                            <input id="adress" type="text" placeholder="Skriv in ditt gatunamn" required>
-                            <span aria-live="polite"></span>
-                        </span>
-                    </div>
+                            </span>
+                        </div>
 
-                    <div class="costumer_info">
-                        <label for="zip_code" class="input"> Postnummer <span class="mandatory">*</span></label>
-                        <span class="customer_input">
-                            <input id="zip-code"  type="text" placeholder="Skriv in ditt postnummer" required>
-                            <span aria-live="polite"></span>
-                        </span>
-                    </div>
+                        <div class="costumer_info">
+                            <label for="last-name" class="input"> Efternamn <span class="mandatory">*</span></label>
+                            <span class="customer_input">
+                                <input id="last-name" name="last-name" type="text" placeholder="Skriv in ditt efternamn"
+                                    required>
+                                <span aria-live="polite"></span>
+                            </span>
+                        </div>
 
-                    <div class="costumer_info">
-                        <label for="postal_address" class="input"> Postort <span class="mandatory">*</span></label>
-                        <span class="customer_input">
-                            <input id="postal-address" type="text" placeholder="Skriv in din postort" required>
-                            <span aria-live="polite"></span>
-                        </span>
-                    </div>
+                        <div class="costumer_info">
+                            <label for="adress" class="input"> Adress <span class="mandatory">*</span></label>
+                            <span class="customer_input">
+                                <input id="adress" name="adress" type="text" placeholder="Skriv in ditt gatunamn"
+                                    required>
+                                <span aria-live="polite"></span>
+                            </span>
+                        </div>
 
-                    <div class="costumer_info">
-                        <label for="port_code" class="input"> Portkod </label>
-                        <span class="customer_input">
-                            <input id="port-code" type="text" placeholder="Eventuell portkod">
-                        </span>
-                    </div>
+                        <div class="costumer_info">
+                            <label for="zip-code" class="input"> Postnummer <span class="mandatory">*</span></label>
+                            <span class="customer_input">
+                                <input id="zip-code" name="zip-code" type="text" placeholder="Skriv in ditt postnummer"
+                                    required>
+                                <span aria-live="polite"></span>
+                            </span>
+                        </div>
 
-                    <div class="costumer_info">
-                        <label for="phone" class="input"> Phone <span class="mandatory">*</span></label>
-                        <span class="customer_input">
-                            <input id="phone" type="tel" placeholder="Phone number" pattern="[0-9]{10,15}" required>
-                            <span aria-live="polite"></span>
-                        </span>
-                    </div>
+                        <div class="costumer_info">
+                            <label for="postal-address" class="input"> Postort <span class="mandatory">*</span></label>
+                            <span class="customer_input">
+                                <input id="postal-address" name="postal-adress" type="text"
+                                    placeholder="Skriv in din postort" required>
+                                <span aria-live="polite"></span>
+                            </span>
+                        </div>
 
-                    <div class="costumer_info">
-                        <label for="email" class="input"> E-post <span class="mandatory">*</span></label>
-                        <span class="customer_input">
-                            <input id="email" type="email" placeholder="Email" required>
-                        <!--    <span class="error_message" aria-live="polite"></span> -->
-                        </span>
-                    </div>
+                        <div class="costumer_info">
+                            <label for="port-code" class="input"> Portkod </label>
+                            <span class="customer_input">
+                                <input id="port-code" name="port-code" type="text" placeholder="Eventuell portkod">
+                            </span>
+                        </div>
 
-                    <div class="costumer_info">
-                        <label for="payment_method" class="input"> Välj betalsätt <span class="mandatory">*</span></label>
-                        <span class="customer_input">
+                        <div class="costumer_info">
+                            <label for="phone" class="input"> Phone <span class="mandatory">*</span></label>
+                            <span class="customer_input">
+                                <input id="phone" name="phone" type="tel" placeholder="Phone number"
+                                    pattern="[0-9]{10,15}" required>
+                                <span aria-live="polite"></span>
+                            </span>
+                        </div>
 
-                            <div>
-                            <label for="card">Kort</label>
-                            <input id="card" type="radio" name="payment" value="card">
-                            
-                            <div id="card-information">
-                            <!--Finns i javascript-->
+                        <div class="costumer_info">
+                            <label for="email" class="input"> E-post <span class="mandatory">*</span></label>
+                            <span class="customer_input">
+                                <input id="email" name="email" type="email" placeholder="Email" required>
+                            </span>
+                        </div>
+
+                        <div class="costumer_info">
+                            <label for="payment-method" class="input"> Välj betalsätt <span
+                                    class="mandatory">*</span></label>
+                            <div class="customer_input">
+
+                                <div>
+                                    <label for="card">Kort</label>
+                                    <input id="card" type="radio" name="payment-method" value="card">
+
+                                    <div id="card-information">
+                                        <!--Finns i javascript-->
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="invoice">Faktura</label>
+                                    <input id="invoice" type="radio" name="payment-method" value="invoice">
+
+                                    <div id="invoice-information">
+                                        <!--Finns i javascript-->
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-                        <div>
-                            <label for="invoice">Faktura</label>
-                            <input id="invoice" type="radio" name="payment" value="invoice">
 
-                            <div id="invoice-information">
-                                <!--Finns i javascript-->
-                            </div>
+                        <div class="costumer_info">
+                            <label class="input"><span class="mandatory">*</span></label>
+                            <span class="customer_input">
+                                <label for="person-clearence">Jag godkänner behandling av personuppgifter</label>
+                                <input id="person-clearence" type="checkbox" name="person-clearence" value="person_id"
+                                    required>
+                            </span>
                         </div>
-    
-                        </span>
-                    </div>
 
-                    <div class="costumer_info">
-                        <label class="input"><span class="mandatory">*</span></label>
-                        <span class="customer_input">
-                            <label for="person-clearence">Jag godkänner behandling av personuppgifter</label>
-                            <input id="person-clearence" type="checkbox" name="person-clearence" value="person_id" required>
-                        </span>
-                    </div>
-
-                    <div class="costumer_info">
-                        <label class="input"></label>
-                        <span class="customer_input">
-                            <label for="newsletter">Jag vill gärna ha Gottfrids nyhetsbrev</label>
-                            <input id="newsletter" type="checkbox" checked="checked" name="newsletter" value="newsletter">
-                        </span>
-                    </div>
-                    <div class="error_message" id="error-message"></div>
+                        <div class="costumer_info">
+                            <label class="input"></label>
+                            <span class="customer_input">
+                                <label for="newsletter">Jag vill gärna ha Gottfrids nyhetsbrev</label>
+                                <input id="newsletter" type="checkbox" checked="checked" name="newsletter"
+                                    value="newsletter">
+                            </span>
+                        </div>
+                        <div class="error_message" id="error-message"></div>
+                    </fieldset>
                 </div>
 
                 <div class="discount_div">
-                <div class="discount_text">Har du en rabattkod? Grattis! Använd den här: </div>                
-                <div class="discount_input">
-                    <input id="discount-information" type="text" placeholder="Ange din rabattkod"><br>
-                    <button id="discount-button">Använd rabattkod></button>
+                    <div class="discount_text">Har du en rabattkod? Grattis! Använd den här: </div>
+                    <div class="discount_input">
+                        <input id="discount-information" type="text" placeholder="Ange din rabattkod"><br>
+                        <button id="discount-button">Använd rabattkod></button>
+                    </div>
                 </div>
-            </div>
             </form>
 
             <div class="buttons">
@@ -292,7 +248,7 @@
                 <!-- Beställningssammanfattning och kunduppgifter -->
             </div>
         </div>
-        
+
     </div>
     <script src="script.js"></script>
 </body>

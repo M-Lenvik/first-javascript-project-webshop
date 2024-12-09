@@ -191,7 +191,7 @@ const shoppingListDiv = document.querySelector('#shopping-list');
 const orderPageDiv = document.querySelector('#order-page');
 const cancelOrderButton = document.querySelector('#cancel-order-button');
 const cancelButton = document.querySelector('#cancel-button');
-//const mondayDiscountDiv = document.querySelector('#monday-discount');
+const mondayDiscountDiv = document.querySelector('#monday-discount');
 const orderDiv = document.querySelector('#order');
 const confirmationButtonDiv = document.querySelector('#confirm-order-button');
 const orderConfirmationSumDiv = document.querySelector('#order-confirmation-sum');
@@ -329,7 +329,7 @@ let mondayDiscountHour = false;
 
 if (day.getDay() === 1 &&
   ((hour > 0 || (hour === 0 && minutes > 0)) &&
-    ((hour < 19) || (hour === 19 && minutes < 59)))) {
+    ((hour < 9) || (hour === 9 && minutes < 59)))) {
   mondayDiscountHour = true;
 }
 
@@ -401,11 +401,12 @@ function printProductsList() { //funktion för att skriva ut munkarna vid inläs
     weekendPrices; //om det är helg så aktiveras helgpriser
     productsListDiv.innerHTML += `
       <div class="donut" class="border">
+      <h2>${product.name}</h2>
         <div class="donut_description">
-          <h3>${product.name}</h3>
+          
           <p>${product.price}kr</p>
           <p>${product.amount} st i varukorgen</p>
-          <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
+          <span class="rate">${getRatingHtml(product.rating)}</span>
         </div>
         <div class="pic">
           <img src="${product.img.url}" alt="${product.img.alt}">
@@ -522,10 +523,10 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   }
 
   shoppingProductCount.innerHTML = '';
-  shoppingProductCount.innerHTML = '';
+  mondayDiscountDiv.innerHTML = '';
   if (mondayDiscountHour) {
-    shoppingProductCount.innerHTML += `
-      <div class="monday"><p>Idag är det måndag!</br>Det firar vi med 10% på alla munkar!</p></div></div>
+    mondayDiscountDiv.innerHTML += `
+      <div class="monday_discount"><p>Idag är det måndag!</br>Det firar vi med 10% på alla munkar!</p></div></div>
   `;
   }
   basket.forEach(item => {
