@@ -32,25 +32,24 @@
             </button>
 
             <div class="header_container">
-                <div class="sum" id="totalsum"></div>
+                <div class="sum" id="total-sum"></div>
                 <button class="menuBtn">
-                    <a href="#shoping_cart"><img src="pictures/shopping_cart.png" width="96" height="96" loading="lazy" alt="shopping cart"></a>
+                    <a href="#shoping-cart"><img src="pictures/shopping_cart.png" width="96" height="96" loading="lazy" alt="shopping cart"></a>
                 </button>
-               
             </div>
         </header>
 
         <div class="rating" id="rating">
             <!--Anges INTE i javascript-->
-            <button class="rating_btn" class="border" id="sortByName">Sortera på namn</button>
-            <button class="rating_btn" class="border" id="sortByPrice">Sortera på pris</button>
-            <button class="rating_btn" class="border" id="sortByRating">Sortera på betyg</button>
-            <button class="rating_btn" class="border" id="sortByCategory">Sortera på kategori</button>
+            <button class="rating_btn" class="border" id="sort-by-name">Sortera på namn</button>
+            <button class="rating_btn" class="border" id="sort-by-price">Sortera på pris</button>
+            <button class="rating_btn" class="border" id="sort-by-rating">Sortera på betyg</button>
+            <button class="rating_btn" class="border" id="sort-by-category">Sortera på kategori</button>
         </div>
 
-        <main class="donuts">
-            <section>
-                <h2>Munksortiment</h2>
+        
+            <div class="donuts">
+                
                 <div id="products-list">
                     <!--ANGES I JS-->
                     <!--Alla artiklar skrivs ut i <div class="donut">
@@ -58,11 +57,74 @@
                         Även knappar för att öka och minska antalet munkar
                     -->
                 </div>
-            </section>
-        </main>
+            </div> 
+            <!--
+            <div class="donuts">
+    
+                <div class="donut" class="border">
+                  <div class="donut_description">
+                    <h3>${product.name}</h3>
+                    <p>${product.price}kr</p>
+                    <p>${product.amount} st i varukorgen</p>
+                    <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
+                  </div>
+                  <div class="pic">
+                    <img src="${product.img.url}" alt="${product.img.alt}">
+                  </div>
+                </div>
+    
+                <div class="donut" class="border">
+                  <div class="donut_description">
+                    <h3>${product.name}</h3>
+                    <p>${product.price}kr</p>
+                    <p>${product.amount} st i varukorgen</p>
+                    <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
+                  </div>
+                  <div class="pic">
+                    <img src="${product.img.url}" alt="${product.img.alt}">
+                  </div>
+                </div>
+    
+                <div class="donut" class="border">
+                  <div class="donut_description">
+                    <h3>${product.name}</h3>
+                    <p>${product.price}kr</p>
+                    <p>${product.amount} st i varukorgen</p>
+                    <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
+                  </div>
+                  <div class="pic">
+                    <img src="${product.img.url}" alt="${product.img.alt}">
+                  </div>
+                </div>
+    
+                <div class="donut" class="border">
+                  <div class="donut_description">
+                    <h3>${product.name}</h3>
+                    <p>${product.price}kr</p>
+                    <p>${product.amount} st i varukorgen</p>
+                    <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
+                  </div>
+                  <div class="pic">
+                    <img src="${product.img.url}" alt="${product.img.alt}">
+                  </div>
+                </div>
+    
+                <div class="donut" class="border">
+                  <div class="donut_description">
+                    <h3>${product.name}</h3>
+                    <p>${product.price}kr</p>
+                    <p>${product.amount} st i varukorgen</p>
+                    <span class="rate">Betyg: ${product.rating} = ${getRatingHtml(product.rating)}</span>
+                  </div>
+                  <div class="pic">
+                    <img src="${product.img.url}" alt="${product.img.alt}">
+                  </div>
+                </div>
+            </div>
+        -->
+        
 
-
-        <article class="shoping_cart" id="shoping_cart" id="mondayDiscount">
+        <article class="shoping_cart" id="shoping-cart" id="monday-discount">
             <div class="line"></div>
             <div class="cart_heading">
                 <h3>Varukorg</h3>
@@ -71,30 +133,26 @@
             <div class="line"></div>
 
             <div class="article_expl">
-                <div class="product">Produkt
-                    <div class="too_slow_notice" id="too_slow_notice"></div>
-                </div>
+                <div class="product">Produkt</div>
                 <div class="price">Styckpris</div>
                 <div clas="cost">Delsumma</div>
             </div>
 
             <div id="shopping-list">
 
-                <!--
+            <!--
             <div class="product" id="product">munk: 
             <!- -Beställda munkar skrivs här-->
 
-        </div>
-        <div id="sum">NERE</div>
-        <div class="shopping_cart_buttons" id="shopping_cart_buttons">
-            <input class="order_button" id="order_button" type="button" value="Köp">
-            <input class="cancel_buttton" id="cancel_button" type="button" value="Avbryt">
-        </div>
-
-
+            </div>
+            <div id="sum"></div>
+            <div class="shopping_cart_buttons">
+                <input class="order_button" id="order-button" type="button" value="Köp">
+                <input class="cancel_button" id="cancel-button" type="button" value="Avbryt">
+            </div>
         </article>
 
-        <div class="order_page" id="order_page">
+        <div class="order_page" id="order-page">
             <div class="line"></div>
                 <h4>Ordersammanställning</h4>
             <div class="line"></div>
@@ -110,8 +168,8 @@
                         <label for="first_name" class="input"> Förnamn <span class="mandatory">*</span></label>
                         
                         <span class="customer_input">
-                            <input id="first_name" type="text" placeholder="Skriv in ditt förnamn" required>
-                            <span id="error_message" aria-live="polite"></span>
+                            <input id="first-name" type="text" placeholder="Skriv in ditt förnamn" required>
+                            <span aria-live="polite"></span>
                             
                         </span>
                     </div>
@@ -119,7 +177,7 @@
                     <div class="costumer_info">
                         <label for="last_name" class="input"> Efternamn <span class="mandatory">*</span></label>
                         <span class="customer_input">
-                            <input id="last_name" type="text" placeholder="Skriv in ditt efternamn" required>
+                            <input id="last-name" type="text" placeholder="Skriv in ditt efternamn" required>
                             <span aria-live="polite"></span>
                         </span>
                     </div>
@@ -135,7 +193,7 @@
                     <div class="costumer_info">
                         <label for="zip_code" class="input"> Postnummer <span class="mandatory">*</span></label>
                         <span class="customer_input">
-                            <input id="zip_code"  type="text" placeholder="Skriv in ditt postnummer" required>
+                            <input id="zip-code"  type="text" placeholder="Skriv in ditt postnummer" required>
                             <span aria-live="polite"></span>
                         </span>
                     </div>
@@ -143,7 +201,7 @@
                     <div class="costumer_info">
                         <label for="postal_address" class="input"> Postort <span class="mandatory">*</span></label>
                         <span class="customer_input">
-                            <input id="postal_address" type="text" placeholder="Skriv in din postort" required>
+                            <input id="postal-address" type="text" placeholder="Skriv in din postort" required>
                             <span aria-live="polite"></span>
                         </span>
                     </div>
@@ -151,7 +209,7 @@
                     <div class="costumer_info">
                         <label for="port_code" class="input"> Portkod </label>
                         <span class="customer_input">
-                            <input id="port_code" type="text" placeholder="Eventuell portkod">
+                            <input id="port-code" type="text" placeholder="Eventuell portkod">
                         </span>
                     </div>
 
@@ -167,7 +225,7 @@
                         <label for="email" class="input"> E-post <span class="mandatory">*</span></label>
                         <span class="customer_input">
                             <input id="email" type="email" placeholder="Email" required>
-                            <span class="error_message" aria-live="polite"></span>
+                        <!--    <span class="error_message" aria-live="polite"></span> -->
                         </span>
                     </div>
 
@@ -179,7 +237,7 @@
                             <label for="card">Kort</label>
                             <input id="card" type="radio" name="payment" value="card">
                             
-                            <div id="card_information">
+                            <div id="card-information">
                             <!--Finns i javascript-->
                             </div>
                         </div>
@@ -187,7 +245,7 @@
                             <label for="invoice">Faktura</label>
                             <input id="invoice" type="radio" name="payment" value="invoice">
 
-                            <div id="invoice_information">
+                            <div id="invoice-information">
                                 <!--Finns i javascript-->
                             </div>
                         </div>
@@ -198,8 +256,8 @@
                     <div class="costumer_info">
                         <label class="input"><span class="mandatory">*</span></label>
                         <span class="customer_input">
-                            <label for="person_id">Jag godkänner behandling av personuppgifter</label>
-                            <input id="person_id" type="checkbox" name="person_id" value="person_id" required>
+                            <label for="person-clearence">Jag godkänner behandling av personuppgifter</label>
+                            <input id="person-clearence" type="checkbox" name="person-clearence" value="person_id" required>
                         </span>
                     </div>
 
@@ -210,26 +268,27 @@
                             <input id="newsletter" type="checkbox" checked="checked" name="newsletter" value="newsletter">
                         </span>
                     </div>
+                    <div class="error_message" id="error-message"></div>
                 </div>
 
                 <div class="discount_div">
                 <div class="discount_text">Har du en rabattkod? Grattis! Använd den här: </div>                
                 <div class="discount_input">
-                    <input id="discount_information" type="text" placeholder="Ange din rabattkod"><br>
-                    <button id="discount_button">Använd rabattkod></button>
+                    <input id="discount-information" type="text" placeholder="Ange din rabattkod"><br>
+                    <button id="discount-button">Använd rabattkod></button>
                 </div>
             </div>
             </form>
 
             <div class="buttons">
-                <input class="order_button" id="confirm_order_button" type="button" value="Bekräfta beställning">
-                <input class="cancel_button" id="cancel_order_button" type="button" value="Avbryt">
+                <input class="order_button" id="confirm-order-button" type="button" value="Bekräfta beställning">
+                <input class="cancel_button" id="cancel-order-button" type="button" value="Avbryt">
             </div>
         </div>
 
 
-        <div id="order_confirmation" class="order_confirmation">
-            <div class="order_confirmation_sum" id="order_confirmation_sum">
+        <div id="order-confirmation" class="order_confirmation">
+            <div class="order_confirmation_sum" id="order-confirmation-sum">
                 <!-- Beställningssammanfattning och kunduppgifter -->
             </div>
         </div>

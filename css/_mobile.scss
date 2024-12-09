@@ -7,17 +7,17 @@ $client-light-blue: rgb(116, 192, 252);
 $client-white: rgb(250, 235, 215);
 $client-black: rgb(0, 0, 0);
 
-@function rem($size) {
+@function rem($size){
     @return calc($size / 16) * 1rem;
  }
 
 
-body {
+body{
     background-color: $client-light-blue;
     padding: 1px;
 }
 
-.base {
+.base{
     display: flex;
     flex-direction: column;
 }
@@ -33,7 +33,7 @@ body {
     border-top-right-radius: 15px 225px;
 }
 
-header {
+header{
 //    border: 2px solid blue;
     background-color: $client-light-blue;
     overflow: hidden;
@@ -44,7 +44,7 @@ header {
     height: 8em;
     padding: 1%;
 
-    .homeBtn {
+    .homeBtn{
         background-color: $client-light-blue;
         height: 4.5em;
         width: 100vw;
@@ -126,18 +126,18 @@ header {
     -webkit-user-select: none;
     touch-action: manipulation;
     }
-    .rating_btn {
+    .rating_btn{
         box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
         transform: translate3d(0, 2px, 0);
     }
-    .rating_btn {
+    .rating_btn{
         box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
     }
 }
 
 .donuts{
     position: relative;
-    display: flex;
+    display: block;
     min-height: 100vh;
     width: 80%;
     margin-left: 10%;
@@ -179,12 +179,12 @@ header {
             }
         }
 
-        .pic {
+        .pic{
             width: 50%;
             display: block;
             position: relative;
 
-            img {
+            img{
                 object-fit: cover;
                 width: 100%;
                 height: 100%;
@@ -205,7 +205,7 @@ header {
             height: 30px;
         }
 
-        .number {
+        .number{
             border: 2px solid #ccc;
             font-size: 16px;
             border-radius: 5px;
@@ -220,7 +220,7 @@ header {
     }
 }
 
-.buttons {
+.buttons{
     position: relative;
     display: flex;
     justify-content: center;
@@ -290,15 +290,15 @@ header {
             position: relative;
         }
     
-        .monday{
-            grid-column: span 6;
-            p{
-                font-size: 25px;
-                text-align: center;
-            }
+        
+    }
+    .monday{
+        grid-column: span 6;
+        p{
+            font-size: 25px;
+            text-align: center;
         }
     }
-    
     
     .shopping_list{
         display: grid;
@@ -311,12 +311,12 @@ header {
             grid-column: span 2;
         }
 
-        .pic {
+        .pic{
             grid-column: span 2;
             position: relative;
             width: 100%;
         
-            img {
+            img{
                 object-fit: cover;
                 width: 100%;
                 height: 100%;
@@ -336,7 +336,7 @@ header {
 
     
 
-        .shopping_cart_buttons {
+        .shopping_cart_buttons{
             position: relative;
             display: none;
             justify-content: center;
@@ -353,7 +353,7 @@ header {
                 height: 30px;
             }
 
-            .cancel_button {
+            .cancel_button{
                 border: 2px solid #ccc;
                 font-size: 16px;
                 border-radius: 5px;
@@ -401,7 +401,7 @@ header {
             .input{
                 grid-column: span 2;
                 
-                .mandatory {
+                .mandatory{
                     color: red;
                     position: relative;
                     float: right;
@@ -421,7 +421,7 @@ header {
                 height: 2em;
             }
 
-            .error-message {
+            .error_message{
                 color: red;
                 font-size: 0.9em;
                 margin-left: 10px;

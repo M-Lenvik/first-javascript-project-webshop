@@ -16,7 +16,7 @@ body {
     background-color: $client-white;
 }
 
-base{
+base {
     position: relative;
 }
 
@@ -36,56 +36,87 @@ header {
 }
 
 .donuts{
-    border: 2px dotted black;
-    flex-direction: row;
-        position: relative;
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 1em;
-        justify-content: center;
-        min-height: 100vh;
-        width: 100%;
-        margin-left: 0;
-        
-        h2{
-            text-align: center;
-        }
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 3em;
+    min-height: 100vh;
+    width: 100%;
     
-        .donut{
-            grid-column: span 2;
-            max-width: 100%;
-            display: flex; 
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            box-sizing: border-box; 
-            background-color: lightyellow; /* För synlighet */
+    h2{
+        text-align: center;
+    }
 
+    .donut{
+        display: grid;
+        grid-column: span 2;
+        
+        
+        flex-wrap: none;
+       
 
+        //samma för denna. jag har border radius regler i min .border, men de appliceras inte här.
+        border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+        border-style: solid;
+        border-width: 2px;
+        box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+        border-bottom-left-radius: 15px 255px;
+        border-bottom-right-radius: 225px 15px;
+        border-top-left-radius: 255px 15px;
+        border-top-right-radius: 15px 225px;
 
-        .donut_description {
+        .donut_description{
+            width: 50%;
 
-            h3 {
-                font-size: 2em;
+            h3{
+                font-size: 1.5em;
+            }
+
+            .rate{
+                img{
+                    display: inline;
+                }
             }
         }
 
-        .pic {
-            border: 2px solid blue;
+        .pic{
+            width: 50%;
+            display: block;
+            position: relative;
 
-            img {
+            img{
                 object-fit: cover;
                 width: 100%;
                 height: 100%;
+                border-bottom-left-radius: 15px 255px;
+                border-bottom-right-radius: 225px 15px;
+                border-top-left-radius: 255px 15px;
+                border-top-right-radius: 15px 225px;
             }
         }
 
-        .buttons {
-            padding: 5px;
-            border: solid 5px green;
-
+        
+        .amount{
+            border: 2px solid #ccc;
+            font-size: 16px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 25px;
+            height: 30px;
         }
+
+        .number{
+            border: 2px solid #ccc;
+            font-size: 16px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 50px;
+            height: 30px;
+
+            p{
+                margin-left: 1em;
+            }
+        }       
     }
 }
 
@@ -153,7 +184,7 @@ header {
         }
     }
 
-    .article-expl {
+    .article_expl {
         display: grid;
         position: sticky;
         grid-template-columns: repeat(12, 1fr);
@@ -183,11 +214,11 @@ header {
         gap: 1em;
         background-color: aqua;
 
-        .added_notice{
+        .added_notice {
             grid-column: span 12;
         }
 
-        .mondayDiscount{
+        .mondayDiscount {
             grid-column: span 12;
         }
 

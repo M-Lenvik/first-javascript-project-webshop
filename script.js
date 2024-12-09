@@ -184,29 +184,29 @@ const products = [
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
 const ratingsDiv = document.querySelector('#rating');
 const sumDiv = document.querySelector('#sum'); //Summa nere
-const totalsumDiv = document.querySelector('#totalsum'); //Summa uppe
+const totalsumDiv = document.querySelector('#total-sum'); //Summa uppe
 const productsListDiv = document.querySelector('#products-list');
-let shoppingProductCount = document.querySelector('#shopping_list');
+let shoppingProductCount = document.querySelector('#shopping-list');
 const shoppingListDiv = document.querySelector('#shopping-list');
-const orderPageDiv = document.querySelector('#order_page');
-const cancelOrderButton = document.querySelector('#cancel_order_button');
-const cancelButton = document.querySelector('#cancel_button');
-const mondayDiscountDiv = document.querySelector('#mondayDiscount');
+const orderPageDiv = document.querySelector('#order-page');
+const cancelOrderButton = document.querySelector('#cancel-order-button');
+const cancelButton = document.querySelector('#cancel-button');
+//const mondayDiscountDiv = document.querySelector('#monday-discount');
 const orderDiv = document.querySelector('#order');
-const confirmationButtonDiv = document.querySelector('#confirm_order_button');
-const orderConfirmationSumDiv = document.querySelector('#order_confirmation_sum');
-const orderConfirmationDiv = document.querySelector('#order_confirmation');
-const shopingCartBasket = document.querySelector('#shoping_cart');
-const sortNameButton = document.querySelector('#sortByName');
-const sortPriceButton = document.querySelector('#sortByPrice');
-const sortRatingButton = document.querySelector('#sortByRating');
-const sortCategoryButton = document.querySelector('#sortByCategory');
-const orderButton = document.querySelector('#order_button');
+const confirmationButtonDiv = document.querySelector('#confirm-order-button');
+const orderConfirmationSumDiv = document.querySelector('#order-confirmation-sum');
+const orderConfirmationDiv = document.querySelector('#order-confirmation');
+const shopingCartBasket = document.querySelector('#shoping-cart');
+const sortNameButton = document.querySelector('#sort-by-name');
+const sortPriceButton = document.querySelector('#sort-by-price');
+const sortRatingButton = document.querySelector('#sort-by-rating');
+const sortCategoryButton = document.querySelector('#sort-by-category');
+const orderButton = document.querySelector('#order-button');
 const cardCheckbox = document.querySelector('#card');
-const cardInformationInput = document.querySelector('#card_information');
+const cardInformationInput = document.querySelector('#card-information');
 
-const discountButton = document.querySelector('#discount_button');
-const discountInput = document.querySelector('#discount_information');
+const discountButton = document.querySelector('#discount-button');
+const discountInput = document.querySelector('#discount-information');
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -217,7 +217,7 @@ const day = new Date();
 const hour = day.getHours(); // Hämta timmen som ett heltal
 const minutes = day.getMinutes(); // Hämta minuter som ett heltal
 const dayOfWeek = day.getDay(); // Hämta veckodag (0 = söndag, 6 = lördag)
-console.log ('Klockan är ' + hour +':'+ minutes + ', och det är dag: ' + dayOfWeek);
+console.log('Klockan är ' + hour + ':' + minutes + ', och det är dag: ' + dayOfWeek);
 /*~*:._.:*~*:._.:*~*:._.:*~*:.TID.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
@@ -327,39 +327,38 @@ function sortProductsByCategory() {
 //Kontrollera att det är måndag och att klockan är efter 10:00
 let mondayDiscountHour = false;
 
-if (day.getDay() === 0 && 
-((hour > 0 || (hour === 0 && minutes > 0)) && 
-((hour < 19 ) || (hour === 19 && minutes < 59)))) {
-    mondayDiscountHour = true;
-  }
+if (day.getDay() === 1 &&
+  ((hour > 0 || (hour === 0 && minutes > 0)) &&
+    ((hour < 19) || (hour === 19 && minutes < 59)))) {
+  mondayDiscountHour = true;
+}
 
-  function mondayDiscount(products){
-    const day = new Date();
-    if (mondayDiscountHour){
-      products.forEach(product => {
+function mondayDiscount(products) {
+  const day = new Date();
+  if (mondayDiscountHour) {
+    products.forEach(product => {
       product.price = Math.round(product.price * 0.9); //Minska priset med 10%
     });
     console.log('idag är det måndag');
   }
   else {
-    return; 
+    return;
   }
 }
 const mondayDiscountHours = mondayDiscount(products);
 
 /***********************************Helgpåslag***********************************/
 let weekendPrices = false;
-  //Kontrollera om det är helgpriser. Fredagar efter kl. 15 och fram till natten mellan söndag och måndag kl. 03.00 tillkommer ett helgpåslag på 15 % på alla munkar.
+//Kontrollera om det är helgpriser. Fredagar efter kl. 15 och fram till natten mellan söndag och måndag kl. 03.00 tillkommer ett helgpåslag på 15 % på alla munkar.
 if (
   (day.getDay() === 5 && (hour > 15 || (hour === 15 && minutes > 0))) || //Fredag efter 15:00
   day.getDay() === 6 || // Hela lördagen
   day.getDay() === 0 || // Hela söndagen
-  (day.getDay() === 1 && (hour < 3 || (hour === 3 && minutes === 0))) //Natt till måndag fram till kl. 03:00
-){
+  (day.getDay() === 1 && (hour < 3 || (hour === 3 && minutes === 0)))) { //Natt till måndag fram till kl. 03:00
   weekendPrices = true;
 }
 
-function applyWeekendPrices(products){
+function applyWeekendPrices(products) {
   const dayOfWeek = day.getDay();
   if (weekendPrices) { //Tillämpa helgpåslag på priserna
     products.forEach(product => {
@@ -368,22 +367,22 @@ function applyWeekendPrices(products){
   }
   else {
     return;
-  // console.log('Inget helgpåslag på vardagen.');
+    // console.log('Inget helgpåslag på vardagen.');
   }
   console.log('Helgpåslag tillämpat:');
 }
-weekendPrices = applyWeekendPrices(products); 
+weekendPrices = applyWeekendPrices(products);
 
 //***********************************Rabatt vid storköp***********************************/
 let bulkSum = 0;
-function bulkPurchaseDiscount(item){
+function bulkPurchaseDiscount(item) {
   let discountedPrice = item.price;
   if (item.amount >= 10) {
     discountedPrice = Math.round(item.price * 0.9);
   }
 
   bulkSum = item.amount * discountedPrice; //Lägg till kostnaden (med eventuell storköpsrabatt) till totalSumman
-  console.log('Beställning på '+ item.amount + ' st av ',  item.name +' ger 10% rabatt. Totalpris: ' + item.amount*item.price + ' Pris per enhet efter rabatt st: ' + discountedPrice  + ' bulk: ' + bulkSum);
+  console.log('Beställning på ' + item.amount + ' st av ', item.name + ' ger 10% rabatt. Totalpris: ' + item.amount * item.price + ' Pris per enhet efter rabatt st: ' + discountedPrice + ' bulk: ' + bulkSum);
   return bulkSum;
 }
 /*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -401,7 +400,7 @@ function printProductsList() { //funktion för att skriva ut munkarna vid inläs
     mondayDiscountHours; //om det är måndag så aktiveras måndagspriser
     weekendPrices; //om det är helg så aktiveras helgpriser
     productsListDiv.innerHTML += `
-      <article class="donut" class="border">
+      <div class="donut" class="border">
         <div class="donut_description">
           <h3>${product.name}</h3>
           <p>${product.price}kr</p>
@@ -416,17 +415,17 @@ function printProductsList() { //funktion för att skriva ut munkarna vid inläs
           <button class="decrease" class="amount" class="border" id="decrease-${product.id}">-</button>
           <div class="number" id="number"><p>${product.amount}</p></div>
           <button class="increase" class="amount" id="increase-${product.id}">+</button> <!--detta id ges till target i consolen-->
-        </div
-      </article>
+        </div>
+      </div>
     `;
   });
 
-  
+
   /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
   //*******************Increase för varje knapp*******************//
   const increaseButtons = document.querySelectorAll('button.increase');
   increaseButtons.forEach(button => {
-    button.addEventListener('click', increaceProductCount); 
+    button.addEventListener('click', increaceProductCount);
     console.log('ökat antal');
   });
 
@@ -435,11 +434,11 @@ function printProductsList() { //funktion för att skriva ut munkarna vid inläs
   decreaseButtons.forEach(button => {
     button.addEventListener('click', decreaceProductCount); //console.log('minskat antal');
   });
-  
+
 }
 printProductsList(); //skriver ut munkarna
 
-function sortFocus(){ //funktion för att behålla fokus på aktuell knapp vid tangentbordsanvändning
+function sortFocus() { //funktion för att behålla fokus på aktuell knapp vid tangentbordsanvändning
   this.focus();
 }
 
@@ -512,7 +511,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   totalSum = 0;
   shippingFee = 0;
   totalCost = totalSum + shippingFee;
-  const shoppingProductCount = document.querySelector('#shopping_list'); //Talar om var den ska skrivas ut
+  const shoppingProductCount = document.querySelector('#shopping-list'); //Talar om var den ska skrivas ut
   const existedProduct = (basket.findIndex(index => index.id === article.id)); //console.log('kolla om det finns i basket sedan tidigare. undefined betyder negativt, annars skrivs arrayen ut:', basket[existedProduct]);
 
   if (existedProduct === -1) {
@@ -524,10 +523,11 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
 
   shoppingProductCount.innerHTML = '';
   shoppingProductCount.innerHTML = '';
-  if (mondayDiscountHour){
+  if (mondayDiscountHour) {
     shoppingProductCount.innerHTML += `
       <div class="monday"><p>Idag är det måndag!</br>Det firar vi med 10% på alla munkar!</p></div></div>
-  `;}
+  `;
+  }
   basket.forEach(item => {
     let bulkSumForItem = bulkPurchaseDiscount(item); // Få rabatterad summa
     totalSum += bulkSumForItem; // Lägg till i totalSumman
@@ -543,9 +543,9 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
           <div class="price">${item.price}kr st</div>
           <div class="cost">Totalt: ${bulkSumForItem}kr </div>
           <div class="line"></div>
-          <div id="shopping_cart_buttons"></div>
+          <div class="shopping_cart_buttons"></div>
         </div>
-      `;   
+      `;
     }
   });
   //console.log('Totalpris för sorten', totalSum);
@@ -558,7 +558,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   basket.forEach(item => {
     totalItems += item.amount;
   });
-    
+
   // Kontrollera om antalet produkter ger gratis frakt
   if (totalItems >= 15) {
     shippingFee = 0;
@@ -570,37 +570,38 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   /***************************************************************/
   /*************************Gratis frakt vid storköp*************************/
   /***************************************************************/
-    
+
 
   totalCost = totalSum + shippingFee;
 
   totalsumDiv.innerHTML = '';
   totalsumDiv.innerHTML += `
-    <div id="totalsum">Du har köpt munkar för: ${totalSum}kr</div>
+    <div class="sum">Du har köpt munkar för: ${totalSum}kr</div>
   `;
 
   sumDiv.innerHTML = '';
   sumDiv.innerHTML += `
-    <div id="sum">`;
-  if (mondayDiscountHour){
+    <div class="sum">`;
+  if (mondayDiscountHour) {
     sumDiv.innerHTML += `
       <p>Idag är det måndag! Det firar vi med 10% på alla munkar!</p>
-  `;}
+  `;
+  }
   sumDiv.innerHTML += `      
-    <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
-    <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
-    <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
+    <div>Totalt (exkl. frakt): ${totalSum} kr</div>
+    <div>Fraktkostnad: ${shippingFee} kr</div>
+    <div>Totalt att betala: ${totalCost} kr</div>
     </div>
-  `; 
-  
+  `;
+
   const invoiceDiv = document.querySelector('#invoice');
-  if (totalSum>800){
+  if (totalSum > 800) {
     invoiceDiv.style.display = 'none'; //console.log('ej fakturaköp');
   }
-} 
+}
 function printShoppinglist() {
   shoppingListDiv.innerHTML += `
-    <div id="shopping_list">
+    <div class="shopping_list">
       <p>Varukorgen är tom</p>
     </div>
   `;
@@ -617,51 +618,51 @@ printShoppinglist();
 /*~*:._.:*~*:._.:*~*:._.:*~*:._.:ORDER CONFIRMATION.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*****************************Avbryt beställning***************************/
-cancelButton.addEventListener('click', function() { //Avbryt i varukorgen
+cancelButton.addEventListener('click', function () { //Avbryt i varukorgen
   //location.reload(); 
-  
-  const shoppingProductCount = document.querySelector('#shopping_list');
+
+  const shoppingProductCount = document.querySelector('#shopping-list');
   shoppingProductCount.innerHTML = '';
-    
+
   shoppingListDiv.innerHTML += `
-    <div id="shopping_list">
+    <div class="shopping_list">
       <p>Varukorgen är tom</p>
     </div>
   `;
   totalsumDiv.innerHTML = '';
   sumDiv.innerHTML = '';
-   
-  console.log('avrbyt');  
+
+  console.log('avrbyt');
 });
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /************************FORMULÄR********************/
-const userNameInput = document.querySelector('#first_name');    
-const lastNameInput = document.querySelector('#last_name');    
-const adressInput = document.querySelector('#adress');    
-const zipCodeInput = document.querySelector('#zip_code');    
-const postalAddressInput = document.querySelector('#postal_address');    
+const userNameInput = document.querySelector('#first-name');
+const lastNameInput = document.querySelector('#last-name');
+const adressInput = document.querySelector('#adress');
+const zipCodeInput = document.querySelector('#zip-code');
+const postalAddressInput = document.querySelector('#postal-address');
 const phoneInput = document.querySelector('#phone');
 //const phoneError = document.querySelector('#phone_error'); 
 const emailInput = document.querySelector('#email');
-const emailError = document.querySelector('email_error');   
-const errorMessage = document.querySelector('#error_message');   
-const cardInput = document.querySelector('#card');    
-const invoiceInput = document.querySelector('#invoice');    
+const emailError = document.querySelector('email-error');
+const errorMessage = document.querySelector('#error-message');
+const cardInput = document.querySelector('#card');
+const invoiceInput = document.querySelector('#invoice');
 const invoiceCheckbox = document.querySelector('#invoice');
 
-const invoiceInformationInput = document.querySelector('#invoice_information');
-const personInput = document.querySelector('#personIdNumber');
+const invoiceInformationInput = document.querySelector('#invoice-information');
+const personInput = document.querySelector('#person-id-number');
 
-const nameRegex = new RegExp (/\w{2,}/); //Minst två tecken krävs
-const lastNameRegex = new RegExp (/\w{2,}/); //Minst två tecken krävs
-const adressRegex = new RegExp (/^((.){1,}(\d){1,}(.){0,})$/); //Gatuadress inkl gatunummer
-const zipCodeReggex = new RegExp (/^\d{3} \d{2}$/); //Postnummer av typen 123 45
-const zipCodeRegex = new RegExp (/^[0-9]{3}\s?[0-9]{2}$/); //Postnummer av typen 123 45
-const postalAdressRegex = new RegExp (/\w{2,}/); //Minst två tecken krävs
-const phoneRegex = new RegExp (/^((\+|00)46|0)7[02369][0-9]{7}$/); //Mobilnummer av typen: +467*xxxxxxx, 00467*xxxxxxx och 07*xxxxxxx
-const emailRegex = new RegExp (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/); //Epostadress
-const personIdRegex = new RegExp (/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
+const nameRegex = new RegExp(/\w{2,}/); //Minst två tecken krävs
+const lastNameRegex = new RegExp(/\w{2,}/); //Minst två tecken krävs
+const adressRegex = new RegExp(/^((.){1,}(\d){1,}(.){0,})$/); //Gatuadress inkl gatunummer
+const zipCodeReggex = new RegExp(/^\d{3} \d{2}$/); //Postnummer av typen 123 45
+const zipCodeRegex = new RegExp(/^[0-9]{3}\s?[0-9]{2}$/); //Postnummer av typen 123 45
+const postalAdressRegex = new RegExp(/\w{2,}/); //Minst två tecken krävs
+const phoneRegex = new RegExp(/^((\+|00)46|0)7[02369][0-9]{7}$/); //Mobilnummer av typen: +467*xxxxxxx, 00467*xxxxxxx och 07*xxxxxxx
+const emailRegex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/); //Epostadress
+const personIdRegex = new RegExp(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/);
 
 let userName = '';
 let lastName = '';
@@ -672,7 +673,7 @@ let phone = '';
 let email = '';
 let personId = '';
 
-function registerUser(){
+function registerUser() {
   console.warn(`Element för registerUser saknas i DOM.`)
   userName = userNameInput.value;
   lastName = lastNameInput.value;
@@ -682,10 +683,10 @@ function registerUser(){
   phone = phoneInput.value;
   email = emailInput.value;
   console.log(`User: ${userName} ${lastName}`);
-    }
+}
 
 
-    // Ny funktion för att kontrollera om ett betalsätt är valt
+// Ny funktion för att kontrollera om ett betalsätt är valt
 function validatePaymentMethod() {
   const isCardSelected = cardInput.checked;
   const isInvoiceSelected = invoiceInput.checked;
@@ -694,20 +695,20 @@ function validatePaymentMethod() {
     validationStatus._paymentMethodCheck = true;
     errorMessage.innerHTML = ''; // Rensa eventuellt felmeddelande
     console.log('Betalsätt är valt.');
-  } 
+  }
   else {
     validationStatus._paymentMethodCheck = false;
-    errorMessage.innerHTML = `
-      <span>Du måste välja ett betalsätt: Kort eller Faktura.</span>
-    `;
+    /*  errorMessage.innerHTML = `
+        <span>Du måste välja ett betalsätt: Kort eller Faktura.</span>
+      `;*/
     console.log('Inget betalsätt är valt.');
   }
 }
 
 
-  // Lägg till event-lyssnare på radioknappar för att uppdatera betalningsstatus
-  cardInput.addEventListener('change', clikableButton);
-  invoiceInput.addEventListener('change', clikableButton);
+// Lägg till event-lyssnare på radioknappar för att uppdatera betalningsstatus
+cardInput.addEventListener('change', clikableButton);
+invoiceInput.addEventListener('change', clikableButton);
 // Lägg till event-lyssnare på båda radioknapparna
 cardInput.addEventListener('change', handlePaymentChange);
 invoiceInput.addEventListener('change', handlePaymentChange);
@@ -726,21 +727,21 @@ function handlePaymentChange() {
     const requirePersonIdNumber = invoiceCheckbox.checked; //Kontrollera om faktura är vald som betalsätt
     if (requirePersonIdNumber) {
       invoiceInformationInput.innerHTML = `
-        <label for="personIdNumber" class="input">Personnummer: </label></br>
-        <input id="personIdNumber" type="text" placeholder="YYYYMMDD-XXXX"><br>
+        <label for="person-id-number" class="input">Personnummer: </label></br>
+        <input id="person-id-number" type="text" placeholder="YYYYMMDD-XXXX"><br>
       `;
       cardInformationInput.innerHTML = ''; //Ta bort kortfält
     }
 
     //Lägg till validering för personnummer
-    const personInput = document.querySelector('#personIdNumber');
+    const personInput = document.querySelector('#person-id-number');
     if (personInput) {
-          validationStatus._validPersonIdNumber = false;
-      validateField(personInput, personIdRegex, '_validPersonIdNumber', 'personnummer');
-//      validationStatus._validPersonIdNumber = true; //Återställ personnummer-kontroll till godkänd
+      validationStatus._validPersonIdNumber = false;
+      validateFieldsInForm(personInput, personIdRegex, '_validPersonIdNumber', 'personnummer');
+      //      validationStatus._validPersonIdNumber = true; //Återställ personnummer-kontroll till godkänd
     }
-  } 
-  
+  }
+
   else {
     //Ta bort input-fält om faktura inte är vald
     invoiceInformationInput.innerHTML = '';
@@ -759,7 +760,7 @@ const fieldsToValidate = [
   { input: postalAddressInput, regex: postalAdressRegex, flag: '_postalAddressCheck', message: 'postadress' },
   { input: phoneInput, regex: phoneRegex, flag: '_phoneCheck', message: 'telefonnummer' },
   { input: emailInput, regex: emailRegex, flag: '_emailCheck', message: 'e-post', errorElement: 'emailError' },
-//onödig?  { input: personInput, regex: personIdRegex, flag: '_validPersonIdNumber', message: 'personnummer' },
+  //onödig?  { input: personInput, regex: personIdRegex, flag: '_validPersonIdNumber', message: 'personnummer' },
 ];
 
 
@@ -777,40 +778,40 @@ const validationStatus = {
 };
 
 // Funktion för att validera ett fält
-function validateField(input, regex, flag, message) {
-  
+function validateFieldsInForm(input, regex, flag, message) {
+
   input.addEventListener('input', () => {
-  //  const errorMessage = document.querySelector('#error_message');
+    //  const errorMessage = document.querySelector('#error-message');
     //if else för ökad tillgänglighet
     if (!regex.test(input.value.trim())) {
       input.classList.add('input-error');
-    } 
+    }
     else {
       input.classList.remove('input-error');
       input.removeAttribute('aria-describedby');
     }
-    
+
     const value = input.value.trim();
     if (regex.test(value)) {
       validationStatus[flag] = true;
       input.style.borderColor = 'green'; // Indikera att inmatningen är giltig
       errorMessage.innerHTML = ``;
       console.log(`Giltig ${message}:`, value);
-    } 
+    }
     else {
-      let errorMessage = document.querySelector('#error_message');
+      let errorMessage = document.querySelector('#error-message');
       if (!errorMessage) {
         errorMessage = document.createElement('div');
-        errorMessage.id = 'error_message';
+        errorMessage.id = 'error-message';
         document.body.appendChild(errorMessage); //Eller lägg till det vid fältet
       }
-    
+
       validationStatus[flag] = false;
       input.style.borderColor = 'red'; //Indikera att inmatningen är ogiltig
       errorMessage.innerHTML = `
       <span>Felaktigt inmatad ${message}. Korrekt  ${message} måste anges.</span>
     `;
-    console.log(`Ogiltig ${message}`);
+      console.log(`Ogiltig ${message}`);
     }
     clikableButton(); //Kontrollera knappens status efter varje inmatning
   });
@@ -819,7 +820,7 @@ function validateField(input, regex, flag, message) {
 //Lägg till validering på varje fält
 fieldsToValidate.forEach(({ input, regex, flag, message }) => {
   if (input) {
-    validateField(input, regex, flag, message);
+    validateFieldsInForm(input, regex, flag, message);
   } else {
     console.warn(`Element för ${message} saknas i DOM.`);
   }
@@ -840,12 +841,12 @@ function clikableButton() {
 /*************************Rabattkod*************************/
 discountButton.addEventListener('click', handleDiscount);
 function handleDiscount() {
-alert('Du har använt rabattkoden ' + discountInput.value);
+  alert('Du har använt rabattkoden ' + discountInput.value);
 }
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.KNAPPAR I FORMULÄRET.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*************************Avbryt*************************/
-cancelOrderButton.addEventListener('click', function() { //Avbryt där formuläret visas
+cancelOrderButton.addEventListener('click', function () { //Avbryt där formuläret visas
   location.reload();
   /**
    *Jag gjorde function clearOrder nedan, som återställer allt på sidan.
@@ -854,31 +855,31 @@ cancelOrderButton.addEventListener('click', function() { //Avbryt där formulär
    */
   //clearOrder();
 });
-  /*
-  function clearOrder() {
-    const shoppingProductCount = document.querySelector('#shopping_list');
-    shoppingProductCount.innerHTML = '';
-    orderDiv.innerHTML = '';
-    shoppingListDiv.innerHTML += `
-      <div id="shopping_list">
-        <p>Varukorgen är tom</p>
-      </div>
-    `;
-    totalsumDiv.innerHTML = '';
-    sumDiv.innerHTML = '';
-    orderPageDiv.style.display = 'none';
-      //  orderFormDiv.innerHTML = '';
-    if (form) {
-      form.reset(); // Återställ formuläret
-    }
-    else {
-      console.error('Formuläret hittades inte.');
-    }
-    console.log('avbryt gick bra');
-  }*/
+/*
+function clearOrder() {
+  const shoppingProductCount = document.querySelector('#shopping_list');
+  shoppingProductCount.innerHTML = '';
+  orderDiv.innerHTML = '';
+  shoppingListDiv.innerHTML += `
+    <div id="shopping_list">
+      <p>Varukorgen är tom</p>
+    </div>
+  `;
+  totalsumDiv.innerHTML = '';
+  sumDiv.innerHTML = '';
+  orderPageDiv.style.display = 'none';
+    //  orderFormDiv.innerHTML = '';
+  if (form) {
+    form.reset(); // Återställ formuläret
+  }
+  else {
+    console.error('Formuläret hittades inte.');
+  }
+  console.log('avbryt gick bra');
+}*/
 
 /********************************ORDERBEKRÄFTELSE I FORMULÄR*************************/
-orderButton.addEventListener('click', function() { //Eventlyssnare för button order_button
+orderButton.addEventListener('click', function () { //Eventlyssnare för button order-button
   showFormPage(); //Visar formuläret och sammanställning av kundkorgen
   orderDiv.innerHTML = '';
   orderDiv.innerHTML = `
@@ -886,14 +887,14 @@ orderButton.addEventListener('click', function() { //Eventlyssnare för button o
 
   basket.forEach(item => {
     orderDiv.innerHTML += `
-      <div>${item.amount} st ${item.name}. Totalkostnad ${item.name} är ${item.amount*item.price}kr</div>
+      <div>${item.amount} st ${item.name}. Totalkostnad ${item.name} är ${item.amount * item.price}kr</div>
     `;
     console.log('produktlista' + item.name);
   });
 
   orderDiv.innerHTML += `
-    <div"><p>Totalt (exkl. frakt): ${totalSum} kr</p>
-    <p">Fraktkostnad: ${shippingFee} kr</p>
+    <div><p>Totalt (exkl. frakt): ${totalSum} kr</p>
+    <p>Fraktkostnad: ${shippingFee} kr</p>
     </p>Totalt att betala: ${totalCost} kr</p>
     </div>
   `;
@@ -910,7 +911,7 @@ function showTooSlowMessage() {
   setTimeout(clearBasket, 900000);
 }
 
-function clearBasket(){
+function clearBasket() {
   location.reload();
   alert('Du är för långsam');
 }
@@ -929,14 +930,14 @@ function orderSum() {
 
 /****************************Bekräfta beställning***************************/
 confirmationButtonDiv.disabled = true; // Gör knappen utgråad
-confirmationButtonDiv.addEventListener('click', function() { //Eventlyssnare för button order_button
-    orderSum(); //visar <div> med id order_confirmation. innen detta är den dold. Då visas beställningsbekräftelse och inmatade kunddata
-    registerUser(); //läser in input data från formuläret genom function registerUser
+confirmationButtonDiv.addEventListener('click', function () { //Eventlyssnare för button order-button
+  orderSum(); //visar <div> med id order-confirmation. innen detta är den dold. Då visas beställningsbekräftelse och inmatade kunddata
+  registerUser(); //läser in input data från formuläret genom function registerUser
 
-    
-    orderConfirmationSumDiv.innerHTML = '';
-    orderConfirmationSumDiv.innerHTML = `
-      <div id="order_confirmation_sum">
+
+  orderConfirmationSumDiv.innerHTML = '';
+  orderConfirmationSumDiv.innerHTML = `
+      <div class="order_confirmation_sum">
       <h6>Orderbekräftelse:</h6>
       <p>Hej ${userName} ${lastName}, du har köpt munkar idag!</p>
       </div>
@@ -944,14 +945,14 @@ confirmationButtonDiv.addEventListener('click', function() { //Eventlyssnare fö
   basket.forEach(item => {
     orderConfirmationSumDiv.innerHTML += `
       <div>
-      <p>${item.name}, ${item.amount}st, ${item.amount*item.price}kr</p>
+      <p>${item.name}, ${item.amount}st, ${item.amount * item.price}kr</p>
       </div>
     `;
   });
   orderConfirmationSumDiv.innerHTML += `
-    <div id="totalsum">Totalt (exkl. frakt): ${totalSum} kr</div>
-    <div id="shipping">Fraktkostnad: ${shippingFee} kr</div>
-    <div id="totalcost">Totalt att betala: ${totalCost} kr</div>
+    <div>Totalt (exkl. frakt): ${totalSum} kr</div>
+    <div>Fraktkostnad: ${shippingFee} kr</div>
+    <div>Totalt att betala: ${totalCost} kr</div>
   
     <p>Din order kommer att skickas till:</p>
     <p>${userName} ${lastName}</p>
