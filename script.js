@@ -679,7 +679,6 @@ function registerUser() {
   console.log(`User: ${userName} ${lastName}`);
 }
 
-
 //Ny funktion för att kontrollera om ett betalsätt är valt
 function validatePaymentMethod() {
   const isCardSelected = cardInput.checked;

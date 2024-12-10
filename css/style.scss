@@ -2,10 +2,10 @@
 
 @import 'mobile';
 
-@media screen and (min-width:900px) {
-    @import 'desktop';
+@media screen and (min-width:800px) {
+    @import 'tablet';
 }
 
-@media screen and (min-width:1200px) {
-    @import 'tablet';
+@media screen and (min-width:1100px) {
+    @import 'desktop';
 }

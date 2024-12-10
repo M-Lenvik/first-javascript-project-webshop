@@ -25,18 +25,15 @@
 <body>
     <div class="base" id="base">
         <header class="border">
-            <button class="homeBtn" aria-label="Knapp för att gå till toppen av huvudsidan">
-                <a href="#base">
-                    <p>Gottfrids munkfabrik</p>
-                </a>
-            </button>
+            <a href="#base" class="homeBtn" role="button" aria-label="Knapp för att gå till toppen av huvudsidan">
+                <p>Gottfrids munkfabrik</p>
+            </a>
 
             <div class="header_container">
                 <div class="sum" id="total-sum"></div>
-                <button class="menuBtn" aria-label="Knapp för kundkorg">
-                    <a href="#shoping-cart"><img src="pictures/shopping_cart.png" width="96" height="96" loading="lazy"
-                            alt="shopping cart"></a>
-                </button>
+                <a href="#shoping-cart" class="menuBtn" role="button" aria-label="Knapp för kundkorg">
+                    <img src="pictures/shopping_cart.png" width="96" height="96" loading="lazy" alt="shopping cart">
+                </a>
             </div>
         </header>
 
@@ -184,8 +181,8 @@
                             </div>
 
                             <div class="costumer_info">
-                                <label for="payment-method" class="input"> Välj betalsätt <span
-                                        class="mandatory">*</span></label>
+                                <label class="input"> Välj betalsätt 
+                                    <span class="mandatory">*</span></label>
                                 <div class="customer_input">
 
                                     <div>
