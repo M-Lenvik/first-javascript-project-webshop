@@ -1,7 +1,7 @@
 const products = [
   {
     id: 1,
-    name: 'Karamell',
+    name: 'Karamellmunk',
     price: 25,
     rating: 4,
     amount: 0,
@@ -16,7 +16,7 @@ const products = [
 
   {
     id: 2,
-    name: 'Hallon',
+    name: 'Hallonmunk',
     price: 20,
     rating: 1.5,
     amount: 0,
@@ -61,7 +61,7 @@ const products = [
 
   {
     id: 5,
-    name: 'Jordgubb',
+    name: 'Jordgubbsmunk',
     price: 25,
     rating: 5,
     amount: 0,
@@ -76,7 +76,7 @@ const products = [
 
   {
     id: 6,
-    name: 'Socker',
+    name: 'Sockermunk',
     price: 10,
     rating: 0.5,
     amount: 0,
@@ -91,7 +91,7 @@ const products = [
 
   {
     id: 7,
-    name: 'Chokladglasyr',
+    name: 'Munk med chokladglasyr',
     price: 35,
     rating: 1,
     amount: 0,
@@ -106,7 +106,7 @@ const products = [
 
   {
     id: 8,
-    name: 'Blåbär',
+    name: 'Blåbärsmunk',
     price: 15,
     rating: 4.5,
     amount: 0,
@@ -121,7 +121,7 @@ const products = [
 
   {
     id: 9,
-    name: 'Ägglikör',
+    name: 'Ägglikörsmunk',
     price: 50,
     rating: 1.5,
     amount: 0,
@@ -130,13 +130,13 @@ const products = [
       url: 'pictures/christmas_donut_1.jpg',
       width: 400,
       height: 400,
-      alt: 'Ägglikör'
+      alt: 'Ägglikörsmunk'
     },
   },
 
   {
     id: 10,
-    name: 'Äpple',
+    name: 'Äpplemunk',
     price: 35,
     rating: 4.5,
     amount: 0,
@@ -166,7 +166,7 @@ const products = [
 
   {
     id: 12,
-    name: 'Diet',
+    name: 'Dietmunk',
     price: 35,
     rating: 0.5,
     amount: 0,
@@ -180,8 +180,9 @@ const products = [
   },
 ];
 
-
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 const ratingsDiv = document.querySelector('#rating');
 const sumDiv = document.querySelector('#sum'); //Summa nere
 const totalsumDiv = document.querySelector('#total-sum'); //Summa uppe
@@ -204,12 +205,11 @@ const sortCategoryButton = document.querySelector('#sort-by-category');
 const orderButton = document.querySelector('#order-button');
 const cardCheckbox = document.querySelector('#card');
 const cardInformationInput = document.querySelector('#card-information');
-
 const discountButton = document.querySelector('#discount-button');
 const discountInput = document.querySelector('#discount-information');
-
-
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.HTML-ELEMENTS.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.TID.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -219,10 +219,6 @@ const minutes = day.getMinutes(); // Hämta minuter som ett heltal
 const dayOfWeek = day.getDay(); // Hämta veckodag (0 = söndag, 6 = lördag)
 console.log('Klockan är ' + hour + ':' + minutes + ', och det är dag: ' + dayOfWeek);
 /*~*:._.:*~*:._.:*~*:._.:*~*:.TID.:*~*:._.:*~*:._.:*~*:._.:*~*/
-
-
-
-
 
 
 /*~*:._.:*~*:._.:*~*:._.:*~*:.PRINT-HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -257,13 +253,13 @@ function sortProductsByName() {
       return 0;
     }); //console.log('Fallande namnordning:', products);
   }
-  nameIsDescending = !nameIsDescending; // Växla sorteringsordning för nästa gång
+  nameIsDescending = !nameIsDescending; //Växla sorteringsordning för nästa gång
   printProductsList();
 }
 
 /*******************************Sort by Price******************************/
 sortPriceButton.addEventListener('click', sortProductsByPrice);
-let priceIsDescending = false; // Håller koll på nuvarande sorteringsordning
+let priceIsDescending = false; //Håller koll på nuvarande sorteringsordning
 
 function sortProductsByPrice() {
   if (priceIsDescending === true) { // Sortera i stigande ordning
@@ -274,7 +270,7 @@ function sortProductsByPrice() {
     products.sort((product1, product2) => product2.price - product1.price);
     //console.log('Omsorterat i fallande ordning:', products);
   }
-  priceIsDescending = !priceIsDescending; // Växla sorteringsordning för nästa gång
+  priceIsDescending = !priceIsDescending; //Växla sorteringsordning för nästa gång
   printProductsList();
 }
 
@@ -362,12 +358,12 @@ function applyWeekendPrices(products) {
   const dayOfWeek = day.getDay();
   if (weekendPrices) { //Tillämpa helgpåslag på priserna
     products.forEach(product => {
-      product.price = Math.round(product.price * 1.15); // Öka priset med 15 %
+      product.price = Math.round(product.price * 1.15); //Öka priset med 15 %
     });
   }
   else {
     return;
-    // console.log('Inget helgpåslag på vardagen.');
+    //console.log('Inget helgpåslag på vardagen.');
   }
   console.log('Helgpåslag tillämpat:');
 }
@@ -421,8 +417,9 @@ function printProductsList() { //funktion för att skriva ut munkarna vid inläs
     `;
   });
 
-
+  /*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
   /*~*:._.:*~*:._.:*~*:._.:*~*:.PLUS & MINUS KNAPPARNA.:*~*:._.:*~*:._.:*~*:._.:*~*/
+  /*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
   //*******************Increase för varje knapp*******************//
   const increaseButtons = document.querySelectorAll('button.increase');
   increaseButtons.forEach(button => {
@@ -442,7 +439,6 @@ printProductsList(); //skriver ut munkarna
 function sortFocus() { //funktion för att behålla fokus på aktuell knapp vid tangentbordsanvändning
   this.focus();
 }
-
 /*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.MUNKARNA I HTML.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -498,8 +494,6 @@ function decreaceProductCount(e) {
 /*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
-
-
 /*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:._.:KUNDKORGEN.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
@@ -530,19 +524,19 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   `;
   }
   basket.forEach(item => {
-    let bulkSumForItem = bulkPurchaseDiscount(item); // Få rabatterad summa
-    totalSum += bulkSumForItem; // Lägg till i totalSumman
+    let bulkSumForItem = bulkPurchaseDiscount(item); //Få rabatterad summa
+    totalSum += bulkSumForItem; //Lägg till i totalSumman
 
     if (item.amount > 0) { //skriv bara ut i shoppingkorgen om det fatiskt finns munkar i den
       shoppingProductCount.innerHTML += `
         <div class="shopping_list">
         
-          <div class="product">${item.name}, ${item.amount} st</div>     
+          <div class="product"><p>${item.name}, ${item.amount} st</p></div>     
           <div class="pic">
             <img src="${item.img.url}" alt="${item.img.alt}">
           </div> 
-          <div class="price">${item.price}kr st</div>
-          <div class="cost">Totalt: ${bulkSumForItem}kr </div>
+          <div class="price"><p>${item.price}kr st</p></div>
+          <div class="cost"><p>Totalt: ${bulkSumForItem}kr</p></div>
           <div class="line"></div>
           <div class="shopping_cart_buttons"></div>
         </div>
@@ -577,7 +571,7 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
 
   totalsumDiv.innerHTML = '';
   totalsumDiv.innerHTML += `
-    <div class="sum">Du har köpt munkar för: ${totalSum}kr</div>
+    <div class="sum"><p>Du har köpt munkar för: ${totalSum}kr</p></div>
   `;
 
   sumDiv.innerHTML = '';
@@ -589,9 +583,9 @@ function adjustArticle(article) { //Här läggs till i arrayen, de skrivs sedan 
   `;
   }
   sumDiv.innerHTML += `      
-    <div>Totalt (exkl. frakt): ${totalSum} kr</div>
-    <div>Fraktkostnad: ${shippingFee} kr</div>
-    <div>Totalt att betala: ${totalCost} kr</div>
+    <div><p>Totalt (exkl. frakt): ${totalSum} kr</p></div>
+    <div><p>Fraktkostnad: ${shippingFee} kr</p></div>
+    <div><p>Totalt att betala: ${totalCost} kr</p></div>
     </div>
   `;
 
@@ -636,7 +630,9 @@ cancelButton.addEventListener('click', function () { //Avbryt i varukorgen
   console.log('avrbyt');
 });
 
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.BESTÄLLNINGSFORMULÄR.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /************************FORMULÄR********************/
 const userNameInput = document.querySelector('#first-name');
 const lastNameInput = document.querySelector('#last-name');
@@ -644,17 +640,14 @@ const adressInput = document.querySelector('#adress');
 const zipCodeInput = document.querySelector('#zip-code');
 const postalAddressInput = document.querySelector('#postal-address');
 const phoneInput = document.querySelector('#phone');
-//const phoneError = document.querySelector('#phone_error'); 
 const emailInput = document.querySelector('#email');
 const emailError = document.querySelector('email-error');
 const errorMessage = document.querySelector('#error-message');
 const cardInput = document.querySelector('#card');
 const invoiceInput = document.querySelector('#invoice');
 const invoiceCheckbox = document.querySelector('#invoice');
-
 const invoiceInformationInput = document.querySelector('#invoice-information');
 const personInput = document.querySelector('#person-id-number');
-
 const nameRegex = new RegExp(/\w{2,}/); //Minst två tecken krävs
 const lastNameRegex = new RegExp(/\w{2,}/); //Minst två tecken krävs
 const adressRegex = new RegExp(/^((.){1,}(\d){1,}(.){0,})$/); //Gatuadress inkl gatunummer
@@ -687,30 +680,26 @@ function registerUser() {
 }
 
 
-// Ny funktion för att kontrollera om ett betalsätt är valt
+//Ny funktion för att kontrollera om ett betalsätt är valt
 function validatePaymentMethod() {
   const isCardSelected = cardInput.checked;
   const isInvoiceSelected = invoiceInput.checked;
 
   if (isCardSelected || isInvoiceSelected) {
     validationStatus._paymentMethodCheck = true;
-    errorMessage.innerHTML = ''; // Rensa eventuellt felmeddelande
+    errorMessage.innerHTML = ''; //Rensa eventuellt felmeddelande
     console.log('Betalsätt är valt.');
   }
   else {
     validationStatus._paymentMethodCheck = false;
-    /*  errorMessage.innerHTML = `
-        <span>Du måste välja ett betalsätt: Kort eller Faktura.</span>
-      `;*/
     console.log('Inget betalsätt är valt.');
   }
 }
 
-
-// Lägg till event-lyssnare på radioknappar för att uppdatera betalningsstatus
+//Lägg till event-lyssnare på radioknappar för att uppdatera betalningsstatus
 cardInput.addEventListener('change', clikableButton);
 invoiceInput.addEventListener('change', clikableButton);
-// Lägg till event-lyssnare på båda radioknapparna
+//Lägg till event-lyssnare på båda radioknapparna
 cardInput.addEventListener('change', handlePaymentChange);
 invoiceInput.addEventListener('change', handlePaymentChange);
 
@@ -739,7 +728,6 @@ function handlePaymentChange() {
     if (personInput) {
       validationStatus._validPersonIdNumber = false;
       validateFieldsInForm(personInput, personIdRegex, '_validPersonIdNumber', 'personnummer');
-      //      validationStatus._validPersonIdNumber = true; //Återställ personnummer-kontroll till godkänd
     }
   }
 
@@ -747,8 +735,8 @@ function handlePaymentChange() {
     //Ta bort input-fält om faktura inte är vald
     invoiceInformationInput.innerHTML = '';
     validationStatus._validPersonIdNumber = true; //Återställ personnummer-kontroll till godkänd
-
   }
+
   validatePaymentMethod();
   clikableButton(); //Uppdatera knappens status
 }
@@ -761,11 +749,10 @@ const fieldsToValidate = [
   { input: postalAddressInput, regex: postalAdressRegex, flag: '_postalAddressCheck', message: 'postadress' },
   { input: phoneInput, regex: phoneRegex, flag: '_phoneCheck', message: 'telefonnummer' },
   { input: emailInput, regex: emailRegex, flag: '_emailCheck', message: 'e-post', errorElement: 'emailError' },
-  //onödig?  { input: personInput, regex: personIdRegex, flag: '_validPersonIdNumber', message: 'personnummer' },
 ];
 
 
-// Objekt för att lagra valideringsstatus
+//Objekt för att lagra valideringsstatus
 const validationStatus = {
   _userNameCheck: false,
   _lastNameCheck: false,
@@ -775,14 +762,12 @@ const validationStatus = {
   _phoneCheck: false,
   _emailCheck: false,
   _validPersonIdNumber: true, // Börjar som true om faktura inte är vald
-
 };
 
-// Funktion för att validera ett fält
+//Funktion för att validera ett fält
 function validateFieldsInForm(input, regex, flag, message) {
 
   input.addEventListener('input', () => {
-    //  const errorMessage = document.querySelector('#error-message');
     //if else för ökad tillgänglighet
     if (!regex.test(input.value.trim())) {
       input.classList.add('input-error');
@@ -795,10 +780,11 @@ function validateFieldsInForm(input, regex, flag, message) {
     const value = input.value.trim();
     if (regex.test(value)) {
       validationStatus[flag] = true;
-      input.style.borderColor = 'green'; // Indikera att inmatningen är giltig
+      input.style.borderColor = 'green'; //Indikera att inmatningen är giltig
       errorMessage.innerHTML = ``;
       console.log(`Giltig ${message}:`, value);
     }
+
     else {
       let errorMessage = document.querySelector('#error-message');
       if (!errorMessage) {
@@ -810,7 +796,7 @@ function validateFieldsInForm(input, regex, flag, message) {
       validationStatus[flag] = false;
       input.style.borderColor = 'red'; //Indikera att inmatningen är ogiltig
       errorMessage.innerHTML = `
-      <span>Felaktigt inmatad ${message}. Korrekt  ${message} måste anges.</span>
+      <span><p>Felaktigt inmatad ${message}. Korrekt  ${message} måste anges.</p></span>
     `;
       console.log(`Ogiltig ${message}`);
     }
@@ -834,10 +820,9 @@ function clikableButton() {
   validatePaymentMethod();
 
   const allValid = Object.values(validationStatus).every(status => status);
-  confirmationButtonDiv.disabled = !allValid; // Aktivera knappen endast om alla fält är giltiga
+  confirmationButtonDiv.disabled = !allValid; //Aktivera knappen endast om alla fält är giltiga
   console.log(allValid ? 'Alla fält är giltiga' : 'Vissa fält är ogiltiga');
 }
-
 
 /*************************Rabattkod*************************/
 discountButton.addEventListener('click', handleDiscount);
@@ -845,17 +830,19 @@ function handleDiscount() {
   alert('Du har använt rabattkoden ' + discountInput.value);
 }
 
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.KNAPPAR I FORMULÄRET.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*************************Avbryt*************************/
 cancelOrderButton.addEventListener('click', function () { //Avbryt där formuläret visas
   location.reload();
   /**
-   *Jag gjorde function clearOrder nedan, som återställer allt på sidan.
-   Men jag tänkte att med reload säkerställer jag att allt verkligen töms.
-   Är det ok att göra så?
-   */
+   * Jag fick veta i feedbacken att det inte är uppskattat att göra reload. 
+   * Men jag har behållit det för nu, och jag behåller också funktionen clearOrder jag gjort som återställer allt på sidan:
+    */
   //clearOrder();
 });
+
 /*
 function clearOrder() {
   const shoppingProductCount = document.querySelector('#shopping_list');
@@ -883,12 +870,11 @@ function clearOrder() {
 orderButton.addEventListener('click', function () { //Eventlyssnare för button order-button
   showFormPage(); //Visar formuläret och sammanställning av kundkorgen
   orderDiv.innerHTML = '';
-  orderDiv.innerHTML = `
-    <div>Ordersammanställning:</div> `;
+
 
   basket.forEach(item => {
     orderDiv.innerHTML += `
-      <div>${item.amount} st ${item.name}. Totalkostnad ${item.name} är ${item.amount * item.price}kr</div>
+      <div><p>${item.amount} st ${item.name}. Totalkostnad ${item.name} är ${item.amount * item.price}kr<p></div>
     `;
     console.log('produktlista' + item.name);
   });
@@ -896,12 +882,14 @@ orderButton.addEventListener('click', function () { //Eventlyssnare för button 
   orderDiv.innerHTML += `
     <div><p>Totalt (exkl. frakt): ${totalSum} kr</p>
     <p>Fraktkostnad: ${shippingFee} kr</p>
-    </p>Totalt att betala: ${totalCost} kr</p>
+    <p>Totalt att betala: ${totalCost} kr</p>
     </div>
   `;
   showTooSlowMessage();
 });
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.KNAPPAR I FORMULÄRET.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
 function showFormPage() {
@@ -914,20 +902,12 @@ function showTooSlowMessage() {
 
 function clearBasket() {
   location.reload();
-  alert('Du är för långsam');
+  alert('Beställningen måste gå iväg inom 15 minuter. Din varukorg rensas.');
 }
 
 function orderSum() {
   orderConfirmationDiv.style.display = 'block'; //Först när knappen order_page trycks på visas formuläret
 }
-
-
-
-
-
-
-
-
 
 /****************************Bekräfta beställning***************************/
 confirmationButtonDiv.disabled = true; // Gör knappen utgråad
@@ -938,7 +918,7 @@ confirmationButtonDiv.addEventListener('click', function () { //Eventlyssnare f�
 
   orderConfirmationSumDiv.innerHTML = '';
   orderConfirmationSumDiv.innerHTML = `
-      <div class="order_confirmation_sum">
+      <div class="order_confirmation_sum" style="border:none;">
       <h6>Orderbekräftelse:</h6>
       <p>Hej ${userName} ${lastName}, du har köpt munkar idag!</p>
       </div>
@@ -951,9 +931,10 @@ confirmationButtonDiv.addEventListener('click', function () { //Eventlyssnare f�
     `;
   });
   orderConfirmationSumDiv.innerHTML += `
-    <div>Totalt (exkl. frakt): ${totalSum} kr</div>
-    <div>Fraktkostnad: ${shippingFee} kr</div>
-    <div>Totalt att betala: ${totalCost} kr</div>
+  <div>
+    <div><p>Totalt (exkl. frakt): ${totalSum} kr</p></div>
+    <div><p>Fraktkostnad: ${shippingFee} kr</p></div>
+    <div><p>Totalt att betala: ${totalCost} kr</p></div>
   
     <p>Din order kommer att skickas till:</p>
     <p>${userName} ${lastName}</p>
@@ -968,21 +949,24 @@ confirmationButtonDiv.addEventListener('click', function () { //Eventlyssnare f�
 /*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 
 
-
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 function getRatingHtml(rating) {
   // Dela upp rating i heltals- och decimaldelar
-  const fullStars = Math.floor(rating); // Antal hela stjärnor
-  const isHalfStar = rating % 1 !== 0;  // Kontrollera om det finns en halv
+  const fullStars = Math.floor(rating); //Antal hela stjärnor
+  const isHalfStar = rating % 1 !== 0;  //Kontrollera om det finns en halv
 
   let star = ''; // Loopa för att skapa hela stjärnor
   for (let i = 0; i < fullStars; i++) {
     star += `<span><img src="pictures/star.png" width="20" height="18" loading="lazy" alt="helt stjärna"></span>`;
   }
 
-  if (isHalfStar) { // Lägg till en halv stjärna om det behövs
+  if (isHalfStar) { //Lägg till en halv stjärna om det behövs
     star += `<span><img src="pictures/star_half.png" width="20" height="18" loading="lazy" alt="halv stjärna"></span>`;
   }
   return star;
 }
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/
 /*~*:._.:*~*:._.:*~*:._.:*~*:.STAR RATING.:*~*:._.:*~*:._.:*~*:._.:*~*/
+/*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*/

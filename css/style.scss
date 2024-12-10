@@ -5,3 +5,7 @@
 @media screen and (min-width:900px) {
     @import 'desktop';
 }
+
+@media screen and (min-width:1200px) {
+    @import 'tablet';
+}
